@@ -10,14 +10,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
+import cn.antares.helldiver_trainer.util.ThemeState
+import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
+import org.koin.compose.koinInject
 
 @Composable
-fun Splash() {
+fun Splash(themeState: ThemeState = koinInject()) {
     val navController = LocalNavController.current
     LaunchedEffect(Unit) {
         delay(500)
@@ -33,6 +37,7 @@ fun Splash() {
             painter = painterResource(MR.images.ic_launcher),
             contentDescription = null,
             modifier = Modifier.size(80.dp),
+            colorFilter = ColorFilter.tint(themeState.currentTheme.getPrimaryColor()),
         )
     }
 }

@@ -1,4 +1,4 @@
-rootProject.name = "KotlinProject"
+rootProject.name = "Helldiver_Trainer"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

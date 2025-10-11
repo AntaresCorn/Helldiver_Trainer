@@ -9,12 +9,12 @@ androidx-core = "1.17.0"
 androidx-fragment = "1.8.9"
 androidx-lifecycle = "2.9.4"
 coil = "3.3.0"
-composeHotReload = "1.0.0-beta08"
+composeHotReload = "1.0.0-rc01"
 composeMultiplatform = "1.9.0"
 exoplayer = "2.19.1"
-kmpessentials = "2.5.9"
+kmpessentials = "2.7.1"
 koin = "4.1.1"
-koinAnnotations = "2.1.0"
+koinAnnotations = "2.2.0"
 korlib = "4.0.10"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
@@ -23,7 +23,7 @@ kotlinx-io = "0.8.0"
 kotlinx-serialization = "1.9.0"
 ktorfit = "2.6.4"
 ksp = "2.2.20-2.0.2"
-moko = "0.25.0"
+moko = "0.25.1"
 navigationCompose = "2.9.0"
 
 [libraries]
@@ -65,4 +65,4 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlinKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktorfitPlugin = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
-mokoPlugin = { id = "dev.icerock.mobile.multiplatform-resources", version = "0.25.0" }
+mokoPlugin = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko" }

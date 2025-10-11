@@ -31,16 +31,14 @@ import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
 import cn.antares.helldiver_trainer.GameViewModel
+import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.WindowInfoManager
-import cn.antares.helldiver_trainer.util.isOnPC
-import com.architect.kmpessentials.deviceInfo.DevicePlatform
-import com.architect.kmpessentials.deviceInfo.KmpDeviceInfo
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.ic_input_down
-import kotlinproject.composeapp.generated.resources.ic_input_left
-import kotlinproject.composeapp.generated.resources.ic_input_right
-import kotlinproject.composeapp.generated.resources.ic_input_up
-import kotlinproject.composeapp.generated.resources.ic_super_earth
+import helldiver_trainer.composeapp.generated.resources.Res
+import helldiver_trainer.composeapp.generated.resources.ic_input_down
+import helldiver_trainer.composeapp.generated.resources.ic_input_left
+import helldiver_trainer.composeapp.generated.resources.ic_input_right
+import helldiver_trainer.composeapp.generated.resources.ic_input_up
+import helldiver_trainer.composeapp.generated.resources.ic_super_earth
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
@@ -53,7 +51,7 @@ fun Trainer(
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
 
     var containerModifier = Modifier.background(Color.DarkGray)
-    if (isOnPC()) {
+    if (HellUtils.isOnPC()) {
         // 注册键盘事件
         val focusRequester = remember { FocusRequester() }
         containerModifier = containerModifier.focusRequester(focusRequester)
@@ -85,7 +83,7 @@ fun Trainer(
         if (windowInfo.isWidthExpanded()) {
             Box {
                 GameContainer()
-                if (isOnPC().not()) {
+                if (HellUtils.isOnPC().not()) {
                     Box(
                         modifier = Modifier.align(Alignment.BottomEnd).alpha(0.2f)
                             .padding(end = 20.dp),
@@ -97,7 +95,7 @@ fun Trainer(
         } else {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 GameContainer(Modifier.weight(1f))
-                if (isOnPC().not()) {
+                if (HellUtils.isOnPC().not()) {
                     Arrows()
                 }
             }

@@ -44,9 +44,9 @@ import cn.antares.helldiver_trainer.GameViewModel
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
-import cn.antares.helldiver_trainer.util.MyColor
+import cn.antares.helldiver_trainer.util.HellColors
+import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.WindowInfoManager
-import cn.antares.helldiver_trainer.util.isOnPC
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
@@ -80,11 +80,11 @@ fun Idle() {
         Spacer(modifier = Modifier.size(50.dp))
         Text(
             "按下任意方向键开始",
-            color = MyColor.PrimaryColor,
+            color = HellColors.PrimaryColor,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
         )
-        if (isOnPC()) {
+        if (HellUtils.isOnPC()) {
             Spacer(modifier = Modifier.size(10.dp))
             Text(
                 "按ESC退出",
@@ -118,7 +118,7 @@ fun Ready(vm: GameViewModel = koinViewModel()) {
         )
         Text(
             vm.roundInfo.roundNumber.toString(),
-            color = MyColor.PrimaryColor,
+            color = HellColors.PrimaryColor,
             fontSize = 40.sp,
             fontWeight = FontWeight.W900,
         )
@@ -157,7 +157,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
             )
             Text(
                 vm.roundInfo.roundNumber.toString(),
-                color = MyColor.PrimaryColor,
+                color = HellColors.PrimaryColor,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.W900,
             )
@@ -181,7 +181,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
         val progress = (remaining / vm.totalDuration.toFloat()).coerceIn(0f, 1f)
         val reachThreshold = progress <= GameViewModel.TIME_WARNING_THRESHOLD
         val progressColor by animateColorAsState(
-            targetValue = if (reachThreshold) Color.Red else MyColor.PrimaryColor,
+            targetValue = if (reachThreshold) Color.Red else HellColors.PrimaryColor,
             animationSpec = tween(durationMillis = 500),
         )
 
@@ -228,7 +228,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
                             if (vm.wrongInputIndex != -1) {
                                 if (index < vm.wrongInputIndex) Color.Red else Color.LightGray
                             } else {
-                                if (index < vm.currentInputIndex) MyColor.PrimaryColor else Color.LightGray
+                                if (index < vm.currentInputIndex) HellColors.PrimaryColor else Color.LightGray
                             },
                         ),
                         modifier = Modifier.rotate(
@@ -258,7 +258,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
             )
             Text(
                 vm.roundInfo.totalScore.toString(),
-                color = MyColor.PrimaryColor,
+                color = HellColors.PrimaryColor,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.W900,
             )
@@ -316,7 +316,7 @@ fun RoundOver(
     fun ScoreText(text: String) {
         Text(
             text,
-            color = MyColor.PrimaryColor,
+            color = HellColors.PrimaryColor,
             fontSize = 30.sp,
             fontWeight = FontWeight.W900,
         )
@@ -399,14 +399,14 @@ fun GameOver(vm: GameViewModel = koinViewModel()) {
         )
         Text(
             vm.roundInfo.totalScore.toString(),
-            color = MyColor.PrimaryColor,
+            color = HellColors.PrimaryColor,
             fontSize = 40.sp,
             fontWeight = FontWeight.W900,
         )
         Spacer(modifier = Modifier.size(20.dp))
         Text(
             "按下任意方向键重新开始",
-            color = MyColor.PrimaryColor,
+            color = HellColors.PrimaryColor,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
             modifier = Modifier.alpha(if (showHint) 1f else 0f),

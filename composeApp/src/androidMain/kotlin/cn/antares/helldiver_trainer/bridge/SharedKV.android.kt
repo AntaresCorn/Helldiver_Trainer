@@ -1,12 +1,11 @@
 package cn.antares.helldiver_trainer.bridge
 
-import android.app.Application
-import android.content.ContextWrapper
+import cn.antares.helldiver_trainer.MainActivity
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
 
 actual fun getSharedPreference(name: String): Settings {
-    val sharedPreferences = ContextWrapper(Application()).getSharedPreferences(
+    val sharedPreferences = MainActivity.currentActivity!!.getSharedPreferences(
         name,
         android.content.Context.MODE_PRIVATE,
     )

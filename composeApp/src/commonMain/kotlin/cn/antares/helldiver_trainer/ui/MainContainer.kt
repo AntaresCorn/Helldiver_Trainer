@@ -33,7 +33,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
-import cn.antares.helldiver_trainer.util.MyColor
+import cn.antares.helldiver_trainer.util.ThemeState
+import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
@@ -58,7 +59,10 @@ private val navList = listOf(
 )
 
 @Composable
-fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
+fun MainContainer(
+    windowInfoManager: WindowInfoManager = koinInject(),
+    themeState: ThemeState = koinInject(),
+) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
     val fragmentNavController = LocalFragmentNavController.current
     val navBackStackEntry by fragmentNavController.currentBackStackEntryAsState()
@@ -93,7 +97,7 @@ fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
-                                indicatorColor = MyColor.PrimaryColor,
+                                indicatorColor = themeState.currentTheme.getPrimaryColor(),
                             ),
                         )
                     }
@@ -111,7 +115,8 @@ fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
                                 painterResource(MR.images.ic_launcher),
                                 contentDescription = null,
                                 modifier = Modifier.size(45.dp).clip(RoundedCornerShape(15))
-                                    .background(MyColor.PrimaryColor).padding(5.dp),
+                                    .background(themeState.currentTheme.getPrimaryColor())
+                                    .padding(5.dp),
                             )
                         }
                     },
@@ -127,7 +132,7 @@ fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
-                                indicatorColor = MyColor.PrimaryColor,
+                                indicatorColor = themeState.currentTheme.getPrimaryColor(),
                             ),
                         )
                     }
