@@ -1,13 +1,125 @@
-name: CI Demo
+name: Windows package and Release
 
-on: workflow_dispatch
+permissions:
+  contents: write
+  packages: write
+  actions: write
+  id-token: write
+
+on:
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-package-windows:
     runs-on: windows-latest
+    env:
+      APP_NAME: HelldiverTrainer
+      INPUT_DIR: build/jpackage-input
+      JP_OUTPUT: build/jpackage-output
+      RUNTIME_DIR: build/runtime-image
+      MAIN_CLASS: cn.antares.helldiver_trainer.MainKt
+      ICON_PATH: composeApp/src/desktopMain/resources/ic_launcher.ico
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run a script
-        run: echo "Hello GitHub Actions!"
+      - name: Read version from gradle/libs.versions.toml (PowerShell)
+        id: read_version
+        shell: pwsh
+        run: |
+          $file = 'gradle/libs.versions.toml'
+          if (-not (Test-Path $file)) { Write-Error "libs.versions.toml not found at $file"; exit 1 }
+          $line = Get-Content $file | Select-String -Pattern '^\s*versionName\s*=' | Select-Object -First 1
+          if (-not $line) { Write-Error "versionName not found in $file"; exit 1 }
+          $ver = ($line -replace '.*=\s*"(.*)".*','$1').Trim()
+          if ([string]::IsNullOrWhiteSpace($ver)) { Write-Error "extracted version is empty"; exit 1 }
+          Write-Host "Detected version: $ver"
+          Add-Content -Path $env:GITHUB_ENV -Value "VERSION=$ver"
+          # 动态设置 ZIP_OUT 环境变量并写入 GITHUB_ENV
+          $zip = "build/distributions/${env:APP_NAME}-$ver-portable.zip"
+          Write-Host "ZIP_OUT => $zip"
+          Add-Content -Path $env:GITHUB_ENV -Value "ZIP_OUT=$zip"
+          # 设置MAIN_JAR_NAME环境变量
+          $jarName = "${{ env.APP_NAME }}-windows-x64-$ver.jar"
+          Write-Host "MAIN_JAR_NAME => $jarName"
+          Add-Content -Path $env:GITHUB_ENV -Value "MAIN_JAR_NAME=$jarName"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Cache Gradle wrapper & dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-cache-${{ runner.os }}-
+
+      - name: Build release uber JAR
+        shell: pwsh
+        run: |
+          ./gradlew :composeApp:packageUberJarForCurrentOS --no-daemon --stacktrace
+          # 确保输出 jar 存在
+          mkdir -Force $env:INPUT_DIR
+          Copy-Item -Path "composeApp\build\compose\jars\${{ env.MAIN_JAR_NAME }}" -Destination "$env:INPUT_DIR\$env:MAIN_JAR_NAME" -Force
+
+      - name: Generate runtime-image with jlink
+        shell: pwsh
+        run: |
+          # 用 jlink 生成精简 runtime
+          # 包含模块示例：java.base,java.logging,java.sql（按需调整）
+          jlink --add-modules java.base,java.logging --strip-debug --compress=2 --no-header-files --no-man-pages --output $env:RUNTIME_DIR
+
+      - name: Run jpackage to create app-image
+        shell: pwsh
+        run: |
+          # 使用 --type app-image 生成目录镜像
+          jpackage --input $env:INPUT_DIR `
+                   --name $env:APP_NAME `
+                   --main-jar $env:MAIN_JAR_NAME `
+                   --main-class $env:MAIN_CLASS `
+                   --type app-image `
+                   --dest $env:JP_OUTPUT `
+                   --icon $env:ICON_PATH `
+                   --runtime-image $env:RUNTIME_DIR
+
+      - name: Compress app-image to zip
+        shell: pwsh
+        run: |
+          $appDir = Join-Path $env:JP_OUTPUT $env:APP_NAME
+          if (-Not (Test-Path $appDir)) {
+            Write-Error "app-image directory not found: $appDir"
+            exit 1
+          }
+          New-Item -ItemType Directory -Force -Path (Split-Path $env:ZIP_OUT)
+          Compress-Archive -Path "$appDir\*" -DestinationPath $env:ZIP_OUT -Force
+
+      - name: Upload artifact (zip)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-portable-${{ env.VERSION }}
+          path: ${{ env.ZIP_OUT }}
+
+      - name: Create Release and upload files
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ env.ZIP_OUT }}
+          tag_name: v${{ env.VERSION }}
+          body: ${{ env.APP_NAME }} ${{ env.VERSION }}
+          draft: true
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Confirm release upload
+        shell: pwsh
+        run: |
+          Write-Host "Release created: ${{ env.VERSION }}"
+          Write-Host "Uploaded asset: ${{ env.ZIP_OUT }}"
