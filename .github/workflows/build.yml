@@ -1,0 +1,13 @@
+name: CI Demo
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run a script
+        run: echo "Hello GitHub Actions!"
