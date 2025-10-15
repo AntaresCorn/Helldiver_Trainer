@@ -102,16 +102,29 @@ android {
     }
 
     signingConfigs {
-        val keystore = file("androidMain/signing.properties")
-        if (keystore.exists()) {
+        val signingConfigFile = file("src/androidMain/signing.properties").apply {
+            println("signingConfig exists: ${exists()}")
+        }
+        if (signingConfigFile.exists()) {
             create("release") {
                 val prop = Properties().apply {
-                    keystore.inputStream().use(this::load)
+                    signingConfigFile.inputStream().use(this::load)
                 }
-                storeFile = file(prop.getProperty("keystore.path"))
-                storePassword = prop.getProperty("keystore.password")
-                keyAlias = prop.getProperty("key.alias")
-                keyPassword = prop.getProperty("key.password")
+                val keystoreFile = file("src/androidMain/release.keystore").apply {
+                    println("keystore exists: ${exists()}")
+                }
+                storeFile = keystoreFile
+                storePassword = prop.getProperty("keystore.password").apply {
+                    println("keystore.password is empty: ${isNullOrEmpty()}")
+                }
+                keyAlias = prop.getProperty("key.alias").apply {
+                    println("key.alias is empty: ${isNullOrEmpty()}")
+                }
+                keyPassword = prop.getProperty("key.password").apply {
+                    println("key.password is empty: ${isNullOrEmpty()}")
+                }
+                enableV1Signing = true
+                enableV2Signing = true
             }
         }
     }

@@ -1,0 +1,97 @@
+name: Build Android artifact
+
+permissions:
+  contents: write
+  packages: write
+  actions: write
+  id-token: write
+
+on:
+  workflow_dispatch:
+
+jobs:
+  read-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version from gradle/libs.versions.toml
+        id: get_version
+        run: |
+          file="gradle/libs.versions.toml"
+          if [ ! -f "$file" ]; then echo "file missing: $file" >&2; exit 1; fi
+          ver=$(grep -E '^\s*versionName\s*=' "$file" | head -n1 | sed -E 's/.*=\s*"(.*)".*/\1/')
+          if [ -z "$ver" ]; then echo "versionName not found or empty" >&2; exit 1; fi
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
+
+  build-android:
+    needs: read-version
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.read-version.outputs.version }}
+      MODULE_PATH: composeApp/src/androidMain
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-cache-${{ runner.os }}-
+
+      - name: Grant execute permission to Gradle wrapper
+        run: chmod +x ./gradlew
+
+      - name: Decode keystore from secret
+        run: |
+          echo "Decoding keystore to ${MODULE_PATH}/release.keystore"
+          mkdir -p ${MODULE_PATH}
+          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 --decode > ${MODULE_PATH}/release.keystore
+          # verify file exists
+          ls -l ${MODULE_PATH}/release.keystore
+
+      - name: Write signing.properties for Gradle
+        run: |
+          cat > ${MODULE_PATH}/signing.properties <<EOF
+          keystore.password=${{ secrets.KEYSTORE_PASSWORD }}
+          key.alias=${{ secrets.KEY_ALIAS }}
+          key.password=${{ secrets.KEY_PASSWORD }}
+          EOF
+          echo "Wrote ${MODULE_PATH}/signing.properties"
+
+      - name: Build Android release
+        run: |
+          ./gradlew :composeApp:assembleRelease --no-daemon --stacktrace
+
+      - name: Collect Android artifact
+        run: |
+          mkdir -p build/outputs_for_ci
+          # 根据项目产物路径调整下面判断/拷贝逻辑
+          if [ -f composeApp/build/outputs/apk/release/composeApp-release.apk ]; then
+            cp composeApp/build/outputs/apk/release/composeApp-release.apk build/outputs_for_ci/
+          else
+            echo "No APK found" >&2
+            ls -R composeApp/build/outputs || true
+            exit 1
+          fi
+
+      - name: Upload android artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-artifact
+          path: build/outputs_for_ci/composeApp-release.apk
