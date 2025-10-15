@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
@@ -61,7 +60,7 @@ kotlin {
             implementation(libs.navigation.compose)
             implementation(libs.moko.resources)
             implementation(libs.moko.resources.compose)
-            implementation("com.russhwolf:multiplatform-settings:1.3.0")
+            implementation(libs.multiplatform.settings)
         }
         named("commonMain").configure {
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
@@ -85,8 +84,12 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         compileSdk = libs.versions.android.compileSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
+
+        ndk {
+            abiFilters.add("arm64-v8a")
+        }
     }
 
     packaging {
@@ -131,9 +134,16 @@ compose.desktop {
         mainClass = "cn.antares.helldiver_trainer.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Msi, TargetFormat.Exe)
-            packageName = "cn.antares.helldiver_trainer"
-            packageVersion = "1.0.0"
+            packageName = "HelldiverTrainer"
+            packageVersion = libs.versions.versionName.get()
+            vendor = "Antares"
+            description = "Helldiver Trainer"
+
+            /*targetFormats(TargetFormat.Exe)
+            windows {
+                iconFile.set(project.file("src/desktopMain/resources/ic_launcher.ico"))
+                menuGroup = "Antares"
+            }*/
         }
     }
 }
@@ -153,7 +163,7 @@ ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
-// moko使用
+// moko要求
 multiplatformResources {
     resourcesPackage = "cn.antares.helldiver_trainer"
 }
