@@ -1,0 +1,240 @@
+name: Build desktop and Android and publish Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  actions: write
+  id-token: write
+
+env:
+  APP_NAME: HelldiverTrainer
+
+jobs:
+  read-version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version from gradle/libs.versions.toml
+        id: get_version
+        run: |
+          file="gradle/libs.versions.toml"
+          if [ ! -f "$file" ]; then echo "file missing: $file" >&2; exit 1; fi
+          ver=$(grep -E '^\s*versionName\s*=' "$file" | head -n1 | sed -E 's/.*=\s*"(.*)".*/\1/')
+          if [ -z "$ver" ]; then echo "versionName not found or empty" >&2; exit 1; fi
+          echo "version=$ver" >> "$GITHUB_OUTPUT"
+
+  build-desktop:
+    needs: read-version
+    runs-on: windows-latest
+    env:
+      VERSION: ${{ needs.read-version.outputs.version }}
+      INPUT_DIR: build/jpackage-input
+      JP_OUTPUT: build/jpackage-output
+      RUNTIME_DIR: build/runtime-image
+      MAIN_CLASS: cn.antares.helldiver_trainer.MainKt
+      ICON_PATH: composeApp/src/desktopMain/resources/ic_launcher.ico
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Cache Gradle wrapper & dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-cache-${{ runner.os }}-
+
+      - name: Build release uber JAR
+        shell: pwsh
+        run: |
+          ./gradlew :composeApp:packageUberJarForCurrentOS --no-daemon --stacktrace
+          if ($LASTEXITCODE -ne 0) { Write-Error "Gradle build failed"; exit $LASTEXITCODE }
+          New-Item -ItemType Directory -Force -Path $env:INPUT_DIR | Out-Null
+          # 这里 MAIN_JAR_NAME 使用 version 构造（如你的构建产物命名不同请调整）
+          $jarName = "${env:APP_NAME}-windows-x64-${env:VERSION}.jar"
+          Write-Host "Copying jar as $jarName"
+          Copy-Item -Path "composeApp\build\compose\jars\$jarName" -Destination (Join-Path $env:INPUT_DIR $jarName) -Force
+          # 写入 MAIN_JAR_NAME 到环境，供后续 jpackage 使用
+          Add-Content -Path $env:GITHUB_ENV -Value "MAIN_JAR_NAME=$jarName"
+          # 写 ZIP_OUT
+          $zipOut = "build/distributions/${env:APP_NAME}-${env:VERSION}-win-portable.zip"
+          Add-Content -Path $env:GITHUB_ENV -Value "ZIP_OUT=$zipOut"
+
+      - name: Generate runtime-image with jlink
+        shell: pwsh
+        run: |
+          jlink --add-modules java.base,java.logging,java.xml,java.management,java.naming,java.desktop `
+                --strip-debug `
+                --compress=2 `
+                --no-header-files `
+                --no-man-pages `
+                --output $env:RUNTIME_DIR
+
+      - name: Run jpackage to create app-image
+        shell: pwsh
+        run: |
+          jpackage --input $env:INPUT_DIR `
+                   --name $env:APP_NAME `
+                   --main-jar $env:MAIN_JAR_NAME `
+                   --main-class $env:MAIN_CLASS `
+                   --type app-image `
+                   --dest $env:JP_OUTPUT `
+                   --icon $env:ICON_PATH `
+                   --runtime-image $env:RUNTIME_DIR
+
+      - name: Compress app-image to zip
+        shell: pwsh
+        run: |
+          $appDir = Join-Path $env:JP_OUTPUT $env:APP_NAME
+          if (-Not (Test-Path $appDir)) {
+            Write-Error "app-image directory not found: $appDir"; exit 1
+          }
+          New-Item -ItemType Directory -Force -Path (Split-Path $env:ZIP_OUT) | Out-Null
+          if (Test-Path $env:ZIP_OUT) { Remove-Item $env:ZIP_OUT -Force }
+          Compress-Archive -Path "$appDir\*" -DestinationPath $env:ZIP_OUT -Force
+          Write-Host "Created $env:ZIP_OUT"
+
+      - name: Upload desktop artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-win-${{ env.VERSION }}-portable
+          path: ${{ env.ZIP_OUT }}
+
+  build-android:
+    needs: read-version
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.read-version.outputs.version }}
+      MODULE_PATH: composeApp/src/androidMain
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-cache-${{ runner.os }}-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-cache-${{ runner.os }}-
+
+      - name: Decode keystore from secret
+        run: |
+          echo "Decoding keystore to ${MODULE_PATH}/release.keystore"
+          mkdir -p ${MODULE_PATH}
+          echo "${{ secrets.SIGNING_KEY_BASE64 }}" | base64 --decode > ${MODULE_PATH}/release.keystore
+          ls -l ${MODULE_PATH}/release.keystore
+
+      - name: Write signing.properties into module dir
+        run: |
+          cat > ${MODULE_PATH}/signing.properties <<EOF
+          keystore.password=${{ secrets.KEYSTORE_PASSWORD }}
+          key.alias=${{ secrets.KEY_ALIAS }}
+          key.password=${{ secrets.KEY_PASSWORD }}
+          EOF
+          echo "Wrote ${MODULE_PATH}/signing.properties"
+
+      - name: Build Android release (assembleRelease -> apk)
+        run: |
+          ./gradlew :composeApp:assembleRelease --no-daemon --stacktrace
+
+      - name: Collect single APK
+        id: collect_apk
+        run: |
+          mkdir -p build/outputs_for_ci
+          OUT_APK="build/outputs_for_ci/${APP_NAME}-${VERSION}-android.apk"
+          # first try standard path
+          SRC="composeApp/build/outputs/apk/release/composeApp-release.apk"
+          if [ -f "$SRC" ]; then
+            cp "$SRC" "$OUT_APK"
+            echo "APK_FILE=$OUT_APK" >> $GITHUB_OUTPUT
+          else
+            found=$(find composeApp/build/outputs -type f -name "*.apk" | head -n1 || true)
+            if [ -n "$found" ]; then
+              cp "$found" "$OUT_APK"
+              echo "APK_FILE=$OUT_APK" >> $GITHUB_OUTPUT
+            else
+              echo "No APK found" >&2
+              ls -R composeApp/build/outputs || true
+              exit 1
+            fi
+          fi
+          echo "Collected $OUT_APK"
+
+      - name: Upload android artifact (single APK)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-android-${{ env.VERSION }}
+          path: ${{ steps.collect_apk.outputs.APK_FILE }}
+
+  publish-release:
+    needs:
+      - read-version
+      - build-desktop
+      - build-android
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.read-version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download desktop artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-win-${{ env.VERSION }}-portable
+          path: release_assets
+
+      - name: Download android artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-android-${{ env.VERSION }}
+          path: release_assets
+
+      - name: List release assets
+        run: ls -la release_assets
+
+      - name: Create Release and upload files (softprops)
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release_assets/*
+          tag_name: v${{ env.VERSION }}
+          body: Automated release for version ${{ env.VERSION }}
+          draft: true
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Confirm
+        run: |
+          echo "Release created for v${{ env.VERSION }}; uploaded assets:"
+          ls -la release_assets
