@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cn.antares.helldiver_trainer.NavRoute
 import cn.antares.helldiver_trainer.bridge.openWebPage
+import cn.antares.helldiver_trainer.util.LinkStore
 
 @Composable
 fun MainFragment() {
@@ -38,7 +39,7 @@ fun MainFragment() {
             }
             Spacer(modifier = Modifier.size(30.dp))
             Button(
-                onClick = { openWebPage("https://helldiverscompanion.com/") },
+                onClick = { openWebPage(LinkStore.HELLDIVERS_COMPANION) },
             ) {
                 Text("银河战争地图", fontSize = 20.sp)
             }

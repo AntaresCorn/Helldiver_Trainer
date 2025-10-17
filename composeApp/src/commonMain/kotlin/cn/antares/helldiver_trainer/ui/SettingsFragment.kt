@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,7 +37,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cn.antares.helldiver_trainer.MR
+import cn.antares.helldiver_trainer.bridge.openWebPage
 import cn.antares.helldiver_trainer.util.HellColors
+import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
@@ -47,6 +50,7 @@ import org.koin.compose.koinInject
 fun SettingsFragment() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         FactionSelector()
+        RepositoryLink(Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp))
     }
 }
 
@@ -158,5 +162,26 @@ private fun FactionSelector(
             fontWeight = FontWeight.Bold,
             color = Color.White,
         )
+    }
+}
+
+@Composable
+private fun RepositoryLink(modifier: Modifier, themeState: ThemeState = koinInject()) {
+    Box(modifier) {
+        Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
+            Text("项目仓库", fontSize = 14.sp)
+            Image(
+                painterResource(
+                    if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
+                        MR.images.ic_github_mark_white
+                    else
+                        MR.images.ic_github_mark,
+                ),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(start = 5.dp)
+                    .size(16.dp),
+            )
+        }
     }
 }

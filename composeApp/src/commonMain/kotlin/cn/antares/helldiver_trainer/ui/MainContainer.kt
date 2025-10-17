@@ -93,7 +93,8 @@ fun MainContainer(
                             selected = navSelected(destination),
                             onClick = { bottomNav(destination) },
                             colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = Color.Black,
+                                selectedIconColor = if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
+                                    Color.White else Color.Black,
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
@@ -128,7 +129,8 @@ fun MainContainer(
                             selected = navSelected(destination),
                             onClick = { bottomNav(destination) },
                             colors = NavigationRailItemDefaults.colors(
-                                selectedIconColor = Color.Black,
+                                selectedIconColor = if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
+                                    Color.White else Color.Black,
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
