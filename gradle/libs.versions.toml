@@ -13,10 +13,8 @@ androidx-lifecycle = "2.9.4"
 coil = "3.3.0"
 composeHotReload = "1.0.0-rc01"
 composeMultiplatform = "1.9.0"
-exoplayer = "2.19.1"
 kmpessentials = "2.7.1"
 koin = "4.1.1"
-koinAnnotations = "2.2.0"
 korlib = "4.0.10"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
@@ -38,14 +36,11 @@ androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:life
 androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
-exoplayer = { module = "com.google.android.exoplayer:exoplayer", version.ref = "exoplayer" }
 kmpessentials = { module = "io.github.thearchitect123:kmpEssentials", version.ref = "kmpessentials" }
-koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "koinAnnotations" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 koin-compose-viewmodel-navigation = { module = "io.insert-koin:koin-compose-viewmodel-navigation", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-ksp-compiler = { module = "io.insert-koin:koin-ksp-compiler", version.ref = "koinAnnotations" }
 korau-jvm = { module = "com.soywiz.korlibs.korau:korau-jvm", version.ref = "korlib" }
 korio-jvm = { module = "com.soywiz.korlibs.korio:korio-jvm", version.ref = "korlib" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }

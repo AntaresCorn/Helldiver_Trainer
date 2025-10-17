@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import java.util.Properties
 
 plugins {
@@ -10,8 +9,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
-    alias(libs.plugins.kotlinKsp)
-    alias(libs.plugins.ktorfitPlugin)
+    //alias(libs.plugins.kotlinKsp)
+    //alias(libs.plugins.ktorfitPlugin)
     alias(libs.plugins.mokoPlugin)
 }
 
@@ -33,7 +32,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-            implementation(libs.exoplayer)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -49,21 +47,17 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kmpessentials)
-            implementation(libs.ktorfit.lib)
+            //implementation(libs.ktorfit.lib)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
             implementation(libs.koin.core)
-            api(libs.koin.annotations)
-            implementation(libs.coil.compose)
-            implementation(libs.coil.network.okhttp)
+            //implementation(libs.coil.compose)
+            //implementation(libs.coil.network.okhttp)
             implementation(libs.navigation.compose)
             implementation(libs.moko.resources)
             implementation(libs.moko.resources.compose)
             implementation(libs.multiplatform.settings)
-        }
-        named("commonMain").configure {
-            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
         val desktopMain by getting {
             dependencies {
@@ -152,7 +146,8 @@ compose.desktop {
             vendor = "Antares"
             description = "Helldiver Trainer"
 
-            /*targetFormats(TargetFormat.Exe)
+            /* exe没有声音，解决前不打包
+            targetFormats(TargetFormat.Exe)
             windows {
                 iconFile.set(project.file("src/desktopMain/resources/ic_launcher.ico"))
                 menuGroup = "Antares"
@@ -165,17 +160,6 @@ composeCompiler {
     featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
 }
 
-// Trigger Common Metadata Generation from Native tasks
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
-
-ksp {
-    arg("KOIN_CONFIG_CHECK", "true")
-}
-
 // moko要求
 multiplatformResources {
     resourcesPackage = "cn.antares.helldiver_trainer"
@@ -183,6 +167,4 @@ multiplatformResources {
 
 dependencies {
     debugImplementation(compose.uiTooling)
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
 }
