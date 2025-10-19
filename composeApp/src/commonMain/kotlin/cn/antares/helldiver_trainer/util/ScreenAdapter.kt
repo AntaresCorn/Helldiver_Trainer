@@ -14,6 +14,7 @@ data class WindowInfo(
     val heightType: WindowType,
 ) {
     fun isWidthExpanded() = widthType == WindowType.Expanded
+    fun isWidthLargerThanCompact() = widthType != WindowType.Compact
     fun isHeightLargerThanCompact() = heightType != WindowType.Compact
     fun isHeightExpanded() = heightType == WindowType.Expanded
 }

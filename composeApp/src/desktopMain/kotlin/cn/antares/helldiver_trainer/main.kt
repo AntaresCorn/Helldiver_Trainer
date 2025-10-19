@@ -6,6 +6,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import cn.antares.helldiver_trainer.ui.App
+import dev.icerock.moko.resources.compose.stringResource
 
 fun main() {
     application {
@@ -17,8 +18,8 @@ fun main() {
                 DesktopSoundPlayer.instance.release()
                 exitApplication()
             },
-            title = "潜兵随身伴侣",
-            state = rememberWindowState(width = 700.dp, height = 500.dp),
+            title = stringResource(MR.strings.my_app_name),
+            state = rememberWindowState(width = 750.dp, height = 500.dp),
         ) {
             App()
         }

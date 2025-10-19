@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
 
@@ -89,6 +90,10 @@ class GameViewModel : ViewModel() {
     val remainingTime: StateFlow<Long> = _remainingTime.asStateFlow()
     private var tickerJob: Job? = null
 
+    private val _stratagemList =
+        MutableStateFlow<SnapshotStateList<StratagemItem>>(SnapshotStateList())
+    val stratagemList: StateFlow<SnapshotStateList<StratagemItem>> = _stratagemList
+
     init {
         initStratagems()
     }
@@ -102,6 +107,7 @@ class GameViewModel : ViewModel() {
     fun goToReady() {
         currentScreen = Screen.Ready
         roundInfo = roundInfo.copy(roundNumber = roundInfo.roundNumber + 1)
+        updateStratagemList()
         if (roundInfo.roundNumber == 1) {
             playSound(SoundResource.Coin)
             playSound(SoundResource.Start)
@@ -158,7 +164,16 @@ class GameViewModel : ViewModel() {
         allStratagems.addAll(StratagemInitializer.initStratagems())
     }
 
-    fun getRoundStratagemList(size: Int): SnapshotStateList<StratagemItem> {
+    fun updateStratagemList() {
+        _stratagemList.value = getRoundStratagemList(
+            min(
+                INIT_ROUND_STRATAGEM_SIZE + roundInfo.roundNumber,
+                MAX_STRATAGEM_SIZE,
+            ),
+        )
+    }
+
+    private fun getRoundStratagemList(size: Int): SnapshotStateList<StratagemItem> {
         roundStratagems.clear()
         roundStratagems.addAll(allStratagems.shuffled().take(size))
         setFirstStratagem()

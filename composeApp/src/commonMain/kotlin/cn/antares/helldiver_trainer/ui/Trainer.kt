@@ -80,7 +80,7 @@ fun Trainer(
             contentDescription = null,
             modifier = Modifier.fillMaxSize().alpha(0.3f),
         )
-        if (windowInfo.isWidthExpanded()) {
+        if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
             Box {
                 GameContainer()
                 if (HellUtils.isOnPC().not()) {
@@ -184,14 +184,16 @@ private fun Arrows(
     }
 
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
-    val arrowSize = (if (windowInfo.isWidthExpanded()) {
-        if (windowInfo.isHeightLargerThanCompact()) 105 else 85
-    } else 95).dp
+    val arrowSize =
+        (if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
+            if (windowInfo.isHeightLargerThanCompact()) 105 else 85
+        } else 95).dp
     val arrowModifier = Modifier.size(arrowSize).background(Color.LightGray).padding(15.dp)
     val colorFilter = ColorFilter.tint(Color.Black)
-    val bottomPadding = (if (windowInfo.isWidthExpanded()) {
-        if (windowInfo.isHeightLargerThanCompact()) 70 else 30
-    } else 50).dp
+    val bottomPadding =
+        (if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
+            if (windowInfo.isHeightLargerThanCompact()) 70 else 30
+        } else 50).dp
     CustomRelativeLayout(modifier = Modifier.padding(bottom = bottomPadding)) {
         ArrowItem(arrowModifier, colorFilter, GameViewModel.StratagemInput.UP)
         ArrowItem(arrowModifier, colorFilter, GameViewModel.StratagemInput.LEFT)

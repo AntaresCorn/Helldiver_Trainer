@@ -84,7 +84,9 @@ fun MainContainer(
 
     Scaffold(
         bottomBar = {
-            if (windowInfo.isWidthExpanded().not() && windowInfo.isHeightExpanded().not()) {
+            if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded()
+                    .not()
+            ) {
                 NavigationBar(containerColor = Color.DarkGray) {
                     destinationItems.forEach { destination ->
                         NavigationBarItem(
@@ -107,7 +109,7 @@ fun MainContainer(
         },
     ) { paddingValues ->
         Row {
-            if (windowInfo.isWidthExpanded() || windowInfo.isHeightExpanded()) {
+            if (windowInfo.isWidthLargerThanCompact() || windowInfo.isHeightExpanded()) {
                 NavigationRail(
                     containerColor = Color.DarkGray,
                     header = {

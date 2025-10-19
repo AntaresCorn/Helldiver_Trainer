@@ -12,6 +12,7 @@ class AndroidSoundPlayer : AbstractSoundPlayer<Context> {
     }
 
     private val soundCache = HashMap<Int, Int>()
+    private val soundPlayingStreamIdCache = HashMap<Int, Int>()
     private val soundPool: SoundPool = SoundPool.Builder().setMaxStreams(15).build().apply {
         setOnLoadCompleteListener { _, sampleId, status ->
             println("Android Sound loaded: $sampleId, status: ${if (status == 0) "Success" else "Failed"}")
@@ -31,13 +32,21 @@ class AndroidSoundPlayer : AbstractSoundPlayer<Context> {
     }
 
     override fun play(sound: SoundResource) {
-        soundCache[sound.map()]?.let {
-            soundPool.play(it, 1f, 1f, 1, if (sound == SoundResource.Playing) 1 else 0, 1f)
+        soundCache[sound.map()]?.let { soundId ->
+            soundPool.play(
+                soundId,
+                1f,
+                1f,
+                1,
+                if (sound == SoundResource.Playing) -1 else 0, 1f,
+            ).let { streamId ->
+                soundPlayingStreamIdCache[sound.map()] = streamId
+            }
         }
     }
 
     override fun stop(sound: SoundResource) {
-        soundCache[sound.map()]?.let {
+        soundPlayingStreamIdCache[sound.map()]?.let {
             soundPool.stop(it)
         }
     }

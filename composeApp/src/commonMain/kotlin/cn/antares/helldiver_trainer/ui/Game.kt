@@ -51,7 +51,6 @@ import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
-import kotlin.math.min
 
 @Composable
 fun Game(vm: GameViewModel = koinViewModel()) {
@@ -166,15 +165,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
 
     @Composable
     fun MainPanel() {
-        val stratagemList =
-            remember {
-                vm.getRoundStratagemList(
-                    min(
-                        GameViewModel.INIT_ROUND_STRATAGEM_SIZE + vm.roundInfo.roundNumber,
-                        GameViewModel.MAX_STRATAGEM_SIZE,
-                    ),
-                )
-            }
+        val stratagemList by vm.stratagemList.collectAsState()
         val firstStratagem = vm.currentStratagem
 
         val remaining by vm.remainingTime.collectAsState()
@@ -265,7 +256,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
         }
     }
 
-    if (windowInfo.isWidthExpanded()) {
+    if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxHeight(),
@@ -336,7 +327,9 @@ fun RoundOver(
     Column(
         modifier = Modifier.fillMaxHeight()
             .padding(
-                horizontal = (if (windowInfo.isWidthExpanded()) {
+                horizontal = (if (windowInfo.isWidthLargerThanCompact() &&
+                    windowInfo.isHeightExpanded().not()
+                ) {
                     if (windowInfo.isHeightLargerThanCompact()) 360 else 240
                 } else
                     if (windowInfo.isHeightExpanded()) 120 else 40).dp,
