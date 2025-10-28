@@ -40,13 +40,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cn.antares.helldiver_trainer.GameViewModel
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject

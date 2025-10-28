@@ -1,10 +1,11 @@
-package cn.antares.helldiver_trainer
+package cn.antares.helldiver_trainer.util
 
-import cn.antares.helldiver_trainer.GameViewModel.StratagemInput.DOWN
-import cn.antares.helldiver_trainer.GameViewModel.StratagemInput.LEFT
-import cn.antares.helldiver_trainer.GameViewModel.StratagemInput.RIGHT
-import cn.antares.helldiver_trainer.GameViewModel.StratagemInput.UP
-import cn.antares.helldiver_trainer.GameViewModel.StratagemItem
+import cn.antares.helldiver_trainer.MR
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.DOWN
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.LEFT
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.RIGHT
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.UP
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemItem
 
 object StratagemInitializer {
 

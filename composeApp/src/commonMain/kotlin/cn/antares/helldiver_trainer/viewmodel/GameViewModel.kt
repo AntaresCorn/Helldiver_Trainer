@@ -1,4 +1,4 @@
-package cn.antares.helldiver_trainer
+package cn.antares.helldiver_trainer.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.bridge.stopSound
+import cn.antares.helldiver_trainer.util.StratagemInitializer
 import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -133,7 +134,7 @@ class GameViewModel : ViewModel() {
         stopCountdown()
         stopSound(SoundResource.Playing)
         playSound(
-            Random.nextInt(1..3).let {
+            Random.Default.nextInt(1..3).let {
                 when (it) {
                     1 -> SoundResource.Success1
                     2 -> SoundResource.Success2

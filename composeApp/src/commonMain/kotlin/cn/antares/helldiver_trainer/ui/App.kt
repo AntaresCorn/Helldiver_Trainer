@@ -6,19 +6,16 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import cn.antares.helldiver_trainer.GameViewModel
 import cn.antares.helldiver_trainer.NavRoute
+import cn.antares.helldiver_trainer.di.DataModule
+import cn.antares.helldiver_trainer.di.GlobalComponentModule
+import cn.antares.helldiver_trainer.di.ViewModelModule
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getColorScheme
 import cn.antares.helldiver_trainer.util.WindowInfoManager
-import cn.antares.helldiver_trainer.util.WindowInfoManagerImpl
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.module
 
 val LocalNavController =
     staticCompositionLocalOf<NavHostController> { error("No NavController provided") }
@@ -31,7 +28,13 @@ fun App(
     fragmentNavController: NavHostController = rememberNavController(),
 ) {
     KoinApplication(
-        application = { modules(getDiModules()) },
+        application = {
+            modules(
+                GlobalComponentModule,
+                ViewModelModule,
+                DataModule,
+            )
+        },
     ) {
         koinInject<WindowInfoManager>().Init()
         InitTheme()
@@ -45,13 +48,6 @@ fun App(
             }
         }
     }
-}
-
-private fun getDiModules() = module {
-    viewModelOf(::GameViewModel)
-    singleOf(::WindowInfoManagerImpl) { bind<WindowInfoManager>() }
-    singleOf(::SharedKVManager)
-    singleOf(::ThemeState)
 }
 
 @Composable

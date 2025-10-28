@@ -30,9 +30,9 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
-import cn.antares.helldiver_trainer.GameViewModel
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import helldiver_trainer.composeapp.generated.resources.Res
 import helldiver_trainer.composeapp.generated.resources.ic_input_down
 import helldiver_trainer.composeapp.generated.resources.ic_input_left

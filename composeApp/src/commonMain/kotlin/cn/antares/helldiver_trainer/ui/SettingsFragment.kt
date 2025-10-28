@@ -1,6 +1,5 @@
 package cn.antares.helldiver_trainer.ui
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,24 +10,30 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SystemUpdate
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.TabRow
+import androidx.compose.material3.Icon
+import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -36,13 +41,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cn.antares.helldiver_trainer.BuildKonfig
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.openWebPage
 import cn.antares.helldiver_trainer.util.HellColors
+import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
+import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
 
@@ -50,7 +58,18 @@ import org.koin.compose.koinInject
 fun SettingsFragment() {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         FactionSelector()
-        RepositoryLink(Modifier.align(Alignment.BottomCenter).padding(bottom = 10.dp))
+        Column(
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text("版本号: ${BuildKonfig.VERSION_NAME}", color = Color.White, fontSize = 12.sp)
+            Spacer(modifier = Modifier.size(5.dp))
+            Row {
+                RepositoryLink()
+                Spacer(modifier = Modifier.width(20.dp))
+                UpdateChecker()
+            }
+        }
     }
 }
 
@@ -77,7 +96,7 @@ private fun FactionSelector(
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
             Box(modifier = Modifier.weight(0.25f))
-            TabRow(
+            PrimaryTabRow(
                 selectedIndex,
                 modifier = Modifier.weight(0.5f)
                     .border(
@@ -87,21 +106,10 @@ private fun FactionSelector(
                     ),
                 containerColor = Color.Transparent,
                 divider = {},
-                indicator = { tabPositions ->
-                    val current = tabPositions[selectedIndex]
-                    val targetWidth = current.width
-                    val targetOffset = current.left
-
-                    val indicatorWidth by animateDpAsState(targetValue = targetWidth)
-                    val indicatorOffset by animateDpAsState(targetValue = targetOffset)
-
+                indicator = {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth() // 父容器占满 TabRow
-                            .wrapContentSize(Alignment.BottomStart) // 使内部可按 offset 定位
-                            .offset(x = indicatorOffset) // 将指示条移动到目标 tab 的 left
-                            .width(indicatorWidth) // 限定指示条宽度为 tab 宽度
-                            .height(imageSize + imagePadding * 2) // 指示条高度
+                        modifier = Modifier.fillMaxSize()
+                            .tabIndicatorOffset(selectedIndex)
                             .background(Color.White.copy(alpha = 0.2f), RoundedCornerShape(50)),
                     )
                 },
@@ -166,22 +174,139 @@ private fun FactionSelector(
 }
 
 @Composable
-private fun RepositoryLink(modifier: Modifier, themeState: ThemeState = koinInject()) {
-    Box(modifier) {
-        Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
-            Text("项目仓库", fontSize = 14.sp)
-            Image(
-                painterResource(
-                    if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
-                        MR.images.ic_github_mark_white
-                    else
-                        MR.images.ic_github_mark,
-                ),
-                contentDescription = null,
+private fun RepositoryLink(themeState: ThemeState = koinInject()) {
+    Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
+        Text("项目仓库", fontSize = 14.sp)
+        Image(
+            painterResource(
+                if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
+                    MR.images.ic_github_mark_white
+                else
+                    MR.images.ic_github_mark,
+            ),
+            contentDescription = null,
+            modifier = Modifier
+                .padding(start = 5.dp)
+                .size(16.dp),
+        )
+    }
+}
+
+@Composable
+private fun UpdateChecker(vm: AppViewModel = koinInject()) {
+    val updateState by vm.state.collectAsState()
+    var showDialog by remember { mutableStateOf(false) }
+    var pendingShowDialog by remember { mutableStateOf(false) }
+
+    @Composable
+    fun UpdateDialog() {
+        val titleText = when (updateState) {
+            is AppViewModel.UpdateState.NewRelease -> "检测到有新版本"
+            is AppViewModel.UpdateState.UpToDate -> "当前已是最新版本"
+            is AppViewModel.UpdateState.Error -> "更新检查失败"
+            else -> ""
+        }
+        val messageText = when (updateState) {
+            is AppViewModel.UpdateState.NewRelease -> "是否跳转下载页"
+            is AppViewModel.UpdateState.Error -> (updateState as AppViewModel.UpdateState.Error).message
+            else -> ""
+        }
+        val confirmButtonText = when (updateState) {
+            is AppViewModel.UpdateState.NewRelease -> "前往"
+            is AppViewModel.UpdateState.UpToDate,
+            is AppViewModel.UpdateState.Error,
+                -> "确认"
+
+            else -> ""
+        }
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            confirmButton = {
+                Text(
+                    confirmButtonText,
+                    modifier = Modifier
+                        .clickable {
+                            showDialog = false
+                            if (updateState is AppViewModel.UpdateState.NewRelease) {
+                                openWebPage(
+                                    (updateState as? AppViewModel.UpdateState.NewRelease)?.release?.url
+                                        ?: LinkStore.GITHUB_REPO,
+                                    useSystemBrowser = true,
+                                )
+                            }
+                        },
+                )
+            },
+            dismissButton = if (updateState is AppViewModel.UpdateState.NewRelease) {
+                {
+                    Text(
+                        "取消",
+                        modifier = Modifier
+                            .padding(horizontal = 30.dp)
+                            .clickable { showDialog = false },
+                    )
+                }
+            } else null,
+            title = { Text(titleText, color = Color.White) },
+            text = { Text(messageText, color = Color.White) },
+            containerColor = Color.DarkGray,
+        )
+    }
+
+    LaunchedEffect(updateState, pendingShowDialog) {
+        when (updateState) {
+            is AppViewModel.UpdateState.NewRelease,
+            is AppViewModel.UpdateState.UpToDate,
+            is AppViewModel.UpdateState.Error,
+                -> {
+                if (pendingShowDialog) {
+                    showDialog = true
+                    pendingShowDialog = false
+                }
+            }
+
+            else -> {}
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        if (HellUtils.checkedUpdate.not()) {
+            vm.checkForUpdates()
+            HellUtils.checkedUpdate = true
+        }
+    }
+
+    if (showDialog) {
+        UpdateDialog()
+    }
+
+    Button(
+        onClick = {
+            if (updateState is AppViewModel.UpdateState.NewRelease) {
+                showDialog = true
+            } else {
+                vm.checkForUpdates()
+                pendingShowDialog = true
+            }
+        },
+    ) {
+        if (updateState is AppViewModel.UpdateState.NewRelease) {
+            Box(
                 modifier = Modifier
-                    .padding(start = 5.dp)
-                    .size(16.dp),
+                    .padding(end = 2.dp)
+                    .size(5.dp)
+                    .clip(CircleShape)
+                    .background(Color.Red)
+                    .align(Alignment.Top),
             )
         }
+        Text("检查更新", fontSize = 14.sp)
+        Icon(
+            Icons.Default.SystemUpdate,
+            contentDescription = null,
+            modifier = Modifier
+                .padding(start = 5.dp)
+                .size(18.dp),
+        )
     }
 }
