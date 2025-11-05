@@ -17,11 +17,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.SystemUpdate
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -48,16 +50,41 @@ import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
+import cn.antares.helldiver_trainer.util.SuperDialog
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
+import cn.antares.helldiver_trainer.util.WindowInfoManager
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
 
 @Composable
-fun SettingsFragment() {
+fun SettingsFragment(kvManager: SharedKVManager = koinInject()) {
+    var infiniteModeState by remember { mutableStateOf(kvManager.isInfiniteMode()) }
+    var showInfiniteModeInfo by remember { mutableStateOf(false) }
+    if (showInfiniteModeInfo) {
+        SuperDialog(
+            onDismissRequest = { showInfiniteModeInfo = false },
+            confirmButtonText = "确认",
+            confirmButtonCallback = { showInfiniteModeInfo = false },
+            message = "无限模式下，没有回合与时限，所有战备将随机排列。也可与自选战备功能配合使用",
+        )
+    }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        FactionSelector()
+        Column {
+            SettingSwitchItem(
+                "无限模式",
+                infiniteModeState,
+                showInfoIcon = true,
+                infoClickCallback = { showInfiniteModeInfo = true },
+                onSwitchChanged = {
+                    infiniteModeState = it
+                    kvManager.setInfiniteMode(it)
+                },
+            )
+            Spacer(modifier = Modifier.size(20.dp))
+            FactionSelector()
+        }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,9 +101,63 @@ fun SettingsFragment() {
 }
 
 @Composable
+private fun SettingSwitchItem(
+    text: String,
+    initialSwitchState: Boolean,
+    showInfoIcon: Boolean = false,
+    infoClickCallback: (() -> Unit)? = null,
+    onSwitchChanged: (Boolean) -> Unit,
+) {
+    BaseSettingItemLayout(
+        title = text,
+        showInfoIcon = showInfoIcon,
+        infoClickCallback = infoClickCallback,
+    ) {
+        Switch(
+            checked = initialSwitchState,
+            onCheckedChange = { onSwitchChanged.invoke(it) },
+        )
+    }
+}
+
+@Composable
+private fun BaseSettingItemLayout(
+    title: String,
+    showInfoIcon: Boolean = false,
+    infoClickCallback: (() -> Unit)? = null,
+    content: @Composable () -> Unit,
+) {
+    val windowInfoManager: WindowInfoManager = koinInject()
+    val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val horizontalPadding =
+        (if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded().not()
+        ) 20 else 40).dp
+    Column(modifier = Modifier.padding(horizontal = horizontalPadding)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
+                Text(title, fontSize = 18.sp, color = Color.White)
+                if (showInfoIcon) {
+                    Icon(
+                        Icons.Default.Info,
+                        null,
+                        tint = Color.White,
+                        modifier = Modifier.padding(start = 5.dp).size(20.dp).clickable {
+                            infoClickCallback?.invoke()
+                        },
+                    )
+                }
+            }
+            content()
+        }
+        HorizontalDivider()
+    }
+}
+
+@Composable
 private fun FactionSelector(
     sharedKVManager: SharedKVManager = koinInject(),
     themeState: ThemeState = koinInject(),
+    windowInfoManager: WindowInfoManager = koinInject(),
 ) {
     val imageSize = 25.dp
     val imagePadding = 5.dp
@@ -92,13 +173,17 @@ private fun FactionSelector(
                 .let { if (it == -1) 0 else it },
         )
     }
+    val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val horizontalPadding =
+        (if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded().not()
+        ) 20 else 40).dp
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            Box(modifier = Modifier.weight(0.25f))
+            Spacer(modifier = Modifier.size(horizontalPadding))
             PrimaryTabRow(
                 selectedIndex,
-                modifier = Modifier.weight(0.5f)
+                modifier = Modifier.weight(1f)
                     .border(
                         2.dp,
                         themeState.currentTheme.getPrimaryColor(),
@@ -137,9 +222,9 @@ private fun FactionSelector(
                     }
                 },
             )
-            Box(modifier = Modifier.weight(0.25f))
+            Spacer(modifier = Modifier.size(horizontalPadding))
         }
-        Spacer(Modifier.size(20.dp))
+        Spacer(Modifier.size(10.dp))
         Text(
             buildAnnotatedString {
                 append("我是 ")
@@ -219,37 +304,27 @@ private fun UpdateChecker(vm: AppViewModel = koinInject()) {
 
             else -> ""
         }
-        AlertDialog(
+        SuperDialog(
             onDismissRequest = { showDialog = false },
-            confirmButton = {
-                Text(
-                    confirmButtonText,
-                    modifier = Modifier
-                        .clickable {
-                            showDialog = false
-                            if (updateState is AppViewModel.UpdateState.NewRelease) {
-                                openWebPage(
-                                    (updateState as? AppViewModel.UpdateState.NewRelease)?.release?.url
-                                        ?: LinkStore.GITHUB_REPO,
-                                    useSystemBrowser = true,
-                                )
-                            }
-                        },
-                )
-            },
-            dismissButton = if (updateState is AppViewModel.UpdateState.NewRelease) {
-                {
-                    Text(
-                        "取消",
-                        modifier = Modifier
-                            .padding(horizontal = 30.dp)
-                            .clickable { showDialog = false },
+            confirmButtonText = confirmButtonText,
+            confirmButtonCallback = {
+                showDialog = false
+                if (updateState is AppViewModel.UpdateState.NewRelease) {
+                    openWebPage(
+                        (updateState as? AppViewModel.UpdateState.NewRelease)?.release?.url
+                            ?: LinkStore.GITHUB_REPO,
+                        useSystemBrowser = true,
                     )
                 }
+            },
+            dismissButtonText = if (updateState is AppViewModel.UpdateState.NewRelease) "取消" else null,
+            dismissButtonCallback = if (updateState is AppViewModel.UpdateState.NewRelease) {
+                {
+                    showDialog = false
+                }
             } else null,
-            title = { Text(titleText, color = Color.White) },
-            text = { Text(messageText, color = Color.White) },
-            containerColor = Color.DarkGray,
+            title = titleText,
+            message = messageText,
         )
     }
 

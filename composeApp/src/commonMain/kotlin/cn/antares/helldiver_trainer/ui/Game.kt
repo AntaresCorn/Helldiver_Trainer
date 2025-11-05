@@ -45,6 +45,7 @@ import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
+import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import dev.icerock.moko.resources.compose.painterResource
@@ -125,14 +126,16 @@ fun Ready(vm: GameViewModel = koinViewModel()) {
 }
 
 @Composable
-fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManager = koinInject()) {
+fun Play(
+    vm: GameViewModel = koinViewModel(),
+    windowInfoManager: WindowInfoManager = koinInject(),
+    kvManager: SharedKVManager = koinInject(),
+) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val isInfiniteMode = remember { kvManager.isInfiniteMode() }
 
     @Composable
-    fun CountdownBar(
-        progress: Float,
-        progressColor: Color,
-    ) {
+    fun CountdownBar(progress: Float, progressColor: Color) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -233,8 +236,10 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
                     )
                 }
             }
-            Spacer(Modifier.size(20.dp))
-            CountdownBar(progress, progressColor)
+            if (isInfiniteMode.not()) {
+                Spacer(Modifier.size(20.dp))
+                CountdownBar(progress, progressColor)
+            }
         }
     }
 
@@ -265,7 +270,9 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
                 .padding(top = (if (windowInfo.isHeightLargerThanCompact()) 80 else 20).dp)
             Box(modifier = infoModifier) {
                 Box(modifier = Modifier.align(Alignment.Center)) {
-                    RoundPanel()
+                    if (isInfiniteMode.not()) {
+                        RoundPanel()
+                    }
                 }
             }
             Box(modifier = Modifier.weight(1f).align(Alignment.CenterVertically)) {
@@ -273,17 +280,23 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
             }
             Box(modifier = infoModifier) {
                 Box(modifier = Modifier.align(Alignment.Center)) {
-                    ScorePanel()
+                    if (isInfiniteMode.not()) {
+                        ScorePanel()
+                    }
                 }
             }
         }
     } else {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            RoundPanel()
+            if (isInfiniteMode.not()) {
+                RoundPanel()
+            }
             Spacer(modifier = Modifier.size(30.dp))
             MainPanel()
             Spacer(modifier = Modifier.size(30.dp))
-            ScorePanel()
+            if (isInfiniteMode.not()) {
+                ScorePanel()
+            }
         }
     }
 }

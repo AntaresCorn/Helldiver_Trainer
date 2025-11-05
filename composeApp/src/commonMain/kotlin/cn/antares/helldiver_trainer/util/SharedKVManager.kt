@@ -15,6 +15,7 @@ class SharedKVManager {
 
         private const val DEFAULT_NAMESPACE = "helldiver_trainer"
         private const val USER_FACTION = "user_faction"
+        private const val INFINITE_MODE = "infinite_mode"
     }
 
     private fun getSharedKVInstance(): Settings = getSharedPreference(DEFAULT_NAMESPACE)
@@ -23,4 +24,7 @@ class SharedKVManager {
         getSharedKVInstance().getString(USER_FACTION, UserFaction.HELLDIVER)
 
     fun setUserFaction(faction: String) = getSharedKVInstance().putString(USER_FACTION, faction)
+
+    fun isInfiniteMode(): Boolean = getSharedKVInstance().getBoolean(INFINITE_MODE, false)
+    fun setInfiniteMode(enabled: Boolean) = getSharedKVInstance().putBoolean(INFINITE_MODE, enabled)
 }

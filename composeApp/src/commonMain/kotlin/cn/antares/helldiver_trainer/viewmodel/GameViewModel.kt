@@ -3,7 +3,6 @@ package cn.antares.helldiver_trainer.viewmodel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
@@ -12,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.bridge.stopSound
+import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.StratagemInitializer
 import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.Job
@@ -26,7 +26,7 @@ import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class GameViewModel : ViewModel() {
+class GameViewModel(kvManager: SharedKVManager) : ViewModel() {
 
     companion object {
         const val INIT_ROUND_STRATAGEM_SIZE = 4 // 初始战备数量
@@ -70,11 +70,20 @@ class GameViewModel : ViewModel() {
         val inputs: List<StratagemInput>,
     )
 
+    // 倒计时相关
+    var totalDuration by mutableLongStateOf(ROUND_TIME) // 总时长
+        private set
+    private val _remainingTime = MutableStateFlow(ROUND_TIME) // 剩余时长
+    val remainingTime: StateFlow<Long> = _remainingTime.asStateFlow()
+    private var tickerJob: Job? = null
+
     var currentScreen: Screen by mutableStateOf(Screen.Idle)
         private set
     var roundInfo by mutableStateOf(RoundInfo())
     private val allStratagems = mutableListOf<StratagemItem>()
-    private val roundStratagems = mutableStateListOf<StratagemItem>()
+    private val _stratagemList =
+        MutableStateFlow<SnapshotStateList<StratagemItem>>(SnapshotStateList())
+    val stratagemList: StateFlow<SnapshotStateList<StratagemItem>> = _stratagemList
     var currentStratagem by mutableStateOf<StratagemItem?>(null)
         private set
     var currentInputIndex by mutableIntStateOf(0)
@@ -83,17 +92,7 @@ class GameViewModel : ViewModel() {
         private set
     private var roundIsPerfect = true
     private var gameOverClickLimited = false
-
-    // 倒计时相关
-    var totalDuration by mutableLongStateOf(ROUND_TIME) // 总时长
-        private set
-    private val _remainingTime = MutableStateFlow(ROUND_TIME) // 剩余时长
-    val remainingTime: StateFlow<Long> = _remainingTime.asStateFlow()
-    private var tickerJob: Job? = null
-
-    private val _stratagemList =
-        MutableStateFlow<SnapshotStateList<StratagemItem>>(SnapshotStateList())
-    val stratagemList: StateFlow<SnapshotStateList<StratagemItem>> = _stratagemList
+    private val isInfiniteMode = kvManager.isInfiniteMode()
 
     init {
         initStratagems()
@@ -124,7 +123,7 @@ class GameViewModel : ViewModel() {
     fun goToPlay() {
         currentScreen = Screen.Play
         playSound(SoundResource.Playing)
-        startCountdown()
+        if (isInfiniteMode.not()) startCountdown()
         roundIsPerfect = true
     }
 
@@ -134,7 +133,7 @@ class GameViewModel : ViewModel() {
         stopCountdown()
         stopSound(SoundResource.Playing)
         playSound(
-            Random.Default.nextInt(1..3).let {
+            Random.nextInt(1..3).let {
                 when (it) {
                     1 -> SoundResource.Success1
                     2 -> SoundResource.Success2
@@ -167,25 +166,34 @@ class GameViewModel : ViewModel() {
 
     fun updateStratagemList() {
         _stratagemList.value = getRoundStratagemList(
-            min(
-                INIT_ROUND_STRATAGEM_SIZE + roundInfo.roundNumber,
-                MAX_STRATAGEM_SIZE,
-            ),
+            if (isInfiniteMode) {
+                allStratagems.size
+            } else {
+                min(
+                    INIT_ROUND_STRATAGEM_SIZE + roundInfo.roundNumber,
+                    MAX_STRATAGEM_SIZE,
+                )
+            },
         )
     }
 
     private fun getRoundStratagemList(size: Int): SnapshotStateList<StratagemItem> {
-        roundStratagems.clear()
-        roundStratagems.addAll(allStratagems.shuffled().take(size))
+        _stratagemList.value.clear()
+        _stratagemList.value.addAll(allStratagems.shuffled().take(size))
         setFirstStratagem()
-        return roundStratagems
+        return _stratagemList.value
     }
 
     fun onButtonClicked(input: StratagemInput) {
         when (currentScreen) {
             Screen.Idle -> {
                 // 从空闲状态开始
-                goToReady()
+                if (isInfiniteMode) {
+                    updateStratagemList()
+                    goToPlay()
+                } else {
+                    goToReady()
+                }
             }
 
             Screen.Ready -> {
@@ -217,17 +225,23 @@ class GameViewModel : ViewModel() {
                 currentInputIndex += 1
                 if (currentInputIndex == expected.size) {
                     // 全部输入正确
-                    roundStratagems.removeAt(0)
+                    _stratagemList.value.removeAt(0)
                     setFirstStratagem()
-                    if (roundStratagems.isEmpty()) {
+                    if (_stratagemList.value.isEmpty()) {
                         // 全部战备完成
                         goToRoundOver()
                     } else {
                         // 完成一个战备
                         playSound(SoundResource.Correct)
-                        extendTime()
-                        roundInfo =
-                            roundInfo.copy(totalScore = roundInfo.totalScore + expected.size)
+                        if (isInfiniteMode) {
+                            if (_stratagemList.value.size < 10) {
+                                updateStratagemList()
+                            }
+                        } else {
+                            extendTime()
+                            roundInfo =
+                                roundInfo.copy(totalScore = roundInfo.totalScore + expected.size)
+                        }
                     }
                 } else {
                     playSound(SoundResource.Hit)
@@ -247,7 +261,7 @@ class GameViewModel : ViewModel() {
     }
 
     private fun setFirstStratagem() {
-        roundStratagems.firstOrNull()?.let { stratagem ->
+        _stratagemList.value.firstOrNull()?.let { stratagem ->
             currentStratagem = stratagem
             currentInputIndex = 0
         } ?: run {

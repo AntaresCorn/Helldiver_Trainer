@@ -61,8 +61,6 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.compose.viewmodel.navigation)
             implementation(libs.koin.core)
-            //implementation(libs.coil.compose)
-            //implementation(libs.coil.network.okhttp)
             implementation(libs.navigation.compose)
             implementation(libs.moko.resources)
             implementation(libs.moko.resources.compose)
