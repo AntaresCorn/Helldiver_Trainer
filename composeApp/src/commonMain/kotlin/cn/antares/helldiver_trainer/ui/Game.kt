@@ -189,7 +189,7 @@ fun Play(
             ) {
                 itemsIndexed(
                     stratagemList,
-                    key = { _, stratagem -> stratagem.id },
+                    key = { index, stratagem -> "${stratagem.id}-$index" },
                 ) { index, stratagem ->
                     Image(
                         painter = painterResource(stratagem.icon),

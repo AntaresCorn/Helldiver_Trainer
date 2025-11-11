@@ -7,9 +7,9 @@ import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.RIGHT
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.UP
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemItem
 
-object StratagemInitializer {
+object StratagemStore {
 
-    fun initStratagems(): List<StratagemItem> {
+    fun getAllStratagems(): List<StratagemItem> {
         return listOf(
             /**
              * 飞鹰

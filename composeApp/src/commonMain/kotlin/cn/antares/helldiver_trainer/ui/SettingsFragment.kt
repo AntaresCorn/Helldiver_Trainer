@@ -7,8 +7,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +24,7 @@ import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -43,10 +46,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import cn.antares.helldiver_trainer.BuildKonfig
 import cn.antares.helldiver_trainer.MR
+import cn.antares.helldiver_trainer.NavRoute
 import cn.antares.helldiver_trainer.bridge.openWebPage
-import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
@@ -59,9 +63,13 @@ import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
 
 @Composable
-fun SettingsFragment(kvManager: SharedKVManager = koinInject()) {
+fun SettingsFragment(
+    kvManager: SharedKVManager = koinInject(),
+    navController: NavHostController = LocalNavController.current,
+) {
     var infiniteModeState by remember { mutableStateOf(kvManager.isInfiniteMode()) }
     var showInfiniteModeInfo by remember { mutableStateOf(false) }
+    var showCustomStratagemInfo by remember { mutableStateOf(false) }
     if (showInfiniteModeInfo) {
         SuperDialog(
             onDismissRequest = { showInfiniteModeInfo = false },
@@ -70,8 +78,31 @@ fun SettingsFragment(kvManager: SharedKVManager = koinInject()) {
             message = "无限模式下，没有回合与时限，所有战备将随机排列。也可与自选战备功能配合使用",
         )
     }
+    if (showCustomStratagemInfo) {
+        SuperDialog(
+            onDismissRequest = { showCustomStratagemInfo = false },
+            confirmButtonText = "确认",
+            confirmButtonCallback = { showCustomStratagemInfo = false },
+            message = "设置后的战备将应用于所有模式",
+        )
+    }
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column {
+            SettingButtonItem(
+                "自选战备",
+                showInfoIcon = true,
+                infoClickCallback = { showCustomStratagemInfo = true },
+                buttonText = "前往设置",
+                onButtonClick = {
+                    navController.navigate(NavRoute.RouteList.StratagemSelector) {
+                        launchSingleTop = true
+                        restoreState = true
+                        popUpTo(NavRoute.RouteList.Main.MainContainer) {
+                            saveState = true
+                        }
+                    }
+                },
+            )
             SettingSwitchItem(
                 "无限模式",
                 infiniteModeState,
@@ -117,6 +148,29 @@ private fun SettingSwitchItem(
             checked = initialSwitchState,
             onCheckedChange = { onSwitchChanged.invoke(it) },
         )
+    }
+}
+
+@Composable
+private fun SettingButtonItem(
+    text: String,
+    showInfoIcon: Boolean = false,
+    infoClickCallback: (() -> Unit)? = null,
+    buttonText: String,
+    onButtonClick: (Boolean) -> Unit,
+) {
+    BaseSettingItemLayout(
+        title = text,
+        showInfoIcon = showInfoIcon,
+        infoClickCallback = infoClickCallback,
+    ) {
+        Button(
+            onClick = { onButtonClick.invoke(true) },
+            modifier = Modifier.defaultMinSize(minWidth = 1.dp, minHeight = 1.dp),
+            contentPadding = PaddingValues(horizontal = 10.dp, vertical = 6.dp),
+        ) {
+            Text(buttonText, fontSize = 14.sp)
+        }
     }
 }
 
@@ -228,17 +282,7 @@ private fun FactionSelector(
         Text(
             buildAnnotatedString {
                 append("我是 ")
-                withStyle(
-                    SpanStyle(
-                        color = when (tabs[selectedIndex].first) {
-                            SharedKVManager.Companion.UserFaction.HELLDIVER -> HellColors.HelldiverColor
-                            SharedKVManager.Companion.UserFaction.AUTOMATON -> HellColors.AutomatonColor
-                            SharedKVManager.Companion.UserFaction.TERMINID -> HellColors.TerminidColor
-                            SharedKVManager.Companion.UserFaction.ILLUMINATE -> HellColors.IlluminateColor
-                            else -> HellColors.HelldiverColor
-                        },
-                    ),
-                ) {
+                withStyle(SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                     append(
                         when (tabs[selectedIndex].first) {
                             SharedKVManager.Companion.UserFaction.HELLDIVER -> "绝地潜兵"

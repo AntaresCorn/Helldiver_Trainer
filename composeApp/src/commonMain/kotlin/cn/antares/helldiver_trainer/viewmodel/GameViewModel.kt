@@ -12,7 +12,7 @@ import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.bridge.stopSound
 import cn.antares.helldiver_trainer.util.SharedKVManager
-import cn.antares.helldiver_trainer.util.StratagemInitializer
+import cn.antares.helldiver_trainer.util.StratagemStore
 import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -21,12 +21,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-class GameViewModel(kvManager: SharedKVManager) : ViewModel() {
+class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
 
     companion object {
         const val INIT_ROUND_STRATAGEM_SIZE = 4 // 初始战备数量
@@ -161,27 +162,34 @@ class GameViewModel(kvManager: SharedKVManager) : ViewModel() {
 
     fun initStratagems() {
         allStratagems.clear()
-        allStratagems.addAll(StratagemInitializer.initStratagems())
+        val selectedIDs = kvManager.getSelectedStratagemIDs()
+        val storedStratagems = StratagemStore.getAllStratagems().filter {
+            selectedIDs.contains(it.id)
+        }
+        if (storedStratagems.size < 10) {
+            val multiplier = ceil(10.0 / storedStratagems.size).toInt()
+            repeat(multiplier) {
+                allStratagems.addAll(storedStratagems)
+            }
+        } else {
+            allStratagems.addAll(storedStratagems)
+        }
     }
 
-    fun updateStratagemList() {
-        _stratagemList.value = getRoundStratagemList(
-            if (isInfiniteMode) {
-                allStratagems.size
-            } else {
-                min(
-                    INIT_ROUND_STRATAGEM_SIZE + roundInfo.roundNumber,
-                    MAX_STRATAGEM_SIZE,
-                )
-            },
-        )
-    }
-
-    private fun getRoundStratagemList(size: Int): SnapshotStateList<StratagemItem> {
-        _stratagemList.value.clear()
-        _stratagemList.value.addAll(allStratagems.shuffled().take(size))
+    private fun updateStratagemList() {
+        if (isInfiniteMode.not()) {
+            _stratagemList.value.clear()
+        }
+        val count = if (isInfiniteMode) {
+            allStratagems.size
+        } else {
+            min(
+                INIT_ROUND_STRATAGEM_SIZE + roundInfo.roundNumber,
+                MAX_STRATAGEM_SIZE,
+            )
+        }
+        _stratagemList.value.addAll(allStratagems.shuffled().take(count))
         setFirstStratagem()
-        return _stratagemList.value
     }
 
     fun onButtonClicked(input: StratagemInput) {
