@@ -1,10 +1,16 @@
 package cn.antares.helldiver_trainer.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import cn.antares.helldiver_trainer.NavRoute
@@ -42,12 +48,18 @@ fun App(
         InitTheme()
         InitLocalData()
         val themeState: ThemeState = koinInject()
-        MaterialTheme(colorScheme = themeState.currentTheme.getColorScheme()) {
-            CompositionLocalProvider(
-                LocalNavController provides navController,
-                LocalFragmentNavController provides fragmentNavController,
-            ) {
-                NavRoute.AppNavHost()
+        Scaffold(modifier = Modifier.systemBarsPadding()) { innerPadding ->
+            MaterialTheme(colorScheme = themeState.currentTheme.getColorScheme()) {
+                Box(
+                    Modifier.background(MaterialTheme.colorScheme.background).padding(innerPadding),
+                ) {
+                    CompositionLocalProvider(
+                        LocalNavController provides navController,
+                        LocalFragmentNavController provides fragmentNavController,
+                    ) {
+                        NavRoute.AppNavHost()
+                    }
+                }
             }
         }
     }

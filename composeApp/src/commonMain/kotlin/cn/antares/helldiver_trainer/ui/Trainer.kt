@@ -50,7 +50,7 @@ fun Trainer(
 ) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
 
-    var containerModifier = Modifier.background(Color.DarkGray)
+    var containerModifier: Modifier = Modifier
     if (HellUtils.isOnPC()) {
         // 注册键盘事件
         val focusRequester = remember { FocusRequester() }
@@ -59,15 +59,28 @@ fun Trainer(
             .onPreviewKeyEvent { event ->
                 if (event.type == KeyEventType.KeyDown) {
                     when (event.key) {
-                        Key.DirectionUp -> vm.onButtonClicked(GameViewModel.StratagemInput.UP)
-                        Key.DirectionDown -> vm.onButtonClicked(GameViewModel.StratagemInput.DOWN)
-                        Key.DirectionLeft -> vm.onButtonClicked(GameViewModel.StratagemInput.LEFT)
-                        Key.DirectionRight -> vm.onButtonClicked(GameViewModel.StratagemInput.RIGHT)
-                        else -> {}
+                        Key.DirectionUp -> {
+                            vm.onButtonClicked(GameViewModel.StratagemInput.UP)
+                            return@onPreviewKeyEvent true
+                        }
+
+                        Key.DirectionDown -> {
+                            vm.onButtonClicked(GameViewModel.StratagemInput.DOWN)
+                            return@onPreviewKeyEvent true
+                        }
+
+                        Key.DirectionLeft -> {
+                            vm.onButtonClicked(GameViewModel.StratagemInput.LEFT)
+                            return@onPreviewKeyEvent true
+                        }
+
+                        Key.DirectionRight -> {
+                            vm.onButtonClicked(GameViewModel.StratagemInput.RIGHT)
+                            return@onPreviewKeyEvent true
+                        }
                     }
-                    true
                 }
-                false
+                return@onPreviewKeyEvent false
             }
         LaunchedEffect(Unit) {
             focusRequester.requestFocus()
@@ -80,7 +93,7 @@ fun Trainer(
             contentDescription = null,
             modifier = Modifier.fillMaxSize().alpha(0.3f),
         )
-        if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
+        if (windowInfo.isTwoPaneCandidate() && windowInfo.isTabletPortrait().not()) {
             Box {
                 GameContainer()
                 if (HellUtils.isOnPC().not()) {
@@ -185,15 +198,27 @@ private fun Arrows(
 
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
     val arrowSize =
-        (if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
-            if (windowInfo.isHeightLargerThanCompact()) 105 else 85
-        } else 95).dp
+        if (windowInfo.isTwoPaneCandidate()) {
+            if (windowInfo.isPhoneLandscape()) {
+                85.dp
+            } else {
+                105.dp
+            }
+        } else {
+            95.dp
+        }
     val arrowModifier = Modifier.size(arrowSize).background(Color.LightGray).padding(15.dp)
     val colorFilter = ColorFilter.tint(Color.Black)
     val bottomPadding =
-        (if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
-            if (windowInfo.isHeightLargerThanCompact()) 70 else 30
-        } else 50).dp
+        if (windowInfo.isTwoPaneCandidate()) {
+            if (windowInfo.isPhoneLandscape()) {
+                30.dp
+            } else {
+                70.dp
+            }
+        } else {
+            50.dp
+        }
     CustomRelativeLayout(modifier = Modifier.padding(bottom = bottomPadding)) {
         ArrowItem(arrowModifier, colorFilter, GameViewModel.StratagemInput.UP)
         ArrowItem(arrowModifier, colorFilter, GameViewModel.StratagemInput.LEFT)

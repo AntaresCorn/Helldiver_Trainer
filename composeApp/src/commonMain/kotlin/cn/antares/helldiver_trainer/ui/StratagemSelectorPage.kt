@@ -58,6 +58,7 @@ fun StratagemSelectorPage(
     kvManager: SharedKVManager = koinInject(),
 ) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val horizontalPadding = if (windowInfo.isTabletLandscape()) 100.dp else 0.dp
     val allStratagems = StratagemStore.getAllStratagems()
     val selectedStratagems = kvManager.getSelectedStratagemIDs()
     val stratagemStates = remember(allStratagems, selectedStratagems) {
@@ -67,16 +68,19 @@ fun StratagemSelectorPage(
     }
 
     Scaffold(
-        modifier = Modifier.background(Color.DarkGray).fillMaxSize()
-            .padding(top = 20.dp, start = 20.dp, end = 20.dp),
-        containerColor = Color.DarkGray,
+        modifier = Modifier.fillMaxSize().padding(top = 20.dp, start = 20.dp, end = 20.dp),
         topBar = { TopBar(stratagemStates = stratagemStates) },
     ) { innerPadding ->
         val listState = rememberLazyListState()
         var containerHeight by remember { mutableIntStateOf(0) }
         Box(
-            modifier = Modifier.fillMaxSize().padding(innerPadding)
-                .padding(horizontal = 80.dp, vertical = 10.dp),
+            modifier = Modifier.fillMaxSize()
+                .padding(
+                    start = horizontalPadding,
+                    end = horizontalPadding,
+                    top = innerPadding.calculateTopPadding() + 10.dp,
+                    bottom = 10.dp,
+                ),
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize()

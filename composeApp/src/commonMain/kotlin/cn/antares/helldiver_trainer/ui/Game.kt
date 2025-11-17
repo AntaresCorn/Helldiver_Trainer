@@ -181,11 +181,12 @@ fun Play(
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = (if (windowInfo.isHeightExpanded()) 100 else 20).dp),
+            modifier = Modifier.padding(horizontal = (if (windowInfo.isTabletPortrait()) 100 else 20).dp),
         ) {
             LazyRow(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.align(Alignment.Start),
+                userScrollEnabled = false,
             ) {
                 itemsIndexed(
                     stratagemList,
@@ -210,7 +211,7 @@ fun Play(
                 textAlign = TextAlign.Center,
             )
             Spacer(Modifier.size(10.dp))
-            LazyRow {
+            LazyRow(userScrollEnabled = false) {
                 itemsIndexed(
                     vm.currentStratagem?.inputs ?: emptyList(),
                     key = { index, _ -> index },
@@ -261,13 +262,13 @@ fun Play(
         }
     }
 
-    if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
+    if (windowInfo.isTwoPaneCandidate() && windowInfo.isTabletPortrait().not()) {
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxHeight(),
         ) {
             val infoModifier = Modifier.weight(0.4f)
-                .padding(top = (if (windowInfo.isHeightLargerThanCompact()) 80 else 20).dp)
+                .padding(top = (if (windowInfo.isTabletLandscape()) 80 else 20).dp)
             Box(modifier = infoModifier) {
                 Box(modifier = Modifier.align(Alignment.Center)) {
                     if (isInfiniteMode.not()) {
@@ -340,12 +341,19 @@ fun RoundOver(
     Column(
         modifier = Modifier.fillMaxHeight()
             .padding(
-                horizontal = (if (windowInfo.isWidthLargerThanCompact() &&
-                    windowInfo.isHeightExpanded().not()
-                ) {
-                    if (windowInfo.isHeightLargerThanCompact()) 360 else 240
-                } else
-                    if (windowInfo.isHeightExpanded()) 120 else 40).dp,
+                horizontal = if (windowInfo.isTwoPaneCandidate()) {
+                    if (windowInfo.isTabletLandscape()) {
+                        360.dp
+                    } else {
+                        if (windowInfo.isTabletPortrait()) {
+                            120.dp
+                        } else {
+                            240.dp
+                        }
+                    }
+                } else {
+                    40.dp
+                },
             ),
         verticalArrangement = Arrangement.Center,
     ) {

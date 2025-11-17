@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -33,8 +34,6 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
-import cn.antares.helldiver_trainer.util.ThemeState
-import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
@@ -59,10 +58,7 @@ private val navList = listOf(
 )
 
 @Composable
-fun MainContainer(
-    windowInfoManager: WindowInfoManager = koinInject(),
-    themeState: ThemeState = koinInject(),
-) {
+fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
     val fragmentNavController = LocalFragmentNavController.current
     val navBackStackEntry by fragmentNavController.currentBackStackEntryAsState()
@@ -84,10 +80,8 @@ fun MainContainer(
 
     Scaffold(
         bottomBar = {
-            if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded()
-                    .not()
-            ) {
-                NavigationBar(containerColor = Color.DarkGray) {
+            if (windowInfo.isTwoPaneCandidate().not()) {
+                NavigationBar {
                     destinationItems.forEach { destination ->
                         NavigationBarItem(
                             icon = { Icon(destination.icon, contentDescription = null) },
@@ -95,30 +89,28 @@ fun MainContainer(
                             selected = navSelected(destination),
                             onClick = { bottomNav(destination) },
                             colors = NavigationBarItemDefaults.colors(
-                                selectedIconColor = if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
-                                    Color.White else Color.Black,
+                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
-                                indicatorColor = themeState.currentTheme.getPrimaryColor(),
+                                indicatorColor = MaterialTheme.colorScheme.primary,
                             ),
                         )
                     }
                 }
             }
         },
-    ) { paddingValues ->
+    ) { innerPadding ->
         Row {
-            if (windowInfo.isWidthLargerThanCompact() || windowInfo.isHeightExpanded()) {
+            if (windowInfo.isTwoPaneCandidate()) {
                 NavigationRail(
-                    containerColor = Color.DarkGray,
                     header = {
                         Box(modifier = Modifier.padding(top = 10.dp)) {
                             Icon(
                                 painterResource(MR.images.ic_launcher),
                                 contentDescription = null,
                                 modifier = Modifier.size(45.dp).clip(RoundedCornerShape(15))
-                                    .background(themeState.currentTheme.getPrimaryColor())
+                                    .background(MaterialTheme.colorScheme.primary)
                                     .padding(5.dp),
                             )
                         }
@@ -131,18 +123,17 @@ fun MainContainer(
                             selected = navSelected(destination),
                             onClick = { bottomNav(destination) },
                             colors = NavigationRailItemDefaults.colors(
-                                selectedIconColor = if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
-                                    Color.White else Color.Black,
+                                selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                                 unselectedIconColor = Color.White,
                                 selectedTextColor = Color.White,
                                 unselectedTextColor = Color.White,
-                                indicatorColor = themeState.currentTheme.getPrimaryColor(),
+                                indicatorColor = MaterialTheme.colorScheme.primary,
                             ),
                         )
                     }
                 }
             }
-            NavRoute.MainNavHost(Modifier.padding(paddingValues).background(Color.DarkGray))
+            NavRoute.MainNavHost(Modifier.padding(innerPadding))
         }
     }
 }

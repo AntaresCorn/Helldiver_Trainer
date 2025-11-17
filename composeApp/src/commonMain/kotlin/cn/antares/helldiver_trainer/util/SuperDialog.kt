@@ -59,6 +59,5 @@ fun SuperDialog(
                 }
             }
         } else null,
-        containerColor = Color.DarkGray,
     )
 }

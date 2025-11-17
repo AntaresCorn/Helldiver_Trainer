@@ -56,7 +56,6 @@ import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.SuperDialog
 import cn.antares.helldiver_trainer.util.ThemeState
-import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getPrimaryColor
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import dev.icerock.moko.resources.compose.painterResource
@@ -66,6 +65,7 @@ import org.koin.compose.koinInject
 fun SettingsFragment(
     kvManager: SharedKVManager = koinInject(),
     navController: NavHostController = LocalNavController.current,
+    windowInfoManager: WindowInfoManager = koinInject(),
 ) {
     var infiniteModeState by remember { mutableStateOf(kvManager.isInfiniteMode()) }
     var showInfiniteModeInfo by remember { mutableStateOf(false) }
@@ -86,7 +86,18 @@ fun SettingsFragment(
             message = "设置后的战备将应用于所有模式",
         )
     }
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+
+    val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val horizontalPadding = if (windowInfo.isTwoPaneCandidate() && windowInfo.isTabletLandscape()) {
+        100.dp
+    } else {
+        20.dp
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize().padding(horizontal = horizontalPadding),
+        contentAlignment = Alignment.Center,
+    ) {
         Column {
             SettingButtonItem(
                 "自选战备",
@@ -181,12 +192,7 @@ private fun BaseSettingItemLayout(
     infoClickCallback: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
-    val windowInfoManager: WindowInfoManager = koinInject()
-    val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
-    val horizontalPadding =
-        (if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded().not()
-        ) 20 else 40).dp
-    Column(modifier = Modifier.padding(horizontal = horizontalPadding)) {
+    Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
                 Text(title, fontSize = 18.sp, color = Color.White)
@@ -211,7 +217,6 @@ private fun BaseSettingItemLayout(
 private fun FactionSelector(
     sharedKVManager: SharedKVManager = koinInject(),
     themeState: ThemeState = koinInject(),
-    windowInfoManager: WindowInfoManager = koinInject(),
 ) {
     val imageSize = 25.dp
     val imagePadding = 5.dp
@@ -227,20 +232,15 @@ private fun FactionSelector(
                 .let { if (it == -1) 0 else it },
         )
     }
-    val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
-    val horizontalPadding =
-        (if (windowInfo.isWidthLargerThanCompact().not() && windowInfo.isHeightExpanded().not()
-        ) 20 else 40).dp
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row {
-            Spacer(modifier = Modifier.size(horizontalPadding))
             PrimaryTabRow(
                 selectedIndex,
                 modifier = Modifier.weight(1f)
                     .border(
                         2.dp,
-                        themeState.currentTheme.getPrimaryColor(),
+                        MaterialTheme.colorScheme.primary,
                         RoundedCornerShape(50),
                     ),
                 containerColor = Color.Transparent,
@@ -276,7 +276,6 @@ private fun FactionSelector(
                     }
                 },
             )
-            Spacer(modifier = Modifier.size(horizontalPadding))
         }
         Spacer(Modifier.size(10.dp))
         Text(
@@ -303,16 +302,11 @@ private fun FactionSelector(
 }
 
 @Composable
-private fun RepositoryLink(themeState: ThemeState = koinInject()) {
+private fun RepositoryLink() {
     Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
         Text("项目仓库", fontSize = 14.sp)
         Image(
-            painterResource(
-                if (themeState.currentTheme == ThemeState.AppTheme.ILLUMINATE)
-                    MR.images.ic_github_mark_white
-                else
-                    MR.images.ic_github_mark,
-            ),
+            painterResource(MR.images.ic_github_mark),
             contentDescription = null,
             modifier = Modifier
                 .padding(start = 5.dp)
