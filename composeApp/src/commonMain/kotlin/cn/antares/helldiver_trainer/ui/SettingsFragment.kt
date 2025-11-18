@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
@@ -68,6 +70,7 @@ fun SettingsFragment(
     windowInfoManager: WindowInfoManager = koinInject(),
 ) {
     var infiniteModeState by remember { mutableStateOf(kvManager.isInfiniteMode()) }
+    var stratagemSelectorState by remember { mutableStateOf(kvManager.isStratagemSelectMode()) }
     var showInfiniteModeInfo by remember { mutableStateOf(false) }
     var showCustomStratagemInfo by remember { mutableStateOf(false) }
     if (showInfiniteModeInfo) {
@@ -83,7 +86,7 @@ fun SettingsFragment(
             onDismissRequest = { showCustomStratagemInfo = false },
             confirmButtonText = "确认",
             confirmButtonCallback = { showCustomStratagemInfo = false },
-            message = "设置后的战备将应用于所有模式",
+            message = "设置后的战备将应用于所有模式\n若更新后加入了新战备，需要进入设置手动勾选才能生效",
         )
     }
 
@@ -99,12 +102,13 @@ fun SettingsFragment(
         contentAlignment = Alignment.Center,
     ) {
         Column {
-            SettingButtonItem(
+            SettingSwitchItem(
                 "自选战备",
+                stratagemSelectorState,
                 showInfoIcon = true,
                 infoClickCallback = { showCustomStratagemInfo = true },
-                buttonText = "前往设置",
-                onButtonClick = {
+                showMoreEntry = true,
+                moreEntryCallback = {
                     navController.navigate(NavRoute.RouteList.StratagemSelector) {
                         launchSingleTop = true
                         restoreState = true
@@ -112,6 +116,10 @@ fun SettingsFragment(
                             saveState = true
                         }
                     }
+                },
+                onSwitchChanged = {
+                    stratagemSelectorState = it
+                    kvManager.setStratagemSelectMode(it)
                 },
             )
             SettingSwitchItem(
@@ -148,12 +156,16 @@ private fun SettingSwitchItem(
     initialSwitchState: Boolean,
     showInfoIcon: Boolean = false,
     infoClickCallback: (() -> Unit)? = null,
+    showMoreEntry: Boolean = false,
+    moreEntryCallback: (() -> Unit)? = null,
     onSwitchChanged: (Boolean) -> Unit,
 ) {
     BaseSettingItemLayout(
         title = text,
         showInfoIcon = showInfoIcon,
         infoClickCallback = infoClickCallback,
+        showMoreEntry = showMoreEntry,
+        moreEntryCallback = moreEntryCallback,
     ) {
         Switch(
             checked = initialSwitchState,
@@ -190,6 +202,8 @@ private fun BaseSettingItemLayout(
     title: String,
     showInfoIcon: Boolean = false,
     infoClickCallback: (() -> Unit)? = null,
+    showMoreEntry: Boolean = false,
+    moreEntryCallback: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
     Column {
@@ -199,12 +213,25 @@ private fun BaseSettingItemLayout(
                 if (showInfoIcon) {
                     Icon(
                         Icons.Default.Info,
-                        null,
+                        contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.padding(start = 5.dp).size(20.dp).clickable {
                             infoClickCallback?.invoke()
                         },
                     )
+                }
+                if (showMoreEntry) {
+                    Box(Modifier.fillMaxWidth()) {
+                        Icon(
+                            Icons.Default.Settings,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.padding(end = 10.dp)
+                                .size(20.dp)
+                                .align(Alignment.CenterEnd)
+                                .clickable { moreEntryCallback?.invoke() },
+                        )
+                    }
                 }
             }
             content()

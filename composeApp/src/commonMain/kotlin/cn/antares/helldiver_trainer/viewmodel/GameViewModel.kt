@@ -162,17 +162,21 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
 
     fun initStratagems() {
         allStratagems.clear()
-        val selectedIDs = kvManager.getSelectedStratagemIDs()
-        val storedStratagems = StratagemStore.getAllStratagems().filter {
-            selectedIDs.contains(it.id)
-        }
-        if (storedStratagems.size < 10) {
-            val multiplier = ceil(10.0 / storedStratagems.size).toInt()
-            repeat(multiplier) {
+        if (kvManager.isStratagemSelectMode()) {
+            val selectedIDs = kvManager.getSelectedStratagemIDs()
+            val storedStratagems = StratagemStore.getAllStratagems().filter {
+                selectedIDs.contains(it.id)
+            }
+            if (storedStratagems.size < 10) {
+                val multiplier = ceil(10.0 / storedStratagems.size).toInt()
+                repeat(multiplier) {
+                    allStratagems.addAll(storedStratagems)
+                }
+            } else {
                 allStratagems.addAll(storedStratagems)
             }
         } else {
-            allStratagems.addAll(storedStratagems)
+            allStratagems.addAll(StratagemStore.getAllStratagems())
         }
     }
 

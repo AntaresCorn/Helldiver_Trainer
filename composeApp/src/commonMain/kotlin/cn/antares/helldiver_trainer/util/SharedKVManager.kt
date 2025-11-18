@@ -16,6 +16,7 @@ class SharedKVManager {
         private const val DEFAULT_NAMESPACE = "helldiver_trainer"
         private const val USER_FACTION = "user_faction"
         private const val INFINITE_MODE = "infinite_mode"
+        private const val STRATAGEM_SELECT_MODE = "stratagem_select_mode"
         private const val SELECTED_STRATAGEM_IDS = "selected_stratagem_ids"
     }
 
@@ -29,6 +30,12 @@ class SharedKVManager {
     fun isInfiniteMode(): Boolean = getSharedKVInstance().getBoolean(INFINITE_MODE, false)
 
     fun setInfiniteMode(enabled: Boolean) = getSharedKVInstance().putBoolean(INFINITE_MODE, enabled)
+
+    fun isStratagemSelectMode(): Boolean =
+        getSharedKVInstance().getBoolean(STRATAGEM_SELECT_MODE, false)
+
+    fun setStratagemSelectMode(enabled: Boolean) =
+        getSharedKVInstance().putBoolean(STRATAGEM_SELECT_MODE, enabled)
 
     fun getSelectedStratagemIDs(): Set<String> {
         getSharedKVInstance().getStringOrNull(SELECTED_STRATAGEM_IDS).let {
