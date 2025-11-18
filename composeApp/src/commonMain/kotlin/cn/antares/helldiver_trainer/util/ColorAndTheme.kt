@@ -13,7 +13,7 @@ import cn.antares.helldiver_trainer.util.HellColors.TerminidColor
 object HellColors {
     val HelldiverColor = Color(0xFFFDE701)
     val AutomatonColor = Color(0xFFFC6C72)
-    val IlluminateColor = Color(0xFF6A3ABA)
+    val IlluminateColor = Color(0xFFDA59F9)
     val TerminidColor = Color(0xFFFDB801)
     val PrimaryColor = HelldiverColor
 }
@@ -27,31 +27,28 @@ class ThemeState {
     }
 
     object MyTheme {
-        val helldiverTheme = lightColorScheme(
+        private val baseTheme = lightColorScheme(
+            onPrimary = Color.Black,
+            background = Color.DarkGray,
+            surface = Color.DarkGray,
+            surfaceContainer = Color.DarkGray,
+            surfaceContainerLow = Color.DarkGray,
+            surfaceContainerLowest = Color.DarkGray,
+            surfaceContainerHigh = Color.DarkGray,
+            surfaceContainerHighest = Color.DarkGray,
+        )
+        val helldiverTheme = baseTheme.copy(
             primary = HelldiverColor,
-            onPrimary = Color.Black,
         )
-        val automatonTheme = lightColorScheme(
+        val automatonTheme = baseTheme.copy(
             primary = AutomatonColor,
-            onPrimary = Color.Black,
         )
-        val illuminateTheme = lightColorScheme(
+        val illuminateTheme = baseTheme.copy(
             primary = IlluminateColor,
-            onPrimary = Color.White,
         )
-        val terminidTheme = lightColorScheme(
+        val terminidTheme = baseTheme.copy(
             primary = TerminidColor,
-            onPrimary = Color.Black,
         )
-
-        fun AppTheme.getPrimaryColor(): Color {
-            return when (this) {
-                AppTheme.HELLDIVER -> HelldiverColor
-                AppTheme.AUTOMATON -> AutomatonColor
-                AppTheme.ILLUMINATE -> IlluminateColor
-                AppTheme.TERMINID -> TerminidColor
-            }
-        }
 
         fun AppTheme.getColorScheme() = when (this) {
             AppTheme.HELLDIVER -> helldiverTheme

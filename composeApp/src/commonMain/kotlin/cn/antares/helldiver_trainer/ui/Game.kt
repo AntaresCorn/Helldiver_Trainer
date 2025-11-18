@@ -40,13 +40,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cn.antares.helldiver_trainer.GameViewModel
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
+import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
@@ -125,14 +126,16 @@ fun Ready(vm: GameViewModel = koinViewModel()) {
 }
 
 @Composable
-fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManager = koinInject()) {
+fun Play(
+    vm: GameViewModel = koinViewModel(),
+    windowInfoManager: WindowInfoManager = koinInject(),
+    kvManager: SharedKVManager = koinInject(),
+) {
     val windowInfo by windowInfoManager.windowInfoFlow.collectAsState()
+    val isInfiniteMode = remember { kvManager.isInfiniteMode() }
 
     @Composable
-    fun CountdownBar(
-        progress: Float,
-        progressColor: Color,
-    ) {
+    fun CountdownBar(progress: Float, progressColor: Color) {
         Canvas(
             modifier = Modifier
                 .fillMaxWidth()
@@ -178,15 +181,16 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(horizontal = (if (windowInfo.isHeightExpanded()) 100 else 20).dp),
+            modifier = Modifier.padding(horizontal = (if (windowInfo.isTabletPortrait()) 100 else 20).dp),
         ) {
             LazyRow(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.align(Alignment.Start),
+                userScrollEnabled = false,
             ) {
                 itemsIndexed(
                     stratagemList,
-                    key = { _, stratagem -> stratagem.id },
+                    key = { index, stratagem -> "${stratagem.id}-$index" },
                 ) { index, stratagem ->
                     Image(
                         painter = painterResource(stratagem.icon),
@@ -207,7 +211,7 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
                 textAlign = TextAlign.Center,
             )
             Spacer(Modifier.size(10.dp))
-            LazyRow {
+            LazyRow(userScrollEnabled = false) {
                 itemsIndexed(
                     vm.currentStratagem?.inputs ?: emptyList(),
                     key = { index, _ -> index },
@@ -233,8 +237,10 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
                     )
                 }
             }
-            Spacer(Modifier.size(20.dp))
-            CountdownBar(progress, progressColor)
+            if (isInfiniteMode.not()) {
+                Spacer(Modifier.size(20.dp))
+                CountdownBar(progress, progressColor)
+            }
         }
     }
 
@@ -256,16 +262,18 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
         }
     }
 
-    if (windowInfo.isWidthLargerThanCompact() && windowInfo.isHeightExpanded().not()) {
+    if (windowInfo.isTwoPaneCandidate() && windowInfo.isTabletPortrait().not()) {
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxHeight(),
         ) {
             val infoModifier = Modifier.weight(0.4f)
-                .padding(top = (if (windowInfo.isHeightLargerThanCompact()) 80 else 20).dp)
+                .padding(top = (if (windowInfo.isTabletLandscape()) 80 else 20).dp)
             Box(modifier = infoModifier) {
                 Box(modifier = Modifier.align(Alignment.Center)) {
-                    RoundPanel()
+                    if (isInfiniteMode.not()) {
+                        RoundPanel()
+                    }
                 }
             }
             Box(modifier = Modifier.weight(1f).align(Alignment.CenterVertically)) {
@@ -273,17 +281,23 @@ fun Play(vm: GameViewModel = koinViewModel(), windowInfoManager: WindowInfoManag
             }
             Box(modifier = infoModifier) {
                 Box(modifier = Modifier.align(Alignment.Center)) {
-                    ScorePanel()
+                    if (isInfiniteMode.not()) {
+                        ScorePanel()
+                    }
                 }
             }
         }
     } else {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            RoundPanel()
+            if (isInfiniteMode.not()) {
+                RoundPanel()
+            }
             Spacer(modifier = Modifier.size(30.dp))
             MainPanel()
             Spacer(modifier = Modifier.size(30.dp))
-            ScorePanel()
+            if (isInfiniteMode.not()) {
+                ScorePanel()
+            }
         }
     }
 }
@@ -327,12 +341,19 @@ fun RoundOver(
     Column(
         modifier = Modifier.fillMaxHeight()
             .padding(
-                horizontal = (if (windowInfo.isWidthLargerThanCompact() &&
-                    windowInfo.isHeightExpanded().not()
-                ) {
-                    if (windowInfo.isHeightLargerThanCompact()) 360 else 240
-                } else
-                    if (windowInfo.isHeightExpanded()) 120 else 40).dp,
+                horizontal = if (windowInfo.isTwoPaneCandidate()) {
+                    if (windowInfo.isTabletLandscape()) {
+                        360.dp
+                    } else {
+                        if (windowInfo.isTabletPortrait()) {
+                            120.dp
+                        } else {
+                            240.dp
+                        }
+                    }
+                } else {
+                    40.dp
+                },
             ),
         verticalArrangement = Arrangement.Center,
     ) {

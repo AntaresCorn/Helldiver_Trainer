@@ -10,6 +10,7 @@ import cn.antares.helldiver_trainer.ui.MainContainer
 import cn.antares.helldiver_trainer.ui.MainFragment
 import cn.antares.helldiver_trainer.ui.SettingsFragment
 import cn.antares.helldiver_trainer.ui.Splash
+import cn.antares.helldiver_trainer.ui.StratagemSelectorPage
 import cn.antares.helldiver_trainer.ui.Trainer
 import kotlinx.serialization.Serializable
 
@@ -31,6 +32,9 @@ object NavRoute {
 
         @Serializable
         object Trainer : RouteList()
+
+        @Serializable
+        object StratagemSelector : RouteList()
     }
 
     @Composable
@@ -49,6 +53,9 @@ object NavRoute {
             }
             composable<RouteList.Trainer> {
                 Trainer()
+            }
+            composable<RouteList.StratagemSelector> {
+                StratagemSelectorPage()
             }
         }
     }

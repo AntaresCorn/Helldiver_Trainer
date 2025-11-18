@@ -9,14 +9,28 @@ import kotlinx.coroutines.flow.StateFlow
 
 enum class WindowType { Compact, Medium, Expanded }
 
+/**
+ * 手机竖屏：widthType=Compact, heightType=Medium
+ * 手机横屏：widthType=Expanded, heightType=Compact
+ *          widthType=Medium, heightType=Compact
+ * 平板竖屏：widthType=Medium, heightType=Expanded
+ * 平板横屏：widthType=Expanded, heightType=Medium
+ */
 data class WindowInfo(
     val widthType: WindowType,
     val heightType: WindowType,
 ) {
-    fun isWidthExpanded() = widthType == WindowType.Expanded
-    fun isWidthLargerThanCompact() = widthType != WindowType.Compact
-    fun isHeightLargerThanCompact() = heightType != WindowType.Compact
-    fun isHeightExpanded() = heightType == WindowType.Expanded
+    fun isPhonePortrait() = widthType == WindowType.Compact && heightType != WindowType.Compact
+
+    fun isPhoneLandscape() = widthType != WindowType.Compact && heightType == WindowType.Compact
+
+    fun isTabletPortrait() = widthType != WindowType.Compact && heightType == WindowType.Expanded
+
+    fun isTabletLandscape() = widthType == WindowType.Expanded && heightType != WindowType.Compact
+
+    // 是否适合两栏/分栏布局
+    fun isTwoPaneCandidate() = (widthType == WindowType.Expanded) ||
+            (widthType == WindowType.Medium && heightType != WindowType.Compact)
 }
 
 interface WindowInfoManager {

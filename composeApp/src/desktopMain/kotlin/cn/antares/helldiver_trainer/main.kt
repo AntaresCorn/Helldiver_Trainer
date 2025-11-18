@@ -19,7 +19,7 @@ fun main() {
                 exitApplication()
             },
             title = stringResource(MR.strings.my_app_name),
-            state = rememberWindowState(width = 750.dp, height = 500.dp),
+            state = rememberWindowState(width = 750.dp, height = 530.dp),
         ) {
             App()
         }

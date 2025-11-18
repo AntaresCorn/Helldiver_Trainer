@@ -1,12 +1,10 @@
 package cn.antares.helldiver_trainer.util
 
-import com.architect.kmpessentials.deviceInfo.DevicePlatform
-import com.architect.kmpessentials.deviceInfo.KmpDeviceInfo
+import cn.antares.helldiver_trainer.bridge.DevicePlatform
+import cn.antares.helldiver_trainer.bridge.getCurrentPlatform
 
 object HellUtils {
-    fun isOnPC(): Boolean {
-        return KmpDeviceInfo.getRunningPlatform() == DevicePlatform.Windows ||
-                KmpDeviceInfo.getRunningPlatform() == DevicePlatform.Linux ||
-                KmpDeviceInfo.getRunningPlatform() == DevicePlatform.MacOS
-    }
+    var checkedUpdate = false
+
+    fun isOnPC(): Boolean = getCurrentPlatform() == DevicePlatform.Windows
 }
