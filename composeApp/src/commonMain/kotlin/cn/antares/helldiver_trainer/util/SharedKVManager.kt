@@ -1,6 +1,8 @@
 package cn.antares.helldiver_trainer.util
 
 import cn.antares.helldiver_trainer.bridge.getSharedPreference
+import cn.antares.helldiver_trainer.viewmodel.ArrowButtonConfig
+import cn.antares.helldiver_trainer.viewmodel.ArrowButtonConfig.Companion.toArrowButtonConfig
 import com.russhwolf.settings.Settings
 
 class SharedKVManager {
@@ -18,6 +20,8 @@ class SharedKVManager {
         private const val INFINITE_MODE = "infinite_mode"
         private const val STRATAGEM_SELECT_MODE = "stratagem_select_mode"
         private const val SELECTED_STRATAGEM_IDS = "selected_stratagem_ids"
+        private const val BUTTON_CONFIG_PORTRAIT = "button_config_portrait"
+        private const val BUTTON_CONFIG_LANDSCAPE = "button_config_landscape"
     }
 
     private fun getSharedKVInstance(): Settings = getSharedPreference(DEFAULT_NAMESPACE)
@@ -48,7 +52,20 @@ class SharedKVManager {
     }
 
     fun setSelectedStratagemIDs(ids: Set<String>) {
-        val value = ids.joinToString(",")
-        getSharedKVInstance().putString(SELECTED_STRATAGEM_IDS, value)
+        getSharedKVInstance().putString(SELECTED_STRATAGEM_IDS, ids.joinToString(","))
+    }
+
+    fun getButtonConfigPortrait(): ArrowButtonConfig? =
+        getSharedKVInstance().getStringOrNull(BUTTON_CONFIG_PORTRAIT)?.toArrowButtonConfig()
+
+    fun setButtonConfigPortrait(config: ArrowButtonConfig) {
+        getSharedKVInstance().putString(BUTTON_CONFIG_PORTRAIT, config.toString())
+    }
+
+    fun getButtonConfigLandscape(): ArrowButtonConfig? =
+        getSharedKVInstance().getStringOrNull(BUTTON_CONFIG_LANDSCAPE)?.toArrowButtonConfig()
+
+    fun setButtonConfigLandscape(config: ArrowButtonConfig) {
+        getSharedKVInstance().putString(BUTTON_CONFIG_LANDSCAPE, config.toString())
     }
 }

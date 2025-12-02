@@ -56,9 +56,10 @@ import cn.antares.helldiver_trainer.bridge.openWebPage
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
-import cn.antares.helldiver_trainer.util.SuperDialog
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.util.widget.SuperButton
+import cn.antares.helldiver_trainer.util.widget.SuperDialog
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
@@ -97,19 +98,19 @@ fun SettingsFragment(
         20.dp
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize().padding(horizontal = horizontalPadding),
-        contentAlignment = Alignment.Center,
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = horizontalPadding, vertical = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             SettingSwitchItem(
-                "自选战备",
-                stratagemSelectorState,
+                text = "自选战备",
+                initialSwitchState = stratagemSelectorState,
                 showInfoIcon = true,
                 infoClickCallback = { showCustomStratagemInfo = true },
                 showMoreEntry = true,
                 moreEntryCallback = {
-                    navController.navigate(NavRoute.RouteList.StratagemSelector) {
+                    navController.navigate(NavRoute.RouteList.StratagemSelectorPage) {
                         launchSingleTop = true
                         restoreState = true
                         popUpTo(NavRoute.RouteList.Main.MainContainer) {
@@ -123,8 +124,8 @@ fun SettingsFragment(
                 },
             )
             SettingSwitchItem(
-                "无限模式",
-                infiniteModeState,
+                text = "无限模式",
+                initialSwitchState = infiniteModeState,
                 showInfoIcon = true,
                 infoClickCallback = { showInfiniteModeInfo = true },
                 onSwitchChanged = {
@@ -132,17 +133,33 @@ fun SettingsFragment(
                     kvManager.setInfiniteMode(it)
                 },
             )
+            if (HellUtils.isOnPC().not()) {
+                SettingButtonItem(
+                    text = "按键设置",
+                    buttonText = "前往",
+                    onButtonClick = {
+                        navController.navigate(NavRoute.RouteList.ButtonCustomPage) {
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo(NavRoute.RouteList.Main.MainContainer) {
+                                saveState = true
+                            }
+                        }
+                    },
+                )
+            }
             Spacer(modifier = Modifier.size(20.dp))
             FactionSelector()
         }
-        Column(
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text("版本号: ${BuildKonfig.VERSION_NAME}", color = Color.White, fontSize = 12.sp)
             Spacer(modifier = Modifier.size(5.dp))
             Row {
-                RepositoryLink()
+                SuperButton(
+                    "项目仓库",
+                    painterResource(MR.images.ic_github_mark),
+                    onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) },
+                )
                 Spacer(modifier = Modifier.width(20.dp))
                 UpdateChecker()
             }
@@ -324,20 +341,6 @@ private fun FactionSelector(
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
-        )
-    }
-}
-
-@Composable
-private fun RepositoryLink() {
-    Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
-        Text("项目仓库", fontSize = 14.sp)
-        Image(
-            painterResource(MR.images.ic_github_mark),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(start = 5.dp)
-                .size(16.dp),
         )
     }
 }

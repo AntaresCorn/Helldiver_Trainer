@@ -84,7 +84,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
     private val allStratagems = mutableListOf<StratagemItem>()
     private val _stratagemList =
         MutableStateFlow<SnapshotStateList<StratagemItem>>(SnapshotStateList())
-    val stratagemList: StateFlow<SnapshotStateList<StratagemItem>> = _stratagemList
+    val stratagemList = _stratagemList.asStateFlow()
     var currentStratagem by mutableStateOf<StratagemItem?>(null)
         private set
     var currentInputIndex by mutableIntStateOf(0)

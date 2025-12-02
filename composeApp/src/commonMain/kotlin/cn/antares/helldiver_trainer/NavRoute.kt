@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cn.antares.helldiver_trainer.ui.ButtonCustomPage
 import cn.antares.helldiver_trainer.ui.LocalFragmentNavController
 import cn.antares.helldiver_trainer.ui.LocalNavController
 import cn.antares.helldiver_trainer.ui.MainContainer
@@ -34,7 +35,10 @@ object NavRoute {
         object Trainer : RouteList()
 
         @Serializable
-        object StratagemSelector : RouteList()
+        object StratagemSelectorPage : RouteList()
+
+        @Serializable
+        object ButtonCustomPage : RouteList()
     }
 
     @Composable
@@ -54,8 +58,11 @@ object NavRoute {
             composable<RouteList.Trainer> {
                 Trainer()
             }
-            composable<RouteList.StratagemSelector> {
+            composable<RouteList.StratagemSelectorPage> {
                 StratagemSelectorPage()
+            }
+            composable<RouteList.ButtonCustomPage> {
+                ButtonCustomPage()
             }
         }
     }

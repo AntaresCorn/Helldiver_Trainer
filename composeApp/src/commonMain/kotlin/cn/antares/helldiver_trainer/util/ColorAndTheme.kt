@@ -36,6 +36,7 @@ class ThemeState {
             surfaceContainerLowest = Color.DarkGray,
             surfaceContainerHigh = Color.DarkGray,
             surfaceContainerHighest = Color.DarkGray,
+            onBackground = Color.White,
         )
         val helldiverTheme = baseTheme.copy(
             primary = HelldiverColor,
