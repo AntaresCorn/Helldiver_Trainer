@@ -20,9 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.SystemUpdate
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -161,7 +161,7 @@ fun SettingsFragment(
             FactionSelector()
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("版本号: ${BuildKonfig.VERSION_NAME}", color = Color.White, fontSize = 12.sp)
+            Text("版本号: ${BuildKonfig.VERSION_NAME}", fontSize = 12.sp)
             Spacer(modifier = Modifier.size(5.dp))
             Row {
                 SuperButton(
@@ -235,10 +235,10 @@ private fun BaseSettingItemLayout(
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-                Text(title, fontSize = 18.sp, color = Color.White)
+                Text(title, fontSize = 18.sp)
                 if (showInfoIcon) {
                     Icon(
-                        Icons.Default.Info,
+                        Icons.Rounded.Info,
                         contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.padding(start = 5.dp).size(20.dp).clickable {
@@ -249,7 +249,7 @@ private fun BaseSettingItemLayout(
                 if (showMoreEntry) {
                     Box(Modifier.fillMaxWidth()) {
                         Icon(
-                            Icons.Default.Settings,
+                            Icons.Rounded.Settings,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier.padding(end = 10.dp)
@@ -349,7 +349,6 @@ private fun FactionSelector(
             },
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
         )
     }
 }
@@ -454,7 +453,7 @@ private fun UpdateChecker(vm: AppViewModel = koinInject()) {
         }
         Text("检查更新", fontSize = 14.sp)
         Icon(
-            Icons.Default.SystemUpdate,
+            Icons.Rounded.SystemUpdate,
             contentDescription = null,
             modifier = Modifier
                 .padding(start = 5.dp)

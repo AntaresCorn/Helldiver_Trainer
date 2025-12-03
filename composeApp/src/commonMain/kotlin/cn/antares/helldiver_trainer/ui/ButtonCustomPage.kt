@@ -13,14 +13,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.Keyboard
-import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Remove
-import androidx.compose.material.icons.filled.Restore
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.ExpandLess
+import androidx.compose.material.icons.rounded.ExpandMore
+import androidx.compose.material.icons.rounded.Keyboard
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Save
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -70,7 +70,7 @@ fun ButtonCustomPage(
         topBar = {
             SuperScaffoldTopBar(title = "按键设置") {
                 SuperCircleButton(
-                    icon = Icons.Default.Save,
+                    icon = Icons.Rounded.Save,
                     contentDescription = "保存",
                     onClick = {
                         keyVM.savePositions()
@@ -115,7 +115,7 @@ private fun InfoAndSetting(
 
     Column(modifier = modifier) {
         SuperCircleButton(
-            icon = if (showSettings) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
+            icon = if (showSettings) Icons.Rounded.ExpandLess else Icons.Rounded.ExpandMore,
             contentDescription = "显示/隐藏说明",
             onClick = { showSettings = !showSettings },
         )
@@ -147,7 +147,7 @@ private fun InfoAndSetting(
                             fontSize = 16.sp,
                         )
                         Icon(
-                            imageVector = Icons.Default.Remove,
+                            imageVector = Icons.Rounded.Remove,
                             contentDescription = null,
                             tint = Color.Black,
                             modifier = Modifier.padding(start = 10.dp)
@@ -158,7 +158,7 @@ private fun InfoAndSetting(
                                 .clickable { keyVM.setButtonSize(buttonConfig.buttonSize - 5) },
                         )
                         Icon(
-                            imageVector = Icons.Default.Add,
+                            imageVector = Icons.Rounded.Add,
                             contentDescription = null,
                             tint = Color.Black,
                             modifier = Modifier.padding(start = 10.dp)
@@ -172,20 +172,20 @@ private fun InfoAndSetting(
                     splitter()
                     SuperButton(
                         text = "重置",
-                        icon = Icons.Default.Refresh,
+                        icon = Icons.Rounded.Refresh,
                         onClick = { keyVM.reset() },
                     )
                     splitter()
                     SuperButton(
                         text = "默认排列",
-                        icon = Icons.Default.Restore,
+                        icon = Icons.Rounded.Restore,
                         enable = buttonConfig.fixedPositionMode,
                         onClick = { keyVM.setStandardKeyboardMode(false) },
                     )
                     splitter()
                     SuperButton(
                         text = "键盘排列",
-                        icon = Icons.Default.Keyboard,
+                        icon = Icons.Rounded.Keyboard,
                         enable = buttonConfig.fixedPositionMode,
                         onClick = { keyVM.setStandardKeyboardMode(true) },
                     )

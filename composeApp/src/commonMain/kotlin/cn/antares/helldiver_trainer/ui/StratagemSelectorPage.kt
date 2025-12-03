@@ -18,8 +18,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material.icons.rounded.Save
+import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -128,7 +128,6 @@ private fun StratagemCheckItem(
         )
         Text(
             text = stratagem.name,
-            color = Color.White,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f),
         )
@@ -157,7 +156,7 @@ private fun TopBar(
     var showConfirmDialog by remember { mutableStateOf(false) }
     SuperScaffoldTopBar(title = "自选战备") {
         SuperCircleButton(
-            icon = Icons.Default.SelectAll,
+            icon = Icons.Rounded.SelectAll,
             contentDescription = "全选/全不选",
             onClick = {
                 val allSelected = stratagemStates.values.all { it.value }
@@ -166,7 +165,7 @@ private fun TopBar(
         )
         Spacer(Modifier.size(10.dp))
         SuperCircleButton(
-            icon = Icons.Default.Save,
+            icon = Icons.Rounded.Save,
             contentDescription = "保存",
             onClick = {
                 val selectedIDs = stratagemStates.filter { it.value.value }.keys.toSet()
