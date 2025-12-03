@@ -79,7 +79,7 @@ fun Idle() {
         )
         Spacer(modifier = Modifier.size(50.dp))
         Text(
-            "按下任意方向键开始",
+            "输入任意方向开始",
             color = HellColors.PrimaryColor,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,
@@ -419,7 +419,7 @@ fun GameOver(vm: GameViewModel = koinViewModel()) {
         )
         Spacer(modifier = Modifier.size(20.dp))
         Text(
-            "按下任意方向键重新开始",
+            "输入任意方向重新开始",
             color = HellColors.PrimaryColor,
             fontSize = 20.sp,
             fontStyle = FontStyle.Italic,

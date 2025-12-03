@@ -22,6 +22,7 @@ class SharedKVManager {
         private const val SELECTED_STRATAGEM_IDS = "selected_stratagem_ids"
         private const val BUTTON_CONFIG_PORTRAIT = "button_config_portrait"
         private const val BUTTON_CONFIG_LANDSCAPE = "button_config_landscape"
+        private const val SWIPE_MODE = "swipe_mode"
     }
 
     private fun getSharedKVInstance(): Settings = getSharedPreference(DEFAULT_NAMESPACE)
@@ -68,4 +69,8 @@ class SharedKVManager {
     fun setButtonConfigLandscape(config: ArrowButtonConfig) {
         getSharedKVInstance().putString(BUTTON_CONFIG_LANDSCAPE, config.toString())
     }
+
+    fun isSwipeMode(): Boolean = getSharedKVInstance().getBoolean(SWIPE_MODE, false)
+
+    fun setSwipeMode(enabled: Boolean) = getSharedKVInstance().putBoolean(SWIPE_MODE, enabled)
 }

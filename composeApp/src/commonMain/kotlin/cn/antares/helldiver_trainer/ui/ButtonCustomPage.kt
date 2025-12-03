@@ -80,7 +80,7 @@ fun ButtonCustomPage(
             }
         },
     ) { innerPadding ->
-        GameAndButtonContainer(adjustMode = true)
+        GameAndButtonContainer(showButton = true, adjustMode = true)
 
         InfoAndSetting(
             modifier = Modifier.padding(top = innerPadding.calculateTopPadding() + 10.dp),

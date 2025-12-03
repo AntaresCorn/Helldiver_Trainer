@@ -147,6 +147,15 @@ fun SettingsFragment(
                         }
                     },
                 )
+                var swipeMode by remember { mutableStateOf(kvManager.isSwipeMode()) }
+                SettingSwitchItem(
+                    text = "滑动输入模式",
+                    initialSwitchState = swipeMode,
+                    onSwitchChanged = {
+                        swipeMode = it
+                        kvManager.setSwipeMode(it)
+                    },
+                )
             }
             Spacer(modifier = Modifier.size(20.dp))
             FactionSelector()
