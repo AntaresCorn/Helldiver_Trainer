@@ -6,7 +6,7 @@ import cn.antares.helldiver_trainer.BuildKonfig
 import cn.antares.helldiver_trainer.data.github.entity.GithubReleaseEntity
 import cn.antares.helldiver_trainer.data.github.repository.GithubRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AppViewModel(private val githubRepository: GithubRepository) : ViewModel() {
@@ -20,7 +20,7 @@ class AppViewModel(private val githubRepository: GithubRepository) : ViewModel()
     }
 
     private val _state = MutableStateFlow<UpdateState>(UpdateState.Idle)
-    val state: StateFlow<UpdateState> = _state
+    val state = _state.asStateFlow()
 
     fun checkForUpdates() {
         if (_state.value == UpdateState.Checking) return

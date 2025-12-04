@@ -280,6 +280,18 @@ object StratagemStore {
                 icon = MR.images.sw_expendable_napalm,
                 inputs = listOf(DOWN, DOWN, LEFT, UP, LEFT),
             ),
+            StratagemItem(
+                id = "sw_25",
+                name = "重装机枪",
+                icon = MR.images.sw_maxigun,
+                inputs = listOf(DOWN, LEFT, RIGHT, DOWN, UP, UP),
+            ),
+            StratagemItem(
+                id = "sw_26",
+                name = "除叶工具",
+                icon = MR.images.sw_defoliation_tool,
+                inputs = listOf(DOWN, LEFT, RIGHT, RIGHT, DOWN),
+            ),
 
             /**
              * 背包
@@ -355,6 +367,12 @@ object StratagemStore {
                 name = "传送背包",
                 icon = MR.images.bp_warp_pack,
                 inputs = listOf(DOWN, LEFT, RIGHT, DOWN, LEFT, RIGHT),
+            ),
+            StratagemItem(
+                id = "bp_13",
+                name = "“护卫犬”热狗",
+                icon = MR.images.bp_guard_dog_hot_dog,
+                inputs = listOf(DOWN, UP, LEFT, UP, LEFT, LEFT),
             ),
 
             /**

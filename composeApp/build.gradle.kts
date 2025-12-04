@@ -141,7 +141,8 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
+            signingConfig =
+                signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
 
@@ -153,7 +154,7 @@ android {
 
 compose.desktop {
     application {
-        mainClass = appPackageName
+        mainClass = "$appPackageName.MainKt"
 
         nativeDistributions {
             packageName = "HelldiverTrainer"

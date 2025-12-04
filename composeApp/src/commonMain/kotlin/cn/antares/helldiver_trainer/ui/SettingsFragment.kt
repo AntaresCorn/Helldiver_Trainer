@@ -20,9 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.SystemUpdate
+import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.Settings
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -56,9 +56,10 @@ import cn.antares.helldiver_trainer.bridge.openWebPage
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager
-import cn.antares.helldiver_trainer.util.SuperDialog
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.util.widget.SuperButton
+import cn.antares.helldiver_trainer.util.widget.SuperDialog
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
@@ -97,19 +98,19 @@ fun SettingsFragment(
         20.dp
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize().padding(horizontal = horizontalPadding),
-        contentAlignment = Alignment.Center,
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = horizontalPadding, vertical = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             SettingSwitchItem(
-                "自选战备",
-                stratagemSelectorState,
+                text = "自选战备",
+                initialSwitchState = stratagemSelectorState,
                 showInfoIcon = true,
                 infoClickCallback = { showCustomStratagemInfo = true },
                 showMoreEntry = true,
                 moreEntryCallback = {
-                    navController.navigate(NavRoute.RouteList.StratagemSelector) {
+                    navController.navigate(NavRoute.RouteList.StratagemSelectorPage) {
                         launchSingleTop = true
                         restoreState = true
                         popUpTo(NavRoute.RouteList.Main.MainContainer) {
@@ -123,8 +124,8 @@ fun SettingsFragment(
                 },
             )
             SettingSwitchItem(
-                "无限模式",
-                infiniteModeState,
+                text = "无限模式",
+                initialSwitchState = infiniteModeState,
                 showInfoIcon = true,
                 infoClickCallback = { showInfiniteModeInfo = true },
                 onSwitchChanged = {
@@ -132,17 +133,42 @@ fun SettingsFragment(
                     kvManager.setInfiniteMode(it)
                 },
             )
+            if (HellUtils.isOnPC().not()) {
+                SettingButtonItem(
+                    text = "按键设置",
+                    buttonText = "前往",
+                    onButtonClick = {
+                        navController.navigate(NavRoute.RouteList.ButtonCustomPage) {
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo(NavRoute.RouteList.Main.MainContainer) {
+                                saveState = true
+                            }
+                        }
+                    },
+                )
+                var swipeMode by remember { mutableStateOf(kvManager.isSwipeMode()) }
+                SettingSwitchItem(
+                    text = "滑动输入模式",
+                    initialSwitchState = swipeMode,
+                    onSwitchChanged = {
+                        swipeMode = it
+                        kvManager.setSwipeMode(it)
+                    },
+                )
+            }
             Spacer(modifier = Modifier.size(20.dp))
             FactionSelector()
         }
-        Column(
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text("版本号: ${BuildKonfig.VERSION_NAME}", color = Color.White, fontSize = 12.sp)
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text("版本号: ${BuildKonfig.VERSION_NAME}", fontSize = 12.sp)
             Spacer(modifier = Modifier.size(5.dp))
             Row {
-                RepositoryLink()
+                SuperButton(
+                    "项目仓库",
+                    painterResource(MR.images.ic_github_mark),
+                    onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) },
+                )
                 Spacer(modifier = Modifier.width(20.dp))
                 UpdateChecker()
             }
@@ -209,10 +235,10 @@ private fun BaseSettingItemLayout(
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
-                Text(title, fontSize = 18.sp, color = Color.White)
+                Text(title, fontSize = 18.sp)
                 if (showInfoIcon) {
                     Icon(
-                        Icons.Default.Info,
+                        Icons.Rounded.Info,
                         contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.padding(start = 5.dp).size(20.dp).clickable {
@@ -223,7 +249,7 @@ private fun BaseSettingItemLayout(
                 if (showMoreEntry) {
                     Box(Modifier.fillMaxWidth()) {
                         Icon(
-                            Icons.Default.Settings,
+                            Icons.Rounded.Settings,
                             contentDescription = null,
                             tint = Color.White,
                             modifier = Modifier.padding(end = 10.dp)
@@ -323,21 +349,6 @@ private fun FactionSelector(
             },
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White,
-        )
-    }
-}
-
-@Composable
-private fun RepositoryLink() {
-    Button(onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) }) {
-        Text("项目仓库", fontSize = 14.sp)
-        Image(
-            painterResource(MR.images.ic_github_mark),
-            contentDescription = null,
-            modifier = Modifier
-                .padding(start = 5.dp)
-                .size(16.dp),
         )
     }
 }
@@ -442,7 +453,7 @@ private fun UpdateChecker(vm: AppViewModel = koinInject()) {
         }
         Text("检查更新", fontSize = 14.sp)
         Icon(
-            Icons.Default.SystemUpdate,
+            Icons.Rounded.SystemUpdate,
             contentDescription = null,
             modifier = Modifier
                 .padding(start = 5.dp)

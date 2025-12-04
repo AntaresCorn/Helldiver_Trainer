@@ -9,6 +9,7 @@ import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import cn.antares.helldiver_trainer.util.WindowInfoManagerImpl
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
+import cn.antares.helldiver_trainer.viewmodel.ArrowButtonViewModel
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.aakira.napier.DebugAntilog
@@ -37,6 +38,7 @@ val GlobalComponentModule = module {
 val ViewModelModule = module {
     viewModelOf(::GameViewModel)
     viewModelOf(::AppViewModel)
+    viewModelOf(::ArrowButtonViewModel)
 }
 
 val DataModule = module {

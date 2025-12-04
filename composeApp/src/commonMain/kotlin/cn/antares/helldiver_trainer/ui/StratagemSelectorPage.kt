@@ -18,9 +18,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.SelectAll
+import androidx.compose.material.icons.rounded.Save
+import androidx.compose.material.icons.rounded.SelectAll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -42,12 +41,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.StratagemStore
-import cn.antares.helldiver_trainer.util.SuperCircleButton
-import cn.antares.helldiver_trainer.util.SuperDialog
 import cn.antares.helldiver_trainer.util.WindowInfoManager
+import cn.antares.helldiver_trainer.util.widget.SuperCircleButton
+import cn.antares.helldiver_trainer.util.widget.SuperDialog
+import cn.antares.helldiver_trainer.util.widget.SuperScaffoldTopBar
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject
@@ -129,7 +128,6 @@ private fun StratagemCheckItem(
         )
         Text(
             text = stratagem.name,
-            color = Color.White,
             textAlign = TextAlign.Center,
             modifier = Modifier.weight(1f),
         )
@@ -151,42 +149,34 @@ private fun StratagemCheckItem(
 
 @Composable
 private fun TopBar(
-    navController: NavHostController = LocalNavController.current,
     kvManager: SharedKVManager = koinInject(),
     stratagemStates: Map<String, MutableState<Boolean>>,
 ) {
     var showWarningDialog by remember { mutableStateOf(false) }
     var showConfirmDialog by remember { mutableStateOf(false) }
-    Box(modifier = Modifier.fillMaxWidth()) {
+    SuperScaffoldTopBar(title = "自选战备") {
         SuperCircleButton(
-            modifier = Modifier.align(Alignment.CenterStart),
-            icon = Icons.AutoMirrored.Filled.ArrowBack,
-            onClick = { navController.navigateUp() },
+            icon = Icons.Rounded.SelectAll,
+            contentDescription = "全选/全不选",
+            onClick = {
+                val allSelected = stratagemStates.values.all { it.value }
+                stratagemStates.values.forEach { it.value = !allSelected }
+            },
         )
-        Row(modifier = Modifier.align(Alignment.CenterEnd)) {
-            SuperCircleButton(
-                icon = Icons.Default.SelectAll,
-                contentDescription = "全选/全不选",
-                onClick = {
-                    val allSelected = stratagemStates.values.all { it.value }
-                    stratagemStates.values.forEach { it.value = !allSelected }
-                },
-            )
-            Spacer(Modifier.size(10.dp))
-            SuperCircleButton(
-                icon = Icons.Default.Save,
-                contentDescription = "保存",
-                onClick = {
-                    val selectedIDs = stratagemStates.filter { it.value.value }.keys.toSet()
-                    if (selectedIDs.isEmpty()) {
-                        showWarningDialog = true
-                    } else {
-                        kvManager.setSelectedStratagemIDs(selectedIDs)
-                        showConfirmDialog = true
-                    }
-                },
-            )
-        }
+        Spacer(Modifier.size(10.dp))
+        SuperCircleButton(
+            icon = Icons.Rounded.Save,
+            contentDescription = "保存",
+            onClick = {
+                val selectedIDs = stratagemStates.filter { it.value.value }.keys.toSet()
+                if (selectedIDs.isEmpty()) {
+                    showWarningDialog = true
+                } else {
+                    kvManager.setSelectedStratagemIDs(selectedIDs)
+                    showConfirmDialog = true
+                }
+            },
+        )
     }
     if (showWarningDialog) {
         SuperDialog(

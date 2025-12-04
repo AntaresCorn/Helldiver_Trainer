@@ -1,4 +1,4 @@
-package cn.antares.helldiver_trainer.util
+package cn.antares.helldiver_trainer.util.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

@@ -109,6 +109,7 @@ fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
                             Icon(
                                 painterResource(MR.images.ic_launcher),
                                 contentDescription = null,
+                                tint = Color.Black,
                                 modifier = Modifier.size(45.dp).clip(RoundedCornerShape(15))
                                     .background(MaterialTheme.colorScheme.primary)
                                     .padding(5.dp),
@@ -133,7 +134,7 @@ fun MainContainer(windowInfoManager: WindowInfoManager = koinInject()) {
                     }
                 }
             }
-            NavRoute.MainNavHost(Modifier.padding(innerPadding))
+            NavRoute.MainNavHost(Modifier.padding(bottom = innerPadding.calculateBottomPadding()))
         }
     }
 }

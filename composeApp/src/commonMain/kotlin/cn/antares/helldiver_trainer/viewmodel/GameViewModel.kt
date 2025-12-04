@@ -30,13 +30,13 @@ import kotlin.random.nextInt
 class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
 
     companion object {
-        const val INIT_ROUND_STRATAGEM_SIZE = 4 // 初始战备数量
-        const val MAX_STRATAGEM_SIZE = 15 // 最大战备数量
-        const val ROUND_TIME = 10000L // 每轮时间，单位毫秒
-        const val EXTRA_TIME = 1200L // 每次延长时间，单位毫秒
-        const val ROUND_BONUS_SCORE_MULTIPLIER = 25 // 每轮奖励乘数
-        const val TIME_BONUS_SCORE_MULTIPLIER = 1 // 时间奖励乘数
-        const val PERFECT_BONUS_SCORE = 100 // 完美奖励分数
+        private const val INIT_ROUND_STRATAGEM_SIZE = 4 // 初始战备数量
+        private const val MAX_STRATAGEM_SIZE = 15 // 最大战备数量
+        private var ROUND_TIME = 10000L // 每轮时间，单位毫秒
+        private var EXTRA_TIME = 1200L // 每次延长时间，单位毫秒
+        private const val ROUND_BONUS_SCORE_MULTIPLIER = 25 // 每轮奖励乘数
+        private const val TIME_BONUS_SCORE_MULTIPLIER = 1 // 时间奖励乘数
+        private const val PERFECT_BONUS_SCORE = 100 // 完美奖励分数
         const val TIME_WARNING_THRESHOLD = 0.3f // 时间警告阈值，剩余时间比例
     }
 
@@ -84,7 +84,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
     private val allStratagems = mutableListOf<StratagemItem>()
     private val _stratagemList =
         MutableStateFlow<SnapshotStateList<StratagemItem>>(SnapshotStateList())
-    val stratagemList: StateFlow<SnapshotStateList<StratagemItem>> = _stratagemList
+    val stratagemList = _stratagemList.asStateFlow()
     var currentStratagem by mutableStateOf<StratagemItem?>(null)
         private set
     var currentInputIndex by mutableIntStateOf(0)
@@ -97,6 +97,10 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
 
     init {
         initStratagems()
+        if (kvManager.isSwipeMode()) {
+            ROUND_TIME *= 2
+            EXTRA_TIME *= 2
+        }
     }
 
     override fun onCleared() {
