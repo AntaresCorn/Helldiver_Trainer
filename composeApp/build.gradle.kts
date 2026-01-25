@@ -29,7 +29,7 @@ kotlin {
 
     sourceSets {
         androidMain.dependencies {
-            implementation(compose.runtime)
+            implementation(libs.runtime)
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.appcompat)
             implementation(libs.androidx.fragment)
@@ -38,14 +38,13 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(compose.preview)
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material3)
+            implementation(libs.material.icons.extended)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.io.core)
             implementation(libs.kotlinx.serialization.json)
@@ -181,6 +180,10 @@ multiplatformResources {
     resourcesPackage = appPackageName
 }
 
+ktorfit {
+    compilerPluginVersion.set("2.3.3")
+}
+
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 }
