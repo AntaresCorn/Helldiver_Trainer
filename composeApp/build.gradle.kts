@@ -180,6 +180,10 @@ multiplatformResources {
     resourcesPackage = appPackageName
 }
 
+ktorfit {
+    compilerPluginVersion.set("2.3.3")
+}
+
 dependencies {
     debugImplementation(libs.ui.tooling)
 }
