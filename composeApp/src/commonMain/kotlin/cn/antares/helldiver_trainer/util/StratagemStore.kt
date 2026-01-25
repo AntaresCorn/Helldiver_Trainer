@@ -374,6 +374,12 @@ object StratagemStore {
                 icon = MR.images.bp_guard_dog_hot_dog,
                 inputs = listOf(DOWN, UP, LEFT, UP, LEFT, LEFT),
             ),
+            StratagemItem(
+                id = "bp_14",
+                name = "C4背包",
+                icon = MR.images.bp_c4_pack,
+                inputs = listOf(DOWN, RIGHT, UP, UP, RIGHT, UP),
+            ),
 
             /**
              * 载具
@@ -607,6 +613,24 @@ object StratagemStore {
                 name = "启动钻机",
                 icon = MR.images.ms_711_drill,
                 inputs = listOf(DOWN, DOWN, LEFT, LEFT, DOWN, DOWN),
+            ),
+            StratagemItem(
+                id = "ms_16",
+                name = "货物集装箱",
+                icon = MR.images.ms_cargo_container,
+                inputs = listOf(DOWN, DOWN, UP, UP, RIGHT, DOWN),
+            ),
+            StratagemItem(
+                id = "ms_17",
+                name = "呼叫超级驱逐舰",
+                icon = MR.images.ms_call_in_super_destroyer,
+                inputs = listOf(UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT),
+            ),
+            StratagemItem(
+                id = "ms_18",
+                name = "将绝地喷射舱连接至驱逐舰",
+                icon = MR.images.ms_upload_data,
+                inputs = listOf(LEFT, RIGHT, UP, UP, UP),
             ),
         )
     }
