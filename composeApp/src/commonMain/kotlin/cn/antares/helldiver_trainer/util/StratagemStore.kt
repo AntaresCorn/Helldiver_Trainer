@@ -292,6 +292,24 @@ object StratagemStore {
                 icon = MR.images.sw_defoliation_tool,
                 inputs = listOf(DOWN, LEFT, RIGHT, RIGHT, DOWN),
             ),
+            StratagemItem(
+                id = "sw_27",
+                name = "弹链式榴弹发射器",
+                icon = MR.images.sw_gl_28,
+                inputs = listOf(DOWN, LEFT, UP, LEFT, UP, UP),
+            ),
+            StratagemItem(
+                id = "sw_28",
+                name = "荡平者",
+                icon = MR.images.sw_eat_411,
+                inputs = listOf(DOWN, DOWN, LEFT, UP, DOWN),
+            ),
+            StratagemItem(
+                id = "sw_29",
+                name = "破门锤",
+                icon = MR.images.sw_cqc_20,
+                inputs = listOf(DOWN, LEFT, RIGHT, LEFT, UP),
+            ),
 
             /**
              * 背包
@@ -401,6 +419,12 @@ object StratagemStore {
                 name = "“爱国者”外骨骼装甲",
                 icon = MR.images.v_patriot_exosuit,
                 inputs = listOf(LEFT, DOWN, RIGHT, UP, LEFT, DOWN, DOWN),
+            ),
+            StratagemItem(
+                id = "v_4",
+                name = "堡垒MK XVI",
+                icon = MR.images.v_bastion_mk_xvi,
+                inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, DOWN, UP),
             ),
 
             /**
