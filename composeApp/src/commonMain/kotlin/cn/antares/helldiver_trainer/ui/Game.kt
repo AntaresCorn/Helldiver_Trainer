@@ -211,7 +211,11 @@ fun Play(
                 textAlign = TextAlign.Center,
             )
             Spacer(Modifier.size(10.dp))
-            LazyRow(userScrollEnabled = false) {
+            LazyRow(
+                userScrollEnabled = false,
+                modifier = Modifier.height(40.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 itemsIndexed(
                     vm.currentStratagem?.inputs ?: emptyList(),
                     key = { index, _ -> index },
@@ -233,7 +237,10 @@ fun Play(
                                 GameViewModel.StratagemInput.LEFT -> 180f
                                 GameViewModel.StratagemInput.RIGHT -> 0f
                             },
-                        ).size(40.dp).padding(horizontal = 4.dp),
+                        ).size(
+                            if (vm.currentStratagem?.inputs?.size!! > 8 && windowInfo.isPhonePortrait())
+                                35.dp else 40.dp,
+                        ).padding(horizontal = 4.dp),
                     )
                 }
             }
