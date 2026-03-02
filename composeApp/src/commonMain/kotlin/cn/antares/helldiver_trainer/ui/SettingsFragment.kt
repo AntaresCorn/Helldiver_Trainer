@@ -368,12 +368,16 @@ private fun UpdateChecker(vm: AppViewModel = koinInject()) {
             else -> ""
         }
         val messageText = when (updateState) {
-            is AppViewModel.UpdateState.NewRelease -> "是否跳转下载页"
+            is AppViewModel.UpdateState.NewRelease -> {
+                val entity = (updateState as AppViewModel.UpdateState.NewRelease).release
+                "${entity.releaseName}\n${entity.description}"
+            }
+
             is AppViewModel.UpdateState.Error -> (updateState as AppViewModel.UpdateState.Error).message
             else -> ""
         }
         val confirmButtonText = when (updateState) {
-            is AppViewModel.UpdateState.NewRelease -> "前往"
+            is AppViewModel.UpdateState.NewRelease -> "前往下载"
             is AppViewModel.UpdateState.UpToDate,
             is AppViewModel.UpdateState.Error,
                 -> "确认"

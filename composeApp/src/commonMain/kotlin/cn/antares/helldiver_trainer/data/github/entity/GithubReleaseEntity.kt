@@ -8,4 +8,5 @@ data class GithubReleaseEntity(
     @SerialName("tag_name") val tagName: String? = null,
     @SerialName("name") val releaseName: String? = null,
     @SerialName("html_url") val url: String? = null,
+    @SerialName("body") val description: String? = null,
 )
