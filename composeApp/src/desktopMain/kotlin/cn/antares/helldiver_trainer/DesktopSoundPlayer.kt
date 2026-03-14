@@ -4,6 +4,7 @@ import cn.antares.helldiver_trainer.bridge.AbstractSoundPlayer
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import korlibs.audio.sound.Sound
 import korlibs.audio.sound.SoundChannel
+import korlibs.audio.sound.await
 import korlibs.audio.sound.readSound
 import korlibs.io.file.std.resourcesVfs
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +19,7 @@ class DesktopSoundPlayer : AbstractSoundPlayer<Unit> {
     }
 
     private val soundCache = ConcurrentHashMap<SoundResource, Sound>()
-    private var loopSoundChannel: SoundChannel? = null
+    private val activeChannels = ConcurrentHashMap<SoundResource, MutableList<SoundChannel>>()
 
     override fun init(context: Unit) {
         CoroutineScope(Dispatchers.Default).launch {
@@ -36,24 +37,47 @@ class DesktopSoundPlayer : AbstractSoundPlayer<Unit> {
     }
 
     override fun release() {
+        activeChannels.values.forEach { channels ->
+            channels.forEach { it.stop() }
+        }
+        activeChannels.clear()
         soundCache.clear()
         println("Desktop sound cache cleared")
     }
 
     override fun play(sound: SoundResource) {
         CoroutineScope(Dispatchers.Default).launch {
-            if (sound == SoundResource.Playing) {
-                loopSoundChannel = soundCache[sound]?.playForever()
+            val loadedSound = soundCache[sound] ?: return@launch
+            val channel = if (sound == SoundResource.Playing) {
+                loadedSound.playForever()
             } else {
-                soundCache[sound]?.play()
+                loadedSound.play()
+            }
+
+            // 将当前播放的频道加入管理列表
+            val channels = activeChannels.getOrPut(sound) { mutableListOf() }
+            synchronized(channels) {
+                channels.add(channel)
+            }
+
+            // 当频道停止或播放结束时，从列表中移除，防止内存泄漏
+            // playForever 的声音只能通过 stop() 手动触发移除
+            if (sound != SoundResource.Playing) {
+                launch {
+                    // 等待音频播放完毕
+                    channel.await()
+                    synchronized(channels) {
+                        channels.remove(channel)
+                    }
+                }
             }
         }
     }
 
     override fun stop(sound: SoundResource) {
-        if (sound == SoundResource.Playing) {
-            loopSoundChannel?.stop()
-            loopSoundChannel = null
+        activeChannels[sound]?.let { channels ->
+            channels.forEach { it.stop() }
+            channels.clear()
         }
     }
 
@@ -71,6 +95,9 @@ class DesktopSoundPlayer : AbstractSoundPlayer<Unit> {
             SoundResource.Success1 -> "success1.wav"
             SoundResource.Success2 -> "success2.wav"
             SoundResource.Success3 -> "success3.wav"
+            SoundResource.PipeMove -> "pipe_move.wav"
+            SoundResource.PipeLoading -> "pipe_loading.wav"
+            SoundResource.PipeComplete -> "pipe_complete.wav"
         }
     }
 }

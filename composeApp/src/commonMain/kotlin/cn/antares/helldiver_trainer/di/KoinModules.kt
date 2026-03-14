@@ -11,6 +11,7 @@ import cn.antares.helldiver_trainer.util.WindowInfoManagerImpl
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import cn.antares.helldiver_trainer.viewmodel.ArrowButtonViewModel
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
+import cn.antares.helldiver_trainer.viewmodel.PipeGameViewModel
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -39,6 +40,7 @@ val ViewModelModule = module {
     viewModelOf(::GameViewModel)
     viewModelOf(::AppViewModel)
     viewModelOf(::ArrowButtonViewModel)
+    viewModelOf(::PipeGameViewModel)
 }
 
 val DataModule = module {

@@ -39,6 +39,20 @@ fun MainFragment() {
             }
             Spacer(modifier = Modifier.size(30.dp))
             Button(
+                onClick = {
+                    navController.navigate(NavRoute.RouteList.PipeGame) {
+                        launchSingleTop = true
+                        restoreState = true
+                        popUpTo(NavRoute.RouteList.Main.MainContainer) {
+                            saveState = true
+                        }
+                    }
+                },
+            ) {
+                Text("接水管", fontSize = 20.sp)
+            }
+            Spacer(modifier = Modifier.size(30.dp))
+            Button(
                 onClick = { openWebPage(LinkStore.HELLDIVERS_COMPANION) },
             ) {
                 Text("银河战争地图", fontSize = 20.sp)
