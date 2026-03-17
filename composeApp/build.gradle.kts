@@ -18,7 +18,7 @@ plugins {
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = appPackageName
         minSdk = libs.versions.android.minSdk.get().toInt()
         compileSdk = libs.versions.android.compileSdk.get().toInt()
@@ -34,33 +34,51 @@ kotlin {
 
     jvm("desktop")
 
-    dependencies {
-        implementation(libs.runtime)
-        implementation(libs.foundation)
-        implementation(libs.material3)
-        implementation(libs.material.icons.extended)
-        implementation(libs.ui)
-        implementation(libs.components.resources)
-        implementation(libs.ui.tooling.preview)
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.kotlinx.io.core)
-        implementation(libs.kotlinx.serialization.json)
-        implementation(libs.kotlinx.datetime)
-        implementation(libs.ktorfit.lib)
-        implementation(libs.ktor.client.core)
-        implementation(libs.ktor.client.cio)
-        implementation(libs.ktor.client.content.negotiation)
-        implementation(libs.ktor.client.logging)
-        implementation(libs.ktor.serialization.kotlinx.json)
-        implementation(libs.napier)
-        implementation(libs.koin.compose)
-        implementation(libs.koin.compose.viewmodel)
-        implementation(libs.koin.compose.viewmodel.navigation)
-        implementation(libs.koin.core)
-        implementation(libs.navigation.compose)
-        implementation(libs.moko.resources)
-        implementation(libs.moko.resources.compose)
-        implementation(libs.multiplatform.settings)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material3)
+            implementation(libs.material.icons.extended)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.io.core)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.ktorfit.lib)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.napier)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.viewmodel.navigation)
+            implementation(libs.koin.core)
+            implementation(libs.navigation.compose)
+            implementation(libs.moko.resources)
+            implementation(libs.moko.resources.compose)
+            implementation(libs.multiplatform.settings)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.appcompat)
+            implementation(libs.androidx.fragment)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+        }
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
+                implementation(libs.kotlinx.coroutinesSwing)
+                implementation(libs.korau.jvm)
+                implementation(libs.korio.jvm)
+            }
+        }
     }
 }
 
@@ -79,6 +97,10 @@ composeCompiler {
 // moko要求
 multiplatformResources {
     resourcesPackage = appPackageName
+}
+
+ktorfit {
+    compilerPluginVersion.set("2.3.3")
 }
 
 dependencies {

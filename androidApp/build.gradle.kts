@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
 plugins {
-    alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
@@ -17,18 +16,11 @@ kotlin {
 
     dependencies {
         implementation(projects.composeApp)
-        implementation(libs.runtime)
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.appcompat)
-        implementation(libs.androidx.fragment)
-        implementation(libs.androidx.activity.compose)
-        implementation(libs.androidx.lifecycle.viewmodel)
-        implementation(libs.androidx.lifecycle.runtimeCompose)
     }
 }
 
 android {
-    namespace = "cn.antares.helldiver_trainer"
+    namespace = "cn.antares.helldiver_trainer.android"
 
     defaultConfig {
         applicationId = "cn.antares.helldiver_trainer"

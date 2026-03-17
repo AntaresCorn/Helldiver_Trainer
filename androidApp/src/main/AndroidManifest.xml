@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
         <activity
-            android:name=".MainActivity"
+            android:name="cn.antares.helldiver_trainer.MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="true">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WebViewActivity"
+            android:name="cn.antares.helldiver_trainer.WebViewActivity"
             android:launchMode="singleTask" />
     </application>
 
