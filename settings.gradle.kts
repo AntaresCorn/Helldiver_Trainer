@@ -34,3 +34,5 @@ plugins {
 }
 
 include(":composeApp")
+include(":androidApp")
+include(":desktopApp")

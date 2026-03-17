@@ -1,5 +1,6 @@
 package cn.antares.helldiver_trainer
 
+import DesktopSoundPlayer
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window

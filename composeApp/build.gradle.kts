@@ -1,12 +1,11 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.util.Properties
 
 val appPackageName = "cn.antares.helldiver_trainer"
 
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidKotlinMultiplatformLibrary)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.composeMultiplatform)
@@ -19,24 +18,23 @@ plugins {
 }
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = appPackageName
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+            jvmTarget = JvmTarget.JVM_17
+        }
+
+        androidResources {
+            enable = true
         }
     }
 
     jvm("desktop")
 
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.runtime)
-            implementation(libs.androidx.core.ktx)
-            implementation(libs.androidx.appcompat)
-            implementation(libs.androidx.fragment)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtimeCompose)
-        }
         commonMain.dependencies {
             implementation(libs.runtime)
             implementation(libs.foundation)
@@ -65,6 +63,14 @@ kotlin {
             implementation(libs.moko.resources.compose)
             implementation(libs.multiplatform.settings)
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.appcompat)
+            implementation(libs.androidx.fragment)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
+        }
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
@@ -84,93 +90,6 @@ buildkonfig {
     }
 }
 
-android {
-    namespace = appPackageName
-
-    defaultConfig {
-        applicationId = appPackageName
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        compileSdk = libs.versions.android.compileSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
-        versionName = libs.versions.versionName.get()
-
-        ndk {
-            abiFilters.add("arm64-v8a")
-        }
-    }
-
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-        jniLibs {
-            useLegacyPackaging = true
-        }
-    }
-
-    signingConfigs {
-        val signingConfigFile = file("src/androidMain/signing.properties").apply {
-            println("signingConfig exists: ${exists()}")
-        }
-        if (signingConfigFile.exists()) {
-            create("release") {
-                val prop = Properties().apply {
-                    signingConfigFile.inputStream().use(this::load)
-                }
-                val keystoreFile = file("src/androidMain/release.keystore").apply {
-                    println("keystore exists: ${exists()}")
-                }
-                storeFile = keystoreFile
-                storePassword = prop.getProperty("keystore.password").apply {
-                    println("keystore.password is empty: ${isNullOrEmpty()}")
-                }
-                keyAlias = prop.getProperty("key.alias").apply {
-                    println("key.alias is empty: ${isNullOrEmpty()}")
-                }
-                keyPassword = prop.getProperty("key.password").apply {
-                    println("key.password is empty: ${isNullOrEmpty()}")
-                }
-                enableV1Signing = true
-                enableV2Signing = true
-            }
-        }
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            signingConfig =
-                signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
-compose.desktop {
-    application {
-        mainClass = "$appPackageName.MainKt"
-
-        nativeDistributions {
-            packageName = "HelldiverTrainer"
-            packageVersion = libs.versions.versionName.get()
-            vendor = "Antares"
-            description = "Helldiver Trainer"
-
-            /* exe没有声音，解决前不打包
-            targetFormats(TargetFormat.Exe)
-            windows {
-                iconFile.set(project.file("src/desktopMain/resources/ic_launcher.ico"))
-                menuGroup = "Antares"
-            }*/
-        }
-    }
-}
-
 composeCompiler {
     featureFlags.add(ComposeFeatureFlag.OptimizeNonSkippingGroups)
 }
@@ -185,5 +104,5 @@ ktorfit {
 }
 
 dependencies {
-    debugImplementation(libs.ui.tooling)
+    androidRuntimeClasspath(libs.ui.tooling)
 }

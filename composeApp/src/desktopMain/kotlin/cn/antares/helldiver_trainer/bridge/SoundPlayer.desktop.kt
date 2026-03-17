@@ -1,6 +1,6 @@
 package cn.antares.helldiver_trainer.bridge
 
-import cn.antares.helldiver_trainer.DesktopSoundPlayer
+import DesktopSoundPlayer
 
 actual fun playSound(sound: SoundResource) {
     DesktopSoundPlayer.instance.play(sound)

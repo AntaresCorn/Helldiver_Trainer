@@ -1,5 +1,3 @@
-package cn.antares.helldiver_trainer
-
 import cn.antares.helldiver_trainer.bridge.AbstractSoundPlayer
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import korlibs.audio.sound.Sound
