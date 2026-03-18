@@ -13,9 +13,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -29,6 +34,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 
 class WebViewActivity : BaseActivity() {
@@ -54,9 +61,10 @@ class WebViewActivity : BaseActivity() {
     ) {
         val context = LocalContext.current
         var isLoading by remember { mutableStateOf(true) }
+        var progress by remember { mutableIntStateOf(0) }
         var hasError by remember { mutableStateOf(false) }
         var pageErrorCode by remember { mutableIntStateOf(0) }
-        // remember WebView to preserve state across recompositions
+
         val webView = remember {
             WebView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(
@@ -67,7 +75,13 @@ class WebViewActivity : BaseActivity() {
                 settings.javaScriptEnabled = true
                 settings.domStorageEnabled = true
                 settings.cacheMode = WebSettings.LOAD_DEFAULT
-                webChromeClient = WebChromeClient()
+                setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
+
+                webChromeClient = object : WebChromeClient() {
+                    override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                        progress = newProgress
+                    }
+                }
                 webViewClient = object : WebViewClient() {
                     override fun onPageStarted(
                         view: WebView?,
@@ -76,10 +90,18 @@ class WebViewActivity : BaseActivity() {
                     ) {
                         hasError = false
                         isLoading = true
+                        progress = 0
                     }
 
                     override fun onPageFinished(view: WebView?, url: String?) {
-                        isLoading = false
+                        view?.postVisualStateCallback(
+                            System.currentTimeMillis(),
+                            object : WebView.VisualStateCallback() {
+                                override fun onComplete(requestId: Long) {
+                                    isLoading = false
+                                }
+                            },
+                        )
                     }
 
                     override fun onReceivedError(
@@ -130,12 +152,31 @@ class WebViewActivity : BaseActivity() {
                 update = { it.loadUrl(url) },
                 modifier = Modifier.fillMaxSize(),
             )
-            if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center),
-                    color = androidx.compose.ui.graphics.Color.White,
-                )
+
+            AnimatedVisibility(
+                modifier = Modifier.align(Alignment.Center),
+                visible = isLoading,
+                enter = fadeIn(),
+                exit = fadeOut(animationSpec = tween(durationMillis = 800)),
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    CircularProgressIndicator(
+                        color = androidx.compose.ui.graphics.Color.White,
+                    )
+                    Text(
+                        text = "$progress%",
+                        modifier = Modifier.padding(top = 4.dp),
+                        color = androidx.compose.ui.graphics.Color.White,
+                    )
+                    Text(
+                        text = "请民主地等待...\n（境外网站，访问速度较慢）",
+                        modifier = Modifier.padding(top = 10.dp),
+                        color = androidx.compose.ui.graphics.Color.White,
+                        textAlign = TextAlign.Center,
+                    )
+                }
             }
+
             if (hasError) {
                 Column(
                     modifier = Modifier.align(Alignment.Center),
