@@ -648,7 +648,7 @@ object StratagemStore {
                 id = "ms_17",
                 name = "呼叫超级驱逐舰",
                 icon = MR.images.ms_call_in_super_destroyer,
-                inputs = listOf(UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT),
+                inputs = listOf(UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT),
             ),
             StratagemItem(
                 id = "ms_18",
