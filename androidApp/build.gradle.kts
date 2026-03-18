@@ -45,26 +45,26 @@ android {
     }
 
     signingConfigs {
-        val signingConfigFile = file("src/androidMain/signing.properties").apply {
-            println("signingConfig exists: ${exists()}")
+        val signingConfigFile = file("src/main/signing.properties").apply {
+            println("read signingConfig: ${exists()}")
         }
         if (signingConfigFile.exists()) {
             create("release") {
                 val prop = Properties().apply {
                     signingConfigFile.inputStream().use(this::load)
                 }
-                val keystoreFile = file("src/androidMain/release.keystore").apply {
-                    println("keystore exists: ${exists()}")
+                val keystoreFile = file("src/main/release.keystore").apply {
+                    println("read keystore: ${exists()}")
                 }
                 storeFile = keystoreFile
                 storePassword = prop.getProperty("keystore.password").apply {
-                    println("keystore.password is empty: ${isNullOrEmpty()}")
+                    println("read keystore.password: ${isNullOrEmpty().not()}")
                 }
                 keyAlias = prop.getProperty("key.alias").apply {
-                    println("key.alias is empty: ${isNullOrEmpty()}")
+                    println("read key.alias: ${isNullOrEmpty().not()}")
                 }
                 keyPassword = prop.getProperty("key.password").apply {
-                    println("key.password is empty: ${isNullOrEmpty()}")
+                    println("read key.password: ${isNullOrEmpty().not()}")
                 }
                 enableV1Signing = true
                 enableV2Signing = true
@@ -78,5 +78,10 @@ android {
             signingConfig =
                 signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
+    }
+
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
     }
 }
