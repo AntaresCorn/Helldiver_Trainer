@@ -9,6 +9,7 @@ import cn.antares.helldiver_trainer.ui.LocalFragmentNavController
 import cn.antares.helldiver_trainer.ui.LocalNavController
 import cn.antares.helldiver_trainer.ui.MainContainer
 import cn.antares.helldiver_trainer.ui.MainFragment
+import cn.antares.helldiver_trainer.ui.PipeGameContainer
 import cn.antares.helldiver_trainer.ui.SettingsFragment
 import cn.antares.helldiver_trainer.ui.Splash
 import cn.antares.helldiver_trainer.ui.StratagemSelectorPage
@@ -39,6 +40,9 @@ object NavRoute {
 
         @Serializable
         object ButtonCustomPage : RouteList()
+
+        @Serializable
+        object PipeGame : RouteList()
     }
 
     @Composable
@@ -63,6 +67,9 @@ object NavRoute {
             }
             composable<RouteList.ButtonCustomPage> {
                 ButtonCustomPage()
+            }
+            composable<RouteList.PipeGame> {
+                PipeGameContainer()
             }
         }
     }

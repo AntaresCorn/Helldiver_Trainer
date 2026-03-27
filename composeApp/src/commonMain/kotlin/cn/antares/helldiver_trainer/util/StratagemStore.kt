@@ -310,6 +310,12 @@ object StratagemStore {
                 icon = MR.images.sw_cqc_20,
                 inputs = listOf(DOWN, LEFT, RIGHT, LEFT, UP),
             ),
+            StratagemItem(
+                id = "sw_30",
+                name = "焚燃者",
+                icon = MR.images.sw_cremator,
+                inputs = listOf(DOWN, DOWN, RIGHT, DOWN, UP, UP),
+            ),
 
             /**
              * 背包
@@ -538,6 +544,12 @@ object StratagemStore {
                 icon = MR.images.ds_solo_silo,
                 inputs = listOf(DOWN, UP, RIGHT, DOWN, DOWN),
             ),
+            StratagemItem(
+                id = "ds_19",
+                name = "瓦斯迫击哨戒炮",
+                icon = MR.images.ds_gas_mortar_sentry,
+                inputs = listOf(DOWN, UP, RIGHT, DOWN, LEFT),
+            ),
 
             /**
              * 任务战备
@@ -648,13 +660,19 @@ object StratagemStore {
                 id = "ms_17",
                 name = "呼叫超级驱逐舰",
                 icon = MR.images.ms_call_in_super_destroyer,
-                inputs = listOf(UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT),
+                inputs = listOf(UP, UP, DOWN, DOWN, LEFT, RIGHT, LEFT, RIGHT),
             ),
             StratagemItem(
                 id = "ms_18",
                 name = "将绝地喷射舱连接至驱逐舰",
                 icon = MR.images.ms_upload_data,
                 inputs = listOf(LEFT, RIGHT, UP, UP, UP),
+            ),
+            StratagemItem(
+                id = "ms_19",
+                name = "数据接口",
+                icon = MR.images.ms_data_jack,
+                inputs = listOf(DOWN, DOWN, DOWN, LEFT, UP, UP, UP),
             ),
         )
     }

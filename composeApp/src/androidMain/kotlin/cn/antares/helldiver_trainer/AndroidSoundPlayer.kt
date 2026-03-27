@@ -65,6 +65,9 @@ class AndroidSoundPlayer : AbstractSoundPlayer<Context> {
             SoundResource.Success1 -> R.raw.success1
             SoundResource.Success2 -> R.raw.success2
             SoundResource.Success3 -> R.raw.success3
+            SoundResource.PipeMove -> R.raw.pipe_move
+            SoundResource.PipeLoading -> R.raw.pipe_loading
+            SoundResource.PipeComplete -> R.raw.pipe_complete
         }
     }
 }
