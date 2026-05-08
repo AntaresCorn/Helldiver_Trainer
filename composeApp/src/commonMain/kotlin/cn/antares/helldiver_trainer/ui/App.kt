@@ -24,6 +24,7 @@ import cn.antares.helldiver_trainer.util.ThemeState.MyTheme.getColorScheme
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
+import org.koin.dsl.KoinConfiguration
 
 val LocalNavController =
     staticCompositionLocalOf<NavHostController> { error("No NavController provided") }
@@ -36,7 +37,7 @@ fun App(
     fragmentNavController: NavHostController = rememberNavController(),
 ) {
     KoinApplication(
-        application = {
+        configuration = KoinConfiguration {
             modules(
                 GlobalComponentModule,
                 ViewModelModule,
