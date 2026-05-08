@@ -316,6 +316,12 @@ object StratagemStore {
                 icon = MR.images.sw_cremator,
                 inputs = listOf(DOWN, DOWN, RIGHT, DOWN, UP, UP),
             ),
+            StratagemItem(
+                id = "sw_31",
+                name = "子弹风暴",
+                icon = MR.images.sw_bullet_storm,
+                inputs = listOf(DOWN, LEFT, DOWN, RIGHT, UP, LEFT),
+            ),
 
             /**
              * 背包
@@ -431,6 +437,18 @@ object StratagemStore {
                 name = "堡垒MK XVI",
                 icon = MR.images.v_bastion_mk_xvi,
                 inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, DOWN, UP),
+            ),
+            StratagemItem(
+                id = "v_5",
+                name = "“伐木者”外骨骼装甲",
+                icon = MR.images.v_lumberer_exosuit,
+                inputs = listOf(LEFT, DOWN, RIGHT, UP, RIGHT, LEFT, UP),
+            ),
+            StratagemItem(
+                id = "v_6",
+                name = "“突破”外骨骼装甲",
+                icon = MR.images.v_breakthrough_exosuit,
+                inputs = listOf(LEFT, DOWN, RIGHT, UP, RIGHT, DOWN, UP),
             ),
 
             /**
