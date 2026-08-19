@@ -322,6 +322,12 @@ object StratagemStore {
                 icon = MR.images.sw_bullet_storm,
                 inputs = listOf(DOWN, LEFT, DOWN, RIGHT, UP, LEFT),
             ),
+            StratagemItem(
+                id = "sw_32",
+                name = "热熔枪",
+                icon = MR.images.sw_meltagun,
+                inputs = listOf(DOWN, LEFT, UP, LEFT, LEFT, DOWN),
+            ),
 
             /**
              * 背包
@@ -449,6 +455,18 @@ object StratagemStore {
                 name = "“突破”外骨骼装甲",
                 icon = MR.images.v_breakthrough_exosuit,
                 inputs = listOf(LEFT, DOWN, RIGHT, UP, RIGHT, DOWN, UP),
+            ),
+            StratagemItem(
+                id = "v_7",
+                name = "补给型快速侦察载具",
+                icon = MR.images.v_fast_recon_vehicle_supply,
+                inputs = listOf(LEFT, DOWN, LEFT, LEFT, DOWN, UP, RIGHT),
+            ),
+            StratagemItem(
+                id = "v_8",
+                name = "炽灼型快速侦察载具",
+                icon = MR.images.v_fast_recon_vehicle_incendiary,
+                inputs = listOf(LEFT, DOWN, RIGHT, LEFT, DOWN, UP, UP),
             ),
 
             /**
