@@ -70,7 +70,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
         }
-        val desktopMain by getting {
+        named("desktopMain") {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(libs.kotlinx.coroutinesSwing)
@@ -95,7 +95,7 @@ multiplatformResources {
 }
 
 ktorfit {
-    compilerPluginVersion.set("2.3.3")
+    compilerPluginVersion.set("2.3.5")
 }
 
 dependencies {
