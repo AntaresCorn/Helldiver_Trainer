@@ -56,6 +56,12 @@ object StratagemStore {
                 icon = MR.images.eagle_strafing_run,
                 inputs = listOf(UP, RIGHT, RIGHT),
             ),
+            StratagemItem(
+                id = "eagle_8",
+                name = "“飞鹰”毒气空袭",
+                icon = MR.images.eagle_gas_airstrike,
+                inputs = listOf(UP, RIGHT, DOWN, LEFT, UP),
+            ),
 
             /**
              * 轨道
