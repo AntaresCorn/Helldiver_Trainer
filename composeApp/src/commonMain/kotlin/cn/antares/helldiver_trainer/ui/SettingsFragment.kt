@@ -53,6 +53,11 @@ import cn.antares.helldiver_trainer.BuildKonfig
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
 import cn.antares.helldiver_trainer.bridge.openWebPage
+import cn.antares.helldiver_trainer.ic_automaton
+import cn.antares.helldiver_trainer.ic_github_mark
+import cn.antares.helldiver_trainer.ic_illuminate
+import cn.antares.helldiver_trainer.ic_launcher
+import cn.antares.helldiver_trainer.ic_terminid
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.LinkStore
 import cn.antares.helldiver_trainer.util.SharedKVManager

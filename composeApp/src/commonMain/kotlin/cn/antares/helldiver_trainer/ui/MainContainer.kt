@@ -34,6 +34,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
+import cn.antares.helldiver_trainer.ic_launcher
 import cn.antares.helldiver_trainer.util.WindowInfoManager
 import dev.icerock.moko.resources.compose.painterResource
 import org.koin.compose.koinInject

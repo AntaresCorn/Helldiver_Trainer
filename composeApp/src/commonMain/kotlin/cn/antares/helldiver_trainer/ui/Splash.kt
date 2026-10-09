@@ -13,14 +13,16 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.NavRoute
+import cn.antares.helldiver_trainer.ic_launcher
 import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Splash() {
     val navController = LocalNavController.current
     LaunchedEffect(Unit) {
-        delay(500)
+        delay(500.milliseconds)
         navController.navigate(NavRoute.RouteList.Main.MainContainer) {
             popUpTo(NavRoute.RouteList.Splash) { inclusive = true }
         }
