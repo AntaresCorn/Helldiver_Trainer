@@ -1,3 +1,4 @@
+import com.android.build.api.variant.HasUnitTestBuilder
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
@@ -83,5 +84,19 @@ android {
     lint {
         checkReleaseBuilds = false
         abortOnError = false
+    }
+
+    // Compose Preview 需要编译后的 Android 资源，否则任务模型构建会失败
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
+// Compose Preview 的任务会为每个变体注册，需要为 release 变体启用单元测试
+androidComponents {
+    beforeVariants(selector().all()) { variant ->
+        (variant as HasUnitTestBuilder).enableUnitTest = true
     }
 }
