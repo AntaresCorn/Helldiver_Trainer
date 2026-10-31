@@ -74,6 +74,7 @@ import cn.antares.helldiver_trainer.orbital_smoke_strike
 import cn.antares.helldiver_trainer.orbital_walking_barrage
 import cn.antares.helldiver_trainer.sw_airburst_rocket_launcher
 import cn.antares.helldiver_trainer.sw_anti_materiel_rifle
+import cn.antares.helldiver_trainer.sw_apex
 import cn.antares.helldiver_trainer.sw_arc_thrower
 import cn.antares.helldiver_trainer.sw_autocannon
 import cn.antares.helldiver_trainer.sw_bullet_storm
@@ -94,6 +95,7 @@ import cn.antares.helldiver_trainer.sw_laser_cannon
 import cn.antares.helldiver_trainer.sw_machine_gun
 import cn.antares.helldiver_trainer.sw_maxigun
 import cn.antares.helldiver_trainer.sw_meltagun
+import cn.antares.helldiver_trainer.sw_nova
 import cn.antares.helldiver_trainer.sw_one_true_flag
 import cn.antares.helldiver_trainer.sw_quasar_cannon
 import cn.antares.helldiver_trainer.sw_railgun
@@ -103,13 +105,14 @@ import cn.antares.helldiver_trainer.sw_speargun
 import cn.antares.helldiver_trainer.sw_sta_x3_wasp_launcher
 import cn.antares.helldiver_trainer.sw_stalwart
 import cn.antares.helldiver_trainer.sw_sterilizer
-import cn.antares.helldiver_trainer.v_bastion_mk_xvi
+import cn.antares.helldiver_trainer.v_bastion
 import cn.antares.helldiver_trainer.v_breakthrough_exosuit
 import cn.antares.helldiver_trainer.v_emancipator_exosuit
 import cn.antares.helldiver_trainer.v_fast_recon_vehicle
 import cn.antares.helldiver_trainer.v_fast_recon_vehicle_incendiary
 import cn.antares.helldiver_trainer.v_fast_recon_vehicle_supply
 import cn.antares.helldiver_trainer.v_lumberer_exosuit
+import cn.antares.helldiver_trainer.v_maelstrom
 import cn.antares.helldiver_trainer.v_patriot_exosuit
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.DOWN
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.LEFT
@@ -444,6 +447,18 @@ object StratagemStore {
                 icon = MR.images.sw_meltagun,
                 inputs = listOf(DOWN, LEFT, UP, LEFT, LEFT, DOWN),
             ),
+            StratagemItem(
+                id = "sw_33",
+                name = "新星",
+                icon = MR.images.sw_nova,
+                inputs = listOf(DOWN, LEFT, RIGHT, DOWN, DOWN),
+            ),
+            StratagemItem(
+                id = "sw_34",
+                name = "尖峰",
+                icon = MR.images.sw_apex,
+                inputs = listOf(DOWN, LEFT, LEFT, UP, DOWN, LEFT),
+            ),
 
             /**
              * 背包
@@ -557,7 +572,7 @@ object StratagemStore {
             StratagemItem(
                 id = "v_4",
                 name = "堡垒MK XVI",
-                icon = MR.images.v_bastion_mk_xvi,
+                icon = MR.images.v_bastion,
                 inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, DOWN, UP),
             ),
             StratagemItem(
@@ -583,6 +598,12 @@ object StratagemStore {
                 name = "炽灼型快速侦察载具",
                 icon = MR.images.v_fast_recon_vehicle_incendiary,
                 inputs = listOf(LEFT, DOWN, RIGHT, LEFT, DOWN, UP, UP),
+            ),
+            StratagemItem(
+                id = "v_9",
+                name = "风暴漩涡",
+                icon = MR.images.v_maelstrom,
+                inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, LEFT, RIGHT),
             ),
 
             /**
