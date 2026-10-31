@@ -1,6 +1,119 @@
 package cn.antares.helldiver_trainer.util
 
 import cn.antares.helldiver_trainer.MR
+import cn.antares.helldiver_trainer.bp_ballistic_shield_backpack
+import cn.antares.helldiver_trainer.bp_c4_pack
+import cn.antares.helldiver_trainer.bp_directional_shield
+import cn.antares.helldiver_trainer.bp_guard_dog
+import cn.antares.helldiver_trainer.bp_guard_dog_breath
+import cn.antares.helldiver_trainer.bp_guard_dog_hot_dog
+import cn.antares.helldiver_trainer.bp_guard_dog_k_9
+import cn.antares.helldiver_trainer.bp_guard_dog_rover
+import cn.antares.helldiver_trainer.bp_hellbomb_portable
+import cn.antares.helldiver_trainer.bp_hover_pack
+import cn.antares.helldiver_trainer.bp_jump_pack
+import cn.antares.helldiver_trainer.bp_shield_generator_pack
+import cn.antares.helldiver_trainer.bp_supply_pack
+import cn.antares.helldiver_trainer.bp_warp_pack
+import cn.antares.helldiver_trainer.ds_anti_personnel_minefield
+import cn.antares.helldiver_trainer.ds_anti_tank_emplacement
+import cn.antares.helldiver_trainer.ds_anti_tank_mines
+import cn.antares.helldiver_trainer.ds_autocannon_sentry
+import cn.antares.helldiver_trainer.ds_ems_mortar_sentry
+import cn.antares.helldiver_trainer.ds_flame_sentry
+import cn.antares.helldiver_trainer.ds_gas_mine
+import cn.antares.helldiver_trainer.ds_gas_mortar_sentry
+import cn.antares.helldiver_trainer.ds_gatling_sentry
+import cn.antares.helldiver_trainer.ds_grenadier_battlement
+import cn.antares.helldiver_trainer.ds_hmg_emplacement
+import cn.antares.helldiver_trainer.ds_incendiary_mines
+import cn.antares.helldiver_trainer.ds_laser_sentry
+import cn.antares.helldiver_trainer.ds_machine_gun_sentry
+import cn.antares.helldiver_trainer.ds_mortar_sentry
+import cn.antares.helldiver_trainer.ds_rocket_sentry
+import cn.antares.helldiver_trainer.ds_shield_generator_relay
+import cn.antares.helldiver_trainer.ds_solo_silo
+import cn.antares.helldiver_trainer.ds_tesla_tower
+import cn.antares.helldiver_trainer.eagle_110mm_rocket_pods
+import cn.antares.helldiver_trainer.eagle_500kg_bomb
+import cn.antares.helldiver_trainer.eagle_airstrike
+import cn.antares.helldiver_trainer.eagle_cluster_bomb
+import cn.antares.helldiver_trainer.eagle_gas_airstrike
+import cn.antares.helldiver_trainer.eagle_napalm_airstrike
+import cn.antares.helldiver_trainer.eagle_smoke_strike
+import cn.antares.helldiver_trainer.eagle_strafing_run
+import cn.antares.helldiver_trainer.ms_711_drill
+import cn.antares.helldiver_trainer.ms_call_in_super_destroyer
+import cn.antares.helldiver_trainer.ms_cargo_container
+import cn.antares.helldiver_trainer.ms_dark_fluid_vessel
+import cn.antares.helldiver_trainer.ms_data_jack
+import cn.antares.helldiver_trainer.ms_eagle_rearm
+import cn.antares.helldiver_trainer.ms_hellbomb
+import cn.antares.helldiver_trainer.ms_hive_breaker_drill
+import cn.antares.helldiver_trainer.ms_prospecting_drill
+import cn.antares.helldiver_trainer.ms_reinforce
+import cn.antares.helldiver_trainer.ms_resupply
+import cn.antares.helldiver_trainer.ms_seaf_artillery
+import cn.antares.helldiver_trainer.ms_seismic_probe
+import cn.antares.helldiver_trainer.ms_sos_beacon
+import cn.antares.helldiver_trainer.ms_sssd_delivery
+import cn.antares.helldiver_trainer.ms_super_earth_flag
+import cn.antares.helldiver_trainer.ms_tectonic_drill
+import cn.antares.helldiver_trainer.ms_upload_data
+import cn.antares.helldiver_trainer.orbital_120mm_he_barrage
+import cn.antares.helldiver_trainer.orbital_380mm_he_barrage
+import cn.antares.helldiver_trainer.orbital_airburst_strike
+import cn.antares.helldiver_trainer.orbital_ems_strike
+import cn.antares.helldiver_trainer.orbital_gas_strike
+import cn.antares.helldiver_trainer.orbital_gatling_barrage
+import cn.antares.helldiver_trainer.orbital_laser
+import cn.antares.helldiver_trainer.orbital_napalm_barrage
+import cn.antares.helldiver_trainer.orbital_precision_strike
+import cn.antares.helldiver_trainer.orbital_railcannon_strike
+import cn.antares.helldiver_trainer.orbital_smoke_strike
+import cn.antares.helldiver_trainer.orbital_walking_barrage
+import cn.antares.helldiver_trainer.sw_airburst_rocket_launcher
+import cn.antares.helldiver_trainer.sw_anti_materiel_rifle
+import cn.antares.helldiver_trainer.sw_apex
+import cn.antares.helldiver_trainer.sw_arc_thrower
+import cn.antares.helldiver_trainer.sw_autocannon
+import cn.antares.helldiver_trainer.sw_bullet_storm
+import cn.antares.helldiver_trainer.sw_commando
+import cn.antares.helldiver_trainer.sw_cqc_20
+import cn.antares.helldiver_trainer.sw_cremator
+import cn.antares.helldiver_trainer.sw_defoliation_tool
+import cn.antares.helldiver_trainer.sw_eat_411
+import cn.antares.helldiver_trainer.sw_epoch
+import cn.antares.helldiver_trainer.sw_expendable_anti_tank
+import cn.antares.helldiver_trainer.sw_expendable_napalm
+import cn.antares.helldiver_trainer.sw_flamethrower
+import cn.antares.helldiver_trainer.sw_gl_28
+import cn.antares.helldiver_trainer.sw_gl_52_de_escalator
+import cn.antares.helldiver_trainer.sw_grenade_launcher
+import cn.antares.helldiver_trainer.sw_heavy_machine_gun
+import cn.antares.helldiver_trainer.sw_laser_cannon
+import cn.antares.helldiver_trainer.sw_machine_gun
+import cn.antares.helldiver_trainer.sw_maxigun
+import cn.antares.helldiver_trainer.sw_meltagun
+import cn.antares.helldiver_trainer.sw_nova
+import cn.antares.helldiver_trainer.sw_one_true_flag
+import cn.antares.helldiver_trainer.sw_quasar_cannon
+import cn.antares.helldiver_trainer.sw_railgun
+import cn.antares.helldiver_trainer.sw_recoilless_rifle
+import cn.antares.helldiver_trainer.sw_spear
+import cn.antares.helldiver_trainer.sw_speargun
+import cn.antares.helldiver_trainer.sw_sta_x3_wasp_launcher
+import cn.antares.helldiver_trainer.sw_stalwart
+import cn.antares.helldiver_trainer.sw_sterilizer
+import cn.antares.helldiver_trainer.v_bastion
+import cn.antares.helldiver_trainer.v_breakthrough_exosuit
+import cn.antares.helldiver_trainer.v_emancipator_exosuit
+import cn.antares.helldiver_trainer.v_fast_recon_vehicle
+import cn.antares.helldiver_trainer.v_fast_recon_vehicle_incendiary
+import cn.antares.helldiver_trainer.v_fast_recon_vehicle_supply
+import cn.antares.helldiver_trainer.v_lumberer_exosuit
+import cn.antares.helldiver_trainer.v_maelstrom
+import cn.antares.helldiver_trainer.v_patriot_exosuit
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.DOWN
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.LEFT
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel.StratagemInput.RIGHT
@@ -334,6 +447,18 @@ object StratagemStore {
                 icon = MR.images.sw_meltagun,
                 inputs = listOf(DOWN, LEFT, UP, LEFT, LEFT, DOWN),
             ),
+            StratagemItem(
+                id = "sw_33",
+                name = "新星",
+                icon = MR.images.sw_nova,
+                inputs = listOf(DOWN, LEFT, RIGHT, DOWN, DOWN),
+            ),
+            StratagemItem(
+                id = "sw_34",
+                name = "尖峰",
+                icon = MR.images.sw_apex,
+                inputs = listOf(DOWN, LEFT, LEFT, UP, DOWN, LEFT),
+            ),
 
             /**
              * 背包
@@ -447,7 +572,7 @@ object StratagemStore {
             StratagemItem(
                 id = "v_4",
                 name = "堡垒MK XVI",
-                icon = MR.images.v_bastion_mk_xvi,
+                icon = MR.images.v_bastion,
                 inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, DOWN, UP),
             ),
             StratagemItem(
@@ -473,6 +598,12 @@ object StratagemStore {
                 name = "炽灼型快速侦察载具",
                 icon = MR.images.v_fast_recon_vehicle_incendiary,
                 inputs = listOf(LEFT, DOWN, RIGHT, LEFT, DOWN, UP, UP),
+            ),
+            StratagemItem(
+                id = "v_9",
+                name = "风暴漩涡",
+                icon = MR.images.v_maelstrom,
+                inputs = listOf(LEFT, DOWN, RIGHT, DOWN, LEFT, DOWN, UP, LEFT, RIGHT),
             ),
 
             /**

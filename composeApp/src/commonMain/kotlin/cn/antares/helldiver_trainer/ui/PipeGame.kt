@@ -64,6 +64,7 @@ import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
 import cn.antares.helldiver_trainer.bridge.stopSound
+import cn.antares.helldiver_trainer.ic_arrow
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.WindowInfo
 import cn.antares.helldiver_trainer.util.WindowInfoManager

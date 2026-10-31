@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import cn.antares.helldiver_trainer.MR
 import cn.antares.helldiver_trainer.bridge.SoundResource
 import cn.antares.helldiver_trainer.bridge.playSound
+import cn.antares.helldiver_trainer.ic_arrow
 import cn.antares.helldiver_trainer.util.HellColors
 import cn.antares.helldiver_trainer.util.HellUtils
 import cn.antares.helldiver_trainer.util.SharedKVManager
@@ -52,6 +53,7 @@ import dev.icerock.moko.resources.compose.painterResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun Game(vm: GameViewModel = koinViewModel()) {
@@ -339,7 +341,7 @@ fun RoundOver(
 
     LaunchedEffect(Unit) {
         repeat(4) {
-            delay(700)
+            delay(700.milliseconds)
             visibleIndex += 1
             playSound(SoundResource.Hit)
         }
@@ -394,9 +396,9 @@ fun RoundOver(
 fun GameOver(vm: GameViewModel = koinViewModel()) {
     var showHint by remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
-        delay(1000)
+        delay(1000.milliseconds)
         repeat(5) {
-            delay(500)
+            delay(500.milliseconds)
             showHint = !showHint
         }
     }
