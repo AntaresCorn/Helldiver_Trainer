@@ -61,6 +61,9 @@ kotlin {
             implementation(libs.moko.resources)
             implementation(libs.moko.resources.compose)
             implementation(libs.multiplatform.settings)
+            implementation(libs.llamatik.core)
+            implementation(libs.llamatik.sdk)
+            implementation(libs.koog.agents)
         }
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)

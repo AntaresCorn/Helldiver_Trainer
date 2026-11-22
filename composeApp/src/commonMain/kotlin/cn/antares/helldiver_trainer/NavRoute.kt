@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cn.antares.helldiver_trainer.ui.ButtonCustomPage
+import cn.antares.helldiver_trainer.ui.LlamatikTestPage
 import cn.antares.helldiver_trainer.ui.LocalFragmentNavController
 import cn.antares.helldiver_trainer.ui.LocalNavController
 import cn.antares.helldiver_trainer.ui.MainContainer
@@ -43,6 +44,9 @@ object NavRoute {
 
         @Serializable
         object PipeGame : RouteList()
+
+        @Serializable
+        object LlamatikTestPage : RouteList()
     }
 
     @Composable
@@ -70,6 +74,9 @@ object NavRoute {
             }
             composable<RouteList.PipeGame> {
                 PipeGameContainer()
+            }
+            composable<RouteList.LlamatikTestPage> {
+                LlamatikTestPage()
             }
         }
     }

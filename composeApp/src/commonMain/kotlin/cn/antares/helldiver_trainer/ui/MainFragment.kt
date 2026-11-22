@@ -57,6 +57,20 @@ fun MainFragment() {
             ) {
                 Text("银河战争地图", fontSize = 20.sp)
             }
+            Spacer(modifier = Modifier.size(30.dp))
+            Button(
+                onClick = {
+                    navController.navigate(NavRoute.RouteList.LlamatikTestPage) {
+                        launchSingleTop = true
+                        restoreState = true
+                        popUpTo(NavRoute.RouteList.Main.MainContainer) {
+                            saveState = true
+                        }
+                    }
+                },
+            ) {
+                Text("Llamatik 测试", fontSize = 20.sp)
+            }
         }
     }
 }

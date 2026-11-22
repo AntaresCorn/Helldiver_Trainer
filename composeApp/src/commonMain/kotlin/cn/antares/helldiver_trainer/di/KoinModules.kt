@@ -1,5 +1,8 @@
 package cn.antares.helldiver_trainer.di
 
+import ai.koog.prompt.executor.llms.MultiLLMPromptExecutor
+import ai.koog.prompt.executor.model.PromptExecutor
+import cn.antares.helldiver_trainer.ai.LlamatikLLMClient
 import cn.antares.helldiver_trainer.data.github.datastore.GithubCloudDataStore
 import cn.antares.helldiver_trainer.data.github.datastore.createGithubCloudDataStore
 import cn.antares.helldiver_trainer.data.github.repository.GithubRepository
@@ -11,6 +14,7 @@ import cn.antares.helldiver_trainer.util.WindowInfoManagerImpl
 import cn.antares.helldiver_trainer.viewmodel.AppViewModel
 import cn.antares.helldiver_trainer.viewmodel.ArrowButtonViewModel
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
+import cn.antares.helldiver_trainer.viewmodel.LlamatikTestViewModel
 import cn.antares.helldiver_trainer.viewmodel.PipeGameViewModel
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.aakira.napier.DebugAntilog
@@ -41,6 +45,7 @@ val ViewModelModule = module {
     viewModelOf(::AppViewModel)
     viewModelOf(::ArrowButtonViewModel)
     viewModelOf(::PipeGameViewModel)
+    viewModelOf(::LlamatikTestViewModel)
 }
 
 val DataModule = module {
@@ -74,4 +79,6 @@ val DataModule = module {
     }
     single<GithubCloudDataStore> { get<Ktorfit>(named("GitHubKtorfit")).createGithubCloudDataStore() }
     singleOf(::GithubRepositoryImpl) { bind<GithubRepository>() }
+    single { LlamatikLLMClient() }
+    single<PromptExecutor> { MultiLLMPromptExecutor(get<LlamatikLLMClient>()) }
 }
