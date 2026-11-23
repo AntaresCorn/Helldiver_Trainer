@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +26,22 @@ fun MainFragment() {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(vertical = 24.dp),
+        ) {
+            Button(
+                onClick = {
+                    navController.navigate(NavRoute.RouteList.Wiki) {
+                        launchSingleTop = true
+                    }
+                },
+            ) {
+                Text("资料库", fontSize = 20.sp)
+            }
+            Spacer(modifier = Modifier.size(30.dp))
             Button(
                 onClick = {
                     navController.navigate(NavRoute.RouteList.Trainer) {

@@ -7,6 +7,10 @@ import cn.antares.helldiver_trainer.data.github.datastore.GithubCloudDataStore
 import cn.antares.helldiver_trainer.data.github.datastore.createGithubCloudDataStore
 import cn.antares.helldiver_trainer.data.github.repository.GithubRepository
 import cn.antares.helldiver_trainer.data.github.repository.GithubRepositoryImpl
+import cn.antares.helldiver_trainer.data.wiki.datasource.ComposeResourceWikiDataSource
+import cn.antares.helldiver_trainer.data.wiki.datasource.WikiPackDataSource
+import cn.antares.helldiver_trainer.data.wiki.repository.WikiRepository
+import cn.antares.helldiver_trainer.data.wiki.repository.WikiRepositoryImpl
 import cn.antares.helldiver_trainer.util.SharedKVManager
 import cn.antares.helldiver_trainer.util.ThemeState
 import cn.antares.helldiver_trainer.util.WindowInfoManager
@@ -16,6 +20,7 @@ import cn.antares.helldiver_trainer.viewmodel.ArrowButtonViewModel
 import cn.antares.helldiver_trainer.viewmodel.GameViewModel
 import cn.antares.helldiver_trainer.viewmodel.LlamatikTestViewModel
 import cn.antares.helldiver_trainer.viewmodel.PipeGameViewModel
+import cn.antares.helldiver_trainer.viewmodel.WikiViewModel
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
@@ -34,6 +39,10 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+enum class KoinQualifier {
+    GitHubKtorfit
+}
+
 val GlobalComponentModule = module {
     singleOf(::WindowInfoManagerImpl) { bind<WindowInfoManager>() }
     singleOf(::SharedKVManager)
@@ -46,6 +55,7 @@ val ViewModelModule = module {
     viewModelOf(::ArrowButtonViewModel)
     viewModelOf(::PipeGameViewModel)
     viewModelOf(::LlamatikTestViewModel)
+    viewModelOf(::WikiViewModel)
 }
 
 val DataModule = module {
@@ -71,14 +81,16 @@ val DataModule = module {
             }
         }.also { Napier.base(DebugAntilog()) }
     }
-    single<Ktorfit>(named("GitHubKtorfit")) {
+    single<Ktorfit>(named(KoinQualifier.GitHubKtorfit)) {
         Ktorfit.Builder()
             .baseUrl("https://api.github.com/")
             .httpClient(get<HttpClient>())
             .build()
     }
-    single<GithubCloudDataStore> { get<Ktorfit>(named("GitHubKtorfit")).createGithubCloudDataStore() }
+    single<GithubCloudDataStore> { get<Ktorfit>(named(KoinQualifier.GitHubKtorfit)).createGithubCloudDataStore() }
     singleOf(::GithubRepositoryImpl) { bind<GithubRepository>() }
     single { LlamatikLLMClient() }
     single<PromptExecutor> { MultiLLMPromptExecutor(get<LlamatikLLMClient>()) }
+    single<WikiPackDataSource> { ComposeResourceWikiDataSource() }
+    single<WikiRepository> { WikiRepositoryImpl(get()) }
 }

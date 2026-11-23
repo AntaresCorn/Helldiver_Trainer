@@ -1,0 +1,362 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.orbital_120mm_he_barrage",
+      "kind": "stratagem",
+      "nameZh": "轨道120MM高爆弹火力网",
+      "iconKey": "orbital_120mm_he_barrage",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_1",
+          "order": 9
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_380mm_he_barrage",
+      "kind": "stratagem",
+      "nameZh": "轨道380MM高爆弹火力网",
+      "iconKey": "orbital_380mm_he_barrage",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "UP",
+          "LEFT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_2",
+          "order": 10
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_airburst_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道空爆攻击",
+      "iconKey": "orbital_airburst_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_3",
+          "order": 11
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_ems_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道电磁冲击波攻击",
+      "iconKey": "orbital_ems_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "LEFT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_4",
+          "order": 12
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_gas_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道毒气攻击",
+      "iconKey": "orbital_gas_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_5",
+          "order": 13
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_gatling_barrage",
+      "kind": "stratagem",
+      "nameZh": "轨道加特林火力网",
+      "iconKey": "orbital_gatling_barrage",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_6",
+          "order": 14
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_laser",
+      "kind": "stratagem",
+      "nameZh": "轨道激光炮",
+      "iconKey": "orbital_laser",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_7",
+          "order": 15
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_napalm_barrage",
+      "kind": "stratagem",
+      "nameZh": "轨道凝固汽油弹火力网",
+      "iconKey": "orbital_napalm_barrage",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_8",
+          "order": 16
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_precision_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道精准攻击",
+      "iconKey": "orbital_precision_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_9",
+          "order": 17
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_railcannon_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道炮攻击",
+      "iconKey": "orbital_railcannon_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "UP",
+          "DOWN",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_10",
+          "order": 18
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_smoke_strike",
+      "kind": "stratagem",
+      "nameZh": "轨道烟雾攻击",
+      "iconKey": "orbital_smoke_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "RIGHT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_11",
+          "order": 19
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.orbital_walking_barrage",
+      "kind": "stratagem",
+      "nameZh": "轨道游走火力网",
+      "iconKey": "orbital_walking_barrage",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "orbital",
+        "directions": [
+          "RIGHT",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "orbital_12",
+          "order": 20
+        }
+      }
+    }
+  ]
+}

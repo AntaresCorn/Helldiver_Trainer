@@ -1,0 +1,37 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.enemy.scavenger",
+      "kind": "enemy",
+      "nameZh": "食腐虫",
+      "nameEn": "Scavenger",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "小虫子"
+        }
+      ],
+      "summary": "终结族最基础的小型成群单位，无护甲但数量庞大，会呼叫虫潮增援。",
+      "iconKey": "ic_terminid",
+      "sourceId": "wikigg_scavenger",
+      "verifiedPatch": "01.001.200",
+      "enemy": {
+        "faction": "terminid",
+        "sizeClass": "small",
+        "familyKey": "scavenger",
+        "parts": [
+          {
+            "partId": "body",
+            "nameZh": "躯干与头部",
+            "armor": {
+              "status": "known",
+              "value": 0
+            },
+            "notes": "全身无甲，任意轻型武器均可快速清理。"
+          }
+        ]
+      },
+      "relations": []
+    }
+  ]
+}

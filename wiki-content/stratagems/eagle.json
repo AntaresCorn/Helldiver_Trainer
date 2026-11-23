@@ -1,0 +1,266 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.eagle_110mm_rocket_pods",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”110MM火箭巢",
+      "iconKey": "eagle_110mm_rocket_pods",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_1",
+          "order": 1
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_500kg_bomb",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”500KG炸弹",
+      "nameEn": "Eagle 500kg Bomb",
+      "aliases": [
+        {
+          "text": "500kg",
+          "locale": "zh-CN"
+        },
+        {
+          "text": "飞鹰500kg",
+          "locale": "zh-CN"
+        },
+        {
+          "text": "500kg Bomb",
+          "locale": "en"
+        }
+      ],
+      "summary": "投下高当量 500KG 航弹，对重甲目标与虫巢/制造厂造成毁灭性打击。",
+      "iconKey": "eagle_500kg_bomb",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_2",
+          "order": 2
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_airstrike",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”空袭",
+      "nameEn": "Eagle Airstrike",
+      "aliases": [
+        {
+          "text": "飞鹰空袭",
+          "locale": "zh-CN"
+        },
+        {
+          "text": "Eagle Airstrike",
+          "locale": "en"
+        }
+      ],
+      "summary": "向指定信标前方横向投下多枚高爆航弹。",
+      "iconKey": "eagle_airstrike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_3",
+          "order": 3
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_cluster_bomb",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”集束炸弹",
+      "iconKey": "eagle_cluster_bomb",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_4",
+          "order": 4
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_napalm_airstrike",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”凝固汽油弹空袭",
+      "iconKey": "eagle_napalm_airstrike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_5",
+          "order": 5
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_smoke_strike",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”烟雾攻击",
+      "iconKey": "eagle_smoke_strike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_6",
+          "order": 6
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_strafing_run",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”机枪扫射",
+      "iconKey": "eagle_strafing_run",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_7",
+          "order": 7
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.eagle_gas_airstrike",
+      "kind": "stratagem",
+      "nameZh": "“飞鹰”毒气空袭",
+      "iconKey": "eagle_gas_airstrike",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "eagle",
+        "directions": [
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "eagle_8",
+          "order": 8
+        }
+      }
+    }
+  ]
+}

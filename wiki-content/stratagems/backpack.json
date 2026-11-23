@@ -1,0 +1,436 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.bp_ballistic_shield_backpack",
+      "kind": "stratagem",
+      "nameZh": "防弹护盾背包",
+      "iconKey": "bp_ballistic_shield_backpack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "DOWN",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_1",
+          "order": 54
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_directional_shield",
+      "kind": "stratagem",
+      "nameZh": "定向护盾",
+      "iconKey": "bp_directional_shield",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_2",
+          "order": 55
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_guard_dog",
+      "kind": "stratagem",
+      "nameZh": "“护卫犬”",
+      "iconKey": "bp_guard_dog",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "UP",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_3",
+          "order": 56
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_guard_dog_breath",
+      "kind": "stratagem",
+      "nameZh": "“护卫犬”腐息",
+      "iconKey": "bp_guard_dog_breath",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "UP",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_4",
+          "order": 57
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_guard_dog_k_9",
+      "kind": "stratagem",
+      "nameZh": "“护卫犬”K-9",
+      "iconKey": "bp_guard_dog_k_9",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "UP",
+          "RIGHT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_5",
+          "order": 58
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_guard_dog_rover",
+      "kind": "stratagem",
+      "nameZh": "“护卫犬”漫游车",
+      "iconKey": "bp_guard_dog_rover",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "UP",
+          "RIGHT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_6",
+          "order": 59
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_hellbomb_portable",
+      "kind": "stratagem",
+      "nameZh": "便携式地狱火炸弹",
+      "iconKey": "bp_hellbomb_portable",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_7",
+          "order": 60
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_hover_pack",
+      "kind": "stratagem",
+      "nameZh": "悬浮背包",
+      "iconKey": "bp_hover_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "UP",
+          "DOWN",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_8",
+          "order": 61
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_jump_pack",
+      "kind": "stratagem",
+      "nameZh": "喷射背包",
+      "iconKey": "bp_jump_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "UP",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_9",
+          "order": 62
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_shield_generator_pack",
+      "kind": "stratagem",
+      "nameZh": "防护罩生成包",
+      "iconKey": "bp_shield_generator_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_10",
+          "order": 63
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_supply_pack",
+      "kind": "stratagem",
+      "nameZh": "补给背包",
+      "iconKey": "bp_supply_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_11",
+          "order": 64
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_warp_pack",
+      "kind": "stratagem",
+      "nameZh": "传送背包",
+      "iconKey": "bp_warp_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_12",
+          "order": 65
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_guard_dog_hot_dog",
+      "kind": "stratagem",
+      "nameZh": "“护卫犬”热狗",
+      "iconKey": "bp_guard_dog_hot_dog",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "UP",
+          "LEFT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_13",
+          "order": 66
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.bp_c4_pack",
+      "kind": "stratagem",
+      "nameZh": "C4背包",
+      "iconKey": "bp_c4_pack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "backpack",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "UP",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "bp_14",
+          "order": 67
+        }
+      }
+    }
+  ]
+}

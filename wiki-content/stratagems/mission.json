@@ -1,0 +1,585 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.ms_dark_fluid_vessel",
+      "kind": "stratagem",
+      "nameZh": "暗液体容器",
+      "iconKey": "ms_dark_fluid_vessel",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_1",
+          "order": 96
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_eagle_rearm",
+      "kind": "stratagem",
+      "nameZh": "重新武装“飞鹰”",
+      "iconKey": "ms_eagle_rearm",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "UP",
+          "LEFT",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_2",
+          "order": 97
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_hellbomb",
+      "kind": "stratagem",
+      "nameZh": "地狱火炸弹",
+      "iconKey": "ms_hellbomb",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_3",
+          "order": 98
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_hive_breaker_drill",
+      "kind": "stratagem",
+      "nameZh": "“虫窝破裂者”钻机",
+      "iconKey": "ms_hive_breaker_drill",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "LEFT",
+          "UP",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_4",
+          "order": 99
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_prospecting_drill",
+      "kind": "stratagem",
+      "nameZh": "勘探钻机",
+      "iconKey": "ms_prospecting_drill",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_5",
+          "order": 100
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_reinforce",
+      "kind": "stratagem",
+      "nameZh": "增援",
+      "iconKey": "ms_reinforce",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "DOWN",
+          "RIGHT",
+          "LEFT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_6",
+          "order": 101
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_resupply",
+      "kind": "stratagem",
+      "nameZh": "重新补给",
+      "iconKey": "ms_resupply",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_7",
+          "order": 102
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_seaf_artillery",
+      "kind": "stratagem",
+      "nameZh": "超级地球武装部队大炮",
+      "iconKey": "ms_seaf_artillery",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "RIGHT",
+          "UP",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_8",
+          "order": 103
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_seismic_probe",
+      "kind": "stratagem",
+      "nameZh": "地震探测仪",
+      "iconKey": "ms_seismic_probe",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_9",
+          "order": 104
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_sos_beacon",
+      "kind": "stratagem",
+      "nameZh": "S.O.S.求救信标",
+      "iconKey": "ms_sos_beacon",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "DOWN",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_10",
+          "order": 105
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_super_earth_flag",
+      "kind": "stratagem",
+      "nameZh": "超级地球旗帜",
+      "iconKey": "ms_super_earth_flag",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "UP",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_11",
+          "order": 106
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_tectonic_drill",
+      "kind": "stratagem",
+      "nameZh": "地壳钻机",
+      "iconKey": "ms_tectonic_drill",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "DOWN",
+          "UP",
+          "DOWN",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_12",
+          "order": 107
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_upload_data",
+      "kind": "stratagem",
+      "nameZh": "上传数据",
+      "iconKey": "ms_upload_data",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "LEFT",
+          "RIGHT",
+          "UP",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_13",
+          "order": 108
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_sssd_delivery",
+      "kind": "stratagem",
+      "nameZh": "运送超级固态硬盘",
+      "iconKey": "ms_sssd_delivery",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_14",
+          "order": 109
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_711_drill",
+      "kind": "stratagem",
+      "nameZh": "启动钻机",
+      "iconKey": "ms_711_drill",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "LEFT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_15",
+          "order": 110
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_cargo_container",
+      "kind": "stratagem",
+      "nameZh": "货物集装箱",
+      "iconKey": "ms_cargo_container",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "UP",
+          "UP",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_16",
+          "order": 111
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_call_in_super_destroyer",
+      "kind": "stratagem",
+      "nameZh": "呼叫超级驱逐舰",
+      "iconKey": "ms_call_in_super_destroyer",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "UP",
+          "UP",
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_17",
+          "order": 112
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_upload_data_connect_pod",
+      "kind": "stratagem",
+      "nameZh": "将绝地喷射舱连接至驱逐舰",
+      "iconKey": "ms_upload_data",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "LEFT",
+          "RIGHT",
+          "UP",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_18",
+          "order": 113
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ms_data_jack",
+      "kind": "stratagem",
+      "nameZh": "数据接口",
+      "iconKey": "ms_data_jack",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "mission",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ms_19",
+          "order": 114
+        }
+      }
+    }
+  ]
+}

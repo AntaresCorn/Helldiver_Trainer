@@ -23,6 +23,21 @@ class SharedKVManager {
         private const val BUTTON_CONFIG_PORTRAIT = "button_config_portrait"
         private const val BUTTON_CONFIG_LANDSCAPE = "button_config_landscape"
         private const val SWIPE_MODE = "swipe_mode"
+
+        /**
+         * 解析逗号分隔的已选战备 ID 字符串。
+         *
+         * 当 [raw] 为 `null` 或空字符串时返回空集合；否则按逗号切分后去除每段首尾空白、
+         * 过滤空段并去重，返回战备 ID 集合。
+         */
+        internal fun parseSelectedStratagemIDs(raw: String?): Set<String> {
+            if (raw.isNullOrEmpty()) return emptySet()
+            return raw.split(",")
+                .asSequence()
+                .map { it.trim() }
+                .filter { it.isNotEmpty() }
+                .toSet()
+        }
     }
 
     private fun getSharedKVInstance(): Settings = getSharedPreference(DEFAULT_NAMESPACE)
@@ -42,15 +57,8 @@ class SharedKVManager {
     fun setStratagemSelectMode(enabled: Boolean) =
         getSharedKVInstance().putBoolean(STRATAGEM_SELECT_MODE, enabled)
 
-    fun getSelectedStratagemIDs(): Set<String> {
-        getSharedKVInstance().getStringOrNull(SELECTED_STRATAGEM_IDS).let {
-            return if (it.isNullOrEmpty()) {
-                emptySet()
-            } else {
-                it.split(",").toSet()
-            }
-        }
-    }
+    fun getSelectedStratagemIDs(): Set<String> =
+        parseSelectedStratagemIDs(getSharedKVInstance().getStringOrNull(SELECTED_STRATAGEM_IDS))
 
     fun setSelectedStratagemIDs(ids: Set<String>) {
         getSharedKVInstance().putString(SELECTED_STRATAGEM_IDS, ids.joinToString(","))

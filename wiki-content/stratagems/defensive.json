@@ -1,0 +1,576 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.ds_anti_personnel_minefield",
+      "kind": "stratagem",
+      "nameZh": "反步兵雷区",
+      "iconKey": "ds_anti_personnel_minefield",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_1",
+          "order": 77
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_anti_tank_emplacement",
+      "kind": "stratagem",
+      "nameZh": "反坦克炮台",
+      "iconKey": "ds_anti_tank_emplacement",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "RIGHT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_2",
+          "order": 78
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_anti_tank_mines",
+      "kind": "stratagem",
+      "nameZh": "反坦克地雷",
+      "iconKey": "ds_anti_tank_mines",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_3",
+          "order": 79
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_autocannon_sentry",
+      "kind": "stratagem",
+      "nameZh": "自动哨戒炮",
+      "iconKey": "ds_autocannon_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "UP",
+          "LEFT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_4",
+          "order": 80
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_ems_mortar_sentry",
+      "kind": "stratagem",
+      "nameZh": "电磁冲击波迫击哨戒炮",
+      "iconKey": "ds_ems_mortar_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_5",
+          "order": 81
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_flame_sentry",
+      "kind": "stratagem",
+      "nameZh": "火焰喷射哨戒炮",
+      "iconKey": "ds_flame_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_6",
+          "order": 82
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_gas_mine",
+      "kind": "stratagem",
+      "nameZh": "毒气地雷",
+      "iconKey": "ds_gas_mine",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_7",
+          "order": 83
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_gatling_sentry",
+      "kind": "stratagem",
+      "nameZh": "加特林哨戒炮",
+      "iconKey": "ds_gatling_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_8",
+          "order": 84
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_grenadier_battlement",
+      "kind": "stratagem",
+      "nameZh": "掷弹兵防卫墙",
+      "iconKey": "ds_grenadier_battlement",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_9",
+          "order": 85
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_hmg_emplacement",
+      "kind": "stratagem",
+      "nameZh": "重机枪部署支架",
+      "iconKey": "ds_hmg_emplacement",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT",
+          "RIGHT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_10",
+          "order": 86
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_incendiary_mines",
+      "kind": "stratagem",
+      "nameZh": "燃烧地雷",
+      "iconKey": "ds_incendiary_mines",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "LEFT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_11",
+          "order": 87
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_laser_sentry",
+      "kind": "stratagem",
+      "nameZh": "激光哨戒炮",
+      "iconKey": "ds_laser_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_12",
+          "order": 88
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_machine_gun_sentry",
+      "kind": "stratagem",
+      "nameZh": "哨戒机枪",
+      "iconKey": "ds_machine_gun_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_13",
+          "order": 89
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_mortar_sentry",
+      "kind": "stratagem",
+      "nameZh": "迫击哨戒炮",
+      "iconKey": "ds_mortar_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_14",
+          "order": 90
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_rocket_sentry",
+      "kind": "stratagem",
+      "nameZh": "火箭哨戒炮",
+      "iconKey": "ds_rocket_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "RIGHT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_15",
+          "order": 91
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_shield_generator_relay",
+      "kind": "stratagem",
+      "nameZh": "防护罩生成中继器",
+      "iconKey": "ds_shield_generator_relay",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_16",
+          "order": 92
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_tesla_tower",
+      "kind": "stratagem",
+      "nameZh": "特斯拉塔",
+      "iconKey": "ds_tesla_tower",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_17",
+          "order": 93
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_solo_silo",
+      "kind": "stratagem",
+      "nameZh": "单兵导弹发射井",
+      "iconKey": "ds_solo_silo",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_18",
+          "order": 94
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.ds_gas_mortar_sentry",
+      "kind": "stratagem",
+      "nameZh": "瓦斯迫击哨戒炮",
+      "iconKey": "ds_gas_mortar_sentry",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "defensive",
+        "directions": [
+          "DOWN",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "ds_19",
+          "order": 95
+        }
+      }
+    }
+  ]
+}

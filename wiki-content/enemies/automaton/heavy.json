@@ -1,0 +1,50 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.enemy.hulk_bruiser",
+      "kind": "enemy",
+      "nameZh": "浩劫屠夫",
+      "nameEn": "Hulk Bruiser",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "巨型机器人"
+        },
+        {
+          "locale": "en",
+          "text": "Hulk"
+        }
+      ],
+      "summary": "机器人阵营重装火力单位，正面躯干为重甲，面部观察眼与背部散热器为核心弱点。",
+      "iconKey": "ic_automaton",
+      "sourceId": "wikigg_hulk_bruiser",
+      "verifiedPatch": "01.001.200",
+      "enemy": {
+        "faction": "automaton",
+        "sizeClass": "heavy",
+        "familyKey": "hulk",
+        "parts": [
+          {
+            "partId": "eye_visor",
+            "nameZh": "面部观察眼",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "notes": "重穿（AP4）精准命中观察眼可快速击杀。"
+          },
+          {
+            "partId": "rear_vent",
+            "nameZh": "背部散热器",
+            "armor": {
+              "status": "known",
+              "value": 0
+            },
+            "notes": "无甲弱点，破坏后可致命。"
+          }
+        ]
+      },
+      "relations": []
+    }
+  ]
+}

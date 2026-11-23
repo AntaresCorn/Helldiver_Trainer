@@ -1,0 +1,129 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.weapon.liberator",
+      "kind": "weapon",
+      "nameZh": "AR-23 解放者",
+      "nameEn": "AR-23 Liberator",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "解放者"
+        },
+        {
+          "locale": "en",
+          "text": "Liberator"
+        }
+      ],
+      "summary": "超级地球标准制式突击步枪，综合性能均衡，适合应对中轻甲目标。",
+      "sourceId": "wikigg_liberator",
+      "verifiedPatch": "01.001.200",
+      "weapon": {
+        "slot": "primary",
+        "weaponClass": "assault_rifle",
+        "configurations": [
+          {
+            "configId": "base",
+            "labelZh": "基础配置",
+            "modelCode": "AR-23",
+            "magazineCapacity": {
+              "status": "known",
+              "value": 45,
+              "unit": "rounds"
+            },
+            "fireRateRpm": {
+              "status": "known",
+              "value": 640,
+              "unit": "rpm"
+            },
+            "fireModes": [
+              "半自动",
+              "点射",
+              "全自动"
+            ],
+            "attacks": [
+              {
+                "attackId": "standard_bullet",
+                "nameZh": "标准弹药",
+                "damage": {
+                  "status": "known",
+                  "value": 70
+                },
+                "armorPenetration": {
+                  "status": "known",
+                  "value": 2
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "entryId": "hd2.weapon.liberator_penetrator",
+      "kind": "weapon",
+      "nameZh": "AR-23P 穿甲解放者",
+      "nameEn": "AR-23P Liberator Penetrator",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "穿甲解放者"
+        },
+        {
+          "locale": "en",
+          "text": "Liberator Penetrator"
+        }
+      ],
+      "summary": "解放者突击步枪的中甲穿透改型，牺牲部分单发伤害换取更高穿甲等级。",
+      "sourceId": "wikigg_liberator_penetrator",
+      "verifiedPatch": "01.001.200",
+      "weapon": {
+        "slot": "primary",
+        "weaponClass": "assault_rifle",
+        "configurations": [
+          {
+            "configId": "base",
+            "labelZh": "基础配置",
+            "modelCode": "AR-23P",
+            "magazineCapacity": {
+              "status": "known",
+              "value": 45,
+              "unit": "rounds"
+            },
+            "fireRateRpm": {
+              "status": "known",
+              "value": 640,
+              "unit": "rpm"
+            },
+            "fireModes": [
+              "半自动",
+              "点射",
+              "全自动"
+            ],
+            "attacks": [
+              {
+                "attackId": "medium_pen_bullet",
+                "nameZh": "中穿弹药",
+                "damage": {
+                  "status": "known",
+                  "value": 60
+                },
+                "armorPenetration": {
+                  "status": "known",
+                  "value": 3
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "relations": [
+        {
+          "type": "variant_of",
+          "targetId": "hd2.weapon.liberator"
+        }
+      ]
+    }
+  ]
+}

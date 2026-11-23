@@ -15,6 +15,7 @@ import cn.antares.helldiver_trainer.ui.SettingsFragment
 import cn.antares.helldiver_trainer.ui.Splash
 import cn.antares.helldiver_trainer.ui.StratagemSelectorPage
 import cn.antares.helldiver_trainer.ui.Trainer
+import cn.antares.helldiver_trainer.ui.wiki.WikiPage
 import kotlinx.serialization.Serializable
 
 object NavRoute {
@@ -47,6 +48,9 @@ object NavRoute {
 
         @Serializable
         object LlamatikTestPage : RouteList()
+
+        @Serializable
+        object Wiki : RouteList()
     }
 
     @Composable
@@ -77,6 +81,9 @@ object NavRoute {
             }
             composable<RouteList.LlamatikTestPage> {
                 LlamatikTestPage()
+            }
+            composable<RouteList.Wiki> {
+                WikiPage()
             }
         }
     }

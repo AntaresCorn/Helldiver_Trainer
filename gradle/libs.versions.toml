@@ -49,7 +49,9 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koog-agents = { module = "ai.koog:koog-agents", version.ref = "koog" }
 korau-jvm = { module = "com.soywiz.korlibs.korau:korau-jvm", version.ref = "korlib" }
 korio-jvm = { module = "com.soywiz.korlibs.korio:korio-jvm", version.ref = "korlib" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-Datetime" }
 kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinx-io" }

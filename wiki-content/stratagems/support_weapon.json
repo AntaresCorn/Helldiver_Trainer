@@ -1,0 +1,1017 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.sw_airburst_rocket_launcher",
+      "kind": "stratagem",
+      "nameZh": "空爆火箭弹发射器",
+      "iconKey": "sw_airburst_rocket_launcher",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "UP",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_1",
+          "order": 21
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_anti_materiel_rifle",
+      "kind": "stratagem",
+      "nameZh": "反器材步枪",
+      "iconKey": "sw_anti_materiel_rifle",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_2",
+          "order": 22
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_arc_thrower",
+      "kind": "stratagem",
+      "nameZh": "电弧发射器",
+      "iconKey": "sw_arc_thrower",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "LEFT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_3",
+          "order": 23
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.autocannon",
+      "kind": "stratagem",
+      "nameZh": "机炮",
+      "nameEn": "AC-8 Autocannon",
+      "aliases": [
+        {
+          "text": "机炮",
+          "locale": "zh-CN"
+        },
+        {
+          "text": "Autocannon",
+          "locale": "en"
+        }
+      ],
+      "summary": "呼叫 AC-8 机炮支援武器及配套弹药背包。",
+      "iconKey": "sw_autocannon",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_4",
+          "order": 24
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_commando",
+      "kind": "stratagem",
+      "nameZh": "突击兵",
+      "iconKey": "sw_commando",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_5",
+          "order": 25
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_epoch",
+      "kind": "stratagem",
+      "nameZh": "纪元",
+      "iconKey": "sw_epoch",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_6",
+          "order": 26
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+      "kind": "stratagem",
+      "nameZh": "消耗性反坦克武器",
+      "iconKey": "sw_expendable_anti_tank",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_7",
+          "order": 27
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_flamethrower",
+      "kind": "stratagem",
+      "nameZh": "火焰喷射器",
+      "iconKey": "sw_flamethrower",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_8",
+          "order": 28
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_gl_52_de_escalator",
+      "kind": "stratagem",
+      "nameZh": "缓和使者",
+      "iconKey": "sw_gl_52_de_escalator",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_9",
+          "order": 29
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_grenade_launcher",
+      "kind": "stratagem",
+      "nameZh": "榴弹发射器",
+      "iconKey": "sw_grenade_launcher",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "LEFT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_10",
+          "order": 30
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_heavy_machine_gun",
+      "kind": "stratagem",
+      "nameZh": "重机枪",
+      "iconKey": "sw_heavy_machine_gun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_11",
+          "order": 31
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_laser_cannon",
+      "kind": "stratagem",
+      "nameZh": "激光大炮",
+      "iconKey": "sw_laser_cannon",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_12",
+          "order": 32
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_machine_gun",
+      "kind": "stratagem",
+      "nameZh": "机枪",
+      "iconKey": "sw_machine_gun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_13",
+          "order": 33
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_one_true_flag",
+      "kind": "stratagem",
+      "nameZh": "唯一真旗",
+      "iconKey": "sw_one_true_flag",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "RIGHT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_14",
+          "order": 34
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_quasar_cannon",
+      "kind": "stratagem",
+      "nameZh": "类星体加农炮",
+      "iconKey": "sw_quasar_cannon",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_15",
+          "order": 35
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_railgun",
+      "kind": "stratagem",
+      "nameZh": "磁轨炮",
+      "iconKey": "sw_railgun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_16",
+          "order": 36
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_recoilless_rifle",
+      "kind": "stratagem",
+      "nameZh": "无后坐力炮",
+      "iconKey": "sw_recoilless_rifle",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "RIGHT",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_17",
+          "order": 37
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_spear",
+      "kind": "stratagem",
+      "nameZh": "飞矛",
+      "iconKey": "sw_spear",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "UP",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_18",
+          "order": 38
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_sta_x3_wasp_launcher",
+      "kind": "stratagem",
+      "nameZh": "StA-X3 W.A.S.P.发射器",
+      "iconKey": "sw_sta_x3_wasp_launcher",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "UP",
+          "DOWN",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_19",
+          "order": 39
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_stalwart",
+      "kind": "stratagem",
+      "nameZh": "盟友",
+      "iconKey": "sw_stalwart",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_20",
+          "order": 40
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_sterilizer",
+      "kind": "stratagem",
+      "nameZh": "灭菌器",
+      "iconKey": "sw_sterilizer",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "DOWN",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_21",
+          "order": 41
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_speargun",
+      "kind": "stratagem",
+      "nameZh": "矛枪",
+      "iconKey": "sw_speargun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_22",
+          "order": 42
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_expendable_napalm",
+      "kind": "stratagem",
+      "nameZh": "消耗性凝固汽油弹",
+      "iconKey": "sw_expendable_napalm",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_23",
+          "order": 43
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_maxigun",
+      "kind": "stratagem",
+      "nameZh": "重装机枪",
+      "iconKey": "sw_maxigun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_24",
+          "order": 44
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_defoliation_tool",
+      "kind": "stratagem",
+      "nameZh": "除叶工具",
+      "iconKey": "sw_defoliation_tool",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "RIGHT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_25",
+          "order": 45
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_gl_28",
+      "kind": "stratagem",
+      "nameZh": "弹链式榴弹发射器",
+      "iconKey": "sw_gl_28",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "LEFT",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_26",
+          "order": 46
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_eat_411",
+      "kind": "stratagem",
+      "nameZh": "荡平者",
+      "iconKey": "sw_eat_411",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "LEFT",
+          "UP",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_27",
+          "order": 47
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_cqc_20",
+      "kind": "stratagem",
+      "nameZh": "破门锤",
+      "iconKey": "sw_cqc_20",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "LEFT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_28",
+          "order": 48
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_cremator",
+      "kind": "stratagem",
+      "nameZh": "焚燃者",
+      "iconKey": "sw_cremator",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_29",
+          "order": 49
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_bullet_storm",
+      "kind": "stratagem",
+      "nameZh": "子弹风暴",
+      "iconKey": "sw_bullet_storm",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_30",
+          "order": 50
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_meltagun",
+      "kind": "stratagem",
+      "nameZh": "热熔枪",
+      "iconKey": "sw_meltagun",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "UP",
+          "LEFT",
+          "LEFT",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_31",
+          "order": 51
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_nova",
+      "kind": "stratagem",
+      "nameZh": "新星",
+      "iconKey": "sw_nova",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "RIGHT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_32",
+          "order": 52
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.sw_apex",
+      "kind": "stratagem",
+      "nameZh": "尖峰",
+      "iconKey": "sw_apex",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "support_weapon",
+        "directions": [
+          "DOWN",
+          "LEFT",
+          "LEFT",
+          "UP",
+          "DOWN",
+          "LEFT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "sw_33",
+          "order": 53
+        }
+      }
+    }
+  ]
+}

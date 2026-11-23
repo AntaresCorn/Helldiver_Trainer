@@ -26,6 +26,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 import kotlin.random.nextInt
+import kotlin.time.Duration.Companion.milliseconds
 
 class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
 
@@ -38,6 +39,34 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
         private const val TIME_BONUS_SCORE_MULTIPLIER = 1 // 时间奖励乘数
         private const val PERFECT_BONUS_SCORE = 100 // 完美奖励分数
         const val TIME_WARNING_THRESHOLD = 0.3f // 时间警告阈值，剩余时间比例
+
+        /**
+         * 构建训练使用的战备池。
+         *
+         * - 非自选模式（[isSelectMode] 为 `false`）时直接返回全量 [catalog]。
+         * - 自选模式下按 [selectedIDs] 过滤 [catalog]；若无匹配项则回退为全量 [catalog]，
+         *   防止战备池为空导致后续随机/取模逻辑触发除零崩溃。
+         * - 若过滤结果不足 10 项，则按 `ceil(10.0 / size)` 的倍数整体重复补齐至不少于 10 项。
+         */
+        internal fun buildStratagemPool(
+            catalog: List<StratagemItem>,
+            isSelectMode: Boolean,
+            selectedIDs: Set<String>,
+        ): List<StratagemItem> {
+            if (!isSelectMode) return catalog
+            val storedStratagems = catalog.filter { selectedIDs.contains(it.id) }
+            return when {
+                storedStratagems.isEmpty() -> catalog
+                storedStratagems.size < 10 -> {
+                    val multiplier = ceil(10.0 / storedStratagems.size).toInt()
+                    buildList(storedStratagems.size * multiplier) {
+                        repeat(multiplier) { addAll(storedStratagems) }
+                    }
+                }
+
+                else -> storedStratagems
+            }
+        }
     }
 
     // 不用enum，会影响live edit
@@ -106,7 +135,6 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
     override fun onCleared() {
         stopCountdown()
         stopAllSounds()
-        super.onCleared()
     }
 
     fun goToReady() {
@@ -120,7 +148,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
             playSound(SoundResource.Ready)
         }
         viewModelScope.launch {
-            delay(2000)
+            delay(2000.milliseconds)
             goToPlay()
         }
     }
@@ -147,7 +175,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
             },
         )
         viewModelScope.launch {
-            delay(5000)
+            delay(5000.milliseconds)
             goToReady()
         }
     }
@@ -159,29 +187,20 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
         stopCountdown()
         viewModelScope.launch { // 防止用户疯狂点击
             gameOverClickLimited = true
-            delay(1000)
+            delay(1000.milliseconds)
             gameOverClickLimited = false
         }
     }
 
     fun initStratagems() {
         allStratagems.clear()
-        if (kvManager.isStratagemSelectMode()) {
-            val selectedIDs = kvManager.getSelectedStratagemIDs()
-            val storedStratagems = StratagemStore.getAllStratagems().filter {
-                selectedIDs.contains(it.id)
-            }
-            if (storedStratagems.size < 10) {
-                val multiplier = ceil(10.0 / storedStratagems.size).toInt()
-                repeat(multiplier) {
-                    allStratagems.addAll(storedStratagems)
-                }
-            } else {
-                allStratagems.addAll(storedStratagems)
-            }
-        } else {
-            allStratagems.addAll(StratagemStore.getAllStratagems())
-        }
+        allStratagems.addAll(
+            buildStratagemPool(
+                catalog = StratagemStore.getAllStratagems(),
+                isSelectMode = kvManager.isStratagemSelectMode(),
+                selectedIDs = kvManager.getSelectedStratagemIDs(),
+            ),
+        )
     }
 
     private fun updateStratagemList() {
@@ -269,7 +288,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
                 wrongInputIndex = currentInputIndex + 1
                 currentInputIndex = 0
                 viewModelScope.launch {
-                    delay(100)
+                    delay(100.milliseconds)
                     clearWrongInputIndex()
                 }
             }
@@ -294,7 +313,7 @@ class GameViewModel(private val kvManager: SharedKVManager) : ViewModel() {
         tickerJob = viewModelScope.launch {
             var lastTimestamp = System.currentTimeMillis()
             while (_remainingTime.value > 0L) {
-                delay(16L) // ~60fps
+                delay(16L.milliseconds) // ~60fps
                 val now = System.currentTimeMillis()
                 val delta = now - lastTimestamp
                 lastTimestamp = now

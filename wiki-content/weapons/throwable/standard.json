@@ -1,0 +1,60 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.weapon.g12_high_explosive",
+      "kind": "weapon",
+      "nameZh": "G-12 高爆手雷",
+      "nameEn": "G-12 High Explosive",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "高爆手雷"
+        },
+        {
+          "locale": "en",
+          "text": "High Explosive Grenade"
+        }
+      ],
+      "summary": "标准高爆手雷，适合摧毁虫巢、机器人制造厂及中重甲目标。",
+      "sourceId": "wikigg_g12_high_explosive",
+      "verifiedPatch": "01.001.200",
+      "weapon": {
+        "slot": "throwable",
+        "weaponClass": "standard",
+        "configurations": [
+          {
+            "configId": "base",
+            "labelZh": "基础配置",
+            "modelCode": "G-12",
+            "magazineCapacity": {
+              "status": "known",
+              "value": 4,
+              "unit": "rounds"
+            },
+            "fireRateRpm": {
+              "status": "not_applicable"
+            },
+            "fireModes": [
+              "定时引信"
+            ],
+            "attacks": [
+              {
+                "attackId": "he_explosion",
+                "nameZh": "高爆破片",
+                "damage": {
+                  "status": "known",
+                  "value": 800
+                },
+                "armorPenetration": {
+                  "status": "known",
+                  "value": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "relations": []
+    }
+  ]
+}

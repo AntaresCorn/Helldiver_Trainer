@@ -1,0 +1,60 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.weapon.stun_baton",
+      "kind": "weapon",
+      "nameZh": "CQC-30 眩晕棍",
+      "nameEn": "CQC-30 Stun Baton",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "眩晕棍"
+        },
+        {
+          "locale": "zh-CN",
+          "text": "电棍"
+        },
+        {
+          "locale": "en",
+          "text": "Stun Baton"
+        }
+      ],
+      "summary": "近战电击警棍，可快速眩晕并控制近身轻中型敌人。",
+      "sourceId": "wikigg_stun_baton",
+      "verifiedPatch": "01.002.000",
+      "weapon": {
+        "slot": "secondary",
+        "weaponClass": "melee",
+        "configurations": [
+          {
+            "configId": "base",
+            "labelZh": "基础配置",
+            "modelCode": "CQC-30",
+            "magazineCapacity": {
+              "status": "not_applicable"
+            },
+            "fireRateRpm": {
+              "status": "not_applicable"
+            },
+            "fireModes": [
+              "近战挥击"
+            ],
+            "attacks": [
+              {
+                "attackId": "melee_strike",
+                "nameZh": "电击挥击",
+                "damage": {
+                  "status": "unknown"
+                },
+                "armorPenetration": {
+                  "status": "unknown"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "relations": []
+    }
+  ]
+}

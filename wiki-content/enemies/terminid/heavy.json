@@ -1,0 +1,97 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.enemy.charger",
+      "kind": "enemy",
+      "nameZh": "强袭虫",
+      "nameEn": "Charger",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "冲锋虫"
+        },
+        {
+          "locale": "zh-CN",
+          "text": "牛"
+        }
+      ],
+      "summary": "终结族重装突击单位，正面与前腿覆盖重甲，腹部尾部暴露柔弱组织。",
+      "iconKey": "ic_terminid",
+      "sourceId": "wikigg_charger",
+      "verifiedPatch": "01.001.200",
+      "enemy": {
+        "faction": "terminid",
+        "sizeClass": "heavy",
+        "familyKey": "charger",
+        "parts": [
+          {
+            "partId": "head",
+            "nameZh": "头部甲壳",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "notes": "使用反坦克直击头部可快速击杀。"
+          },
+          {
+            "partId": "left_front_leg_plate",
+            "nameZh": "左前腿外甲",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "notes": "剥离外甲后暴露内部低甲组织。"
+          },
+          {
+            "partId": "abdomen",
+            "nameZh": "尾部腹部",
+            "armor": {
+              "status": "known",
+              "value": 0
+            },
+            "notes": "无甲弱点但耐久占比高，击破后进入流血死亡状态。"
+          }
+        ]
+      },
+      "relations": []
+    },
+    {
+      "entryId": "hd2.enemy.charger_behemoth",
+      "kind": "enemy",
+      "nameZh": "巨兽强袭虫",
+      "nameEn": "Charger Behemoth",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "大强袭"
+        },
+        {
+          "locale": "en",
+          "text": "Behemoth"
+        }
+      ],
+      "summary": "重装化强袭虫变种，头部与前腿具有更高的结构生命值。",
+      "iconKey": "ic_terminid",
+      "sourceId": "wikigg_charger_behemoth",
+      "verifiedPatch": "01.001.200",
+      "enemy": {
+        "faction": "terminid",
+        "sizeClass": "heavy",
+        "familyKey": "charger",
+        "extends": "hd2.enemy.charger",
+        "partOverrides": [
+          {
+            "partId": "head",
+            "notes": "头部生命值显著高于普通强袭虫，常规单发反坦克武器可能需多发或配合剥腿。"
+          }
+        ]
+      },
+      "relations": [
+        {
+          "type": "variant_of",
+          "targetId": "hd2.enemy.charger"
+        }
+      ]
+    }
+  ]
+}

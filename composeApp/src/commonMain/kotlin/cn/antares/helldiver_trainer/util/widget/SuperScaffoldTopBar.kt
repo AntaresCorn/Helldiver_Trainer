@@ -20,6 +20,7 @@ import cn.antares.helldiver_trainer.ui.LocalNavController
 fun SuperScaffoldTopBar(
     navController: NavHostController = LocalNavController.current,
     title: String = "",
+    onBack: (() -> Unit)? = null,
     actions: @Composable () -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -29,7 +30,7 @@ fun SuperScaffoldTopBar(
         ) {
             SuperCircleButton(
                 icon = Icons.AutoMirrored.Filled.ArrowBack,
-                onClick = { navController.navigateUp() },
+                onClick = { onBack?.invoke() ?: navController.navigateUp() },
             )
             Spacer(Modifier.width(10.dp))
             Text(

@@ -1,0 +1,85 @@
+{
+  "sources": [
+    {
+      "sourceId": "project_catalog_v1_8_0",
+      "title": "Helldiver Trainer 既有战备清单",
+      "sourceType": "project_migration",
+      "location": "StratagemStore.kt@1.8.0",
+      "url": null,
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": null
+    },
+    {
+      "sourceId": "wikigg_liberator",
+      "title": "Helldivers Wiki - AR-23 Liberator",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/Liberator",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_liberator_penetrator",
+      "title": "Helldivers Wiki - AR-23P Liberator Penetrator",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/AR-23P_Liberator_Penetrator",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_stun_baton",
+      "title": "Helldivers Wiki - CQC-30 Stun Baton",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/CQC-30_Stun_Baton",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.002.000"
+    },
+    {
+      "sourceId": "wikigg_g12_high_explosive",
+      "title": "Helldivers Wiki - G-12 High Explosive",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/G-12_High_Explosive",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_scavenger",
+      "title": "Helldivers Wiki - Scavenger",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/Scavenger",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_charger",
+      "title": "Helldivers Wiki - Charger",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/Charger",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_charger_behemoth",
+      "title": "Helldivers Wiki - Charger Behemoth",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/Charger_Behemoth",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    },
+    {
+      "sourceId": "wikigg_hulk_bruiser",
+      "title": "Helldivers Wiki - Hulk Bruiser",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki",
+      "url": "https://helldivers.wiki.gg/wiki/Hulk_Bruiser",
+      "verifiedDate": "2026-11-23",
+      "defaultPatch": "01.001.200"
+    }
+  ]
+}

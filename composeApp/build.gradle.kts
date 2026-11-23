@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.ktorfitPlugin)
     alias(libs.plugins.mokoPlugin)
     alias(libs.plugins.buildKonfig)
+    id("helldiver.wiki.generator")
 }
 
 kotlin {
@@ -28,6 +29,10 @@ kotlin {
 
         androidResources {
             enable = true
+        }
+
+        withHostTest {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -64,6 +69,10 @@ kotlin {
             implementation(libs.llamatik.core)
             implementation(libs.llamatik.sdk)
             implementation(libs.koog.agents)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)

@@ -1,0 +1,296 @@
+{
+  "entries": [
+    {
+      "entryId": "hd2.stratagem.v_fast_recon_vehicle",
+      "kind": "stratagem",
+      "nameZh": "快速侦察载具",
+      "iconKey": "v_fast_recon_vehicle",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_1",
+          "order": 68
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_emancipator_exosuit",
+      "kind": "stratagem",
+      "nameZh": "“解放者”外骨骼装甲",
+      "iconKey": "v_emancipator_exosuit",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "LEFT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_2",
+          "order": 69
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_patriot_exosuit",
+      "kind": "stratagem",
+      "nameZh": "“爱国者”外骨骼装甲",
+      "iconKey": "v_patriot_exosuit",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "LEFT",
+          "DOWN",
+          "DOWN"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_3",
+          "order": 70
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_bastion",
+      "kind": "stratagem",
+      "nameZh": "堡垒MK XVI",
+      "iconKey": "v_bastion",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_4",
+          "order": 71
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_lumberer_exosuit",
+      "kind": "stratagem",
+      "nameZh": "“伐木者”外骨骼装甲",
+      "iconKey": "v_lumberer_exosuit",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "RIGHT",
+          "LEFT",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_5",
+          "order": 72
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_breakthrough_exosuit",
+      "kind": "stratagem",
+      "nameZh": "“突破”外骨骼装甲",
+      "iconKey": "v_breakthrough_exosuit",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "UP",
+          "RIGHT",
+          "DOWN",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_6",
+          "order": 73
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_fast_recon_vehicle_supply",
+      "kind": "stratagem",
+      "nameZh": "补给型快速侦察载具",
+      "iconKey": "v_fast_recon_vehicle_supply",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "LEFT",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_7",
+          "order": 74
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_fast_recon_vehicle_incendiary",
+      "kind": "stratagem",
+      "nameZh": "炽灼型快速侦察载具",
+      "iconKey": "v_fast_recon_vehicle_incendiary",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "UP"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_8",
+          "order": 75
+        }
+      }
+    },
+    {
+      "entryId": "hd2.stratagem.v_maelstrom",
+      "kind": "stratagem",
+      "nameZh": "风暴漩涡",
+      "iconKey": "v_maelstrom",
+      "sourceId": "project_catalog_v1_8_0",
+      "stratagem": {
+        "category": "vehicle",
+        "directions": [
+          "LEFT",
+          "DOWN",
+          "RIGHT",
+          "DOWN",
+          "LEFT",
+          "DOWN",
+          "UP",
+          "LEFT",
+          "RIGHT"
+        ],
+        "callInSeconds": {
+          "status": "unknown"
+        },
+        "cooldownSeconds": {
+          "status": "unknown"
+        },
+        "uses": {
+          "status": "unknown"
+        },
+        "training": {
+          "legacyId": "v_9",
+          "order": 76
+        }
+      }
+    }
+  ]
+}
