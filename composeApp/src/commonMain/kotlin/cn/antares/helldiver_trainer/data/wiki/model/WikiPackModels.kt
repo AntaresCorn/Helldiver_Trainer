@@ -14,6 +14,8 @@ data class WikiSource(
     val url: String? = null,
     val verifiedDate: String? = null,
     val defaultPatch: String? = null,
+    val license: String? = null,
+    val attribution: String? = null,
 )
 
 /**
@@ -36,6 +38,11 @@ data class WikiManifest(
     val entryCount: Int,
     val indexPath: String,
     val detailPaths: Map<WikiKind, String>,
+    val rulesPath: String = "files/wiki/rules.json",
+    val anatomyPaths: Map<String, String> = emptyMap(),
+    val anatomyAssetPaths: Map<String, String> = emptyMap(),
+    val evidencePath: String = "files/wiki/matchups/evidence.json",
+    val recommendationsPath: String = "files/wiki/matchups/recommendations.json",
 )
 
 /**
@@ -109,6 +116,11 @@ data class StratagemTrainingInfo(
     val order: Int,
 )
 
+@Serializable
+data class WeaponProfileDetail(
+    val configurations: List<WeaponConfigDetail> = emptyList(),
+)
+
 /**
  * 战备类条目的专有详情数据。
  */
@@ -121,6 +133,22 @@ data class StratagemDetail(
     val uses: WikiFact<Int> = WikiFact.unknown(),
     val unlockRequirement: String? = null,
     val training: StratagemTrainingInfo? = null,
+    val weaponProfile: WeaponProfileDetail? = null,
+)
+
+@Serializable
+data class WeaponDamageComponentDetail(
+    val componentId: String,
+    val labelZh: String,
+    val componentKind: DamageComponentKind,
+    val normalDamage: WikiFact<Int> = WikiFact.unknown(),
+    val durableDamage: WikiFact<Int> = WikiFact.unknown(),
+    val armorPenetration: WikiFact<Int> = WikiFact.unknown(),
+    val innerRadiusMeters: Double? = null,
+    val outerRadiusMeters: Double? = null,
+    val sourceId: String? = null,
+    val verifiedPatch: String? = null,
+    val condition: String? = null,
 )
 
 /**
@@ -132,6 +160,7 @@ data class WeaponAttackDetail(
     val nameZh: String,
     val damage: WikiFact<Int> = WikiFact.unknown(),
     val armorPenetration: WikiFact<Int> = WikiFact.unknown(),
+    val components: List<WeaponDamageComponentDetail> = emptyList(),
 )
 
 /**
@@ -158,6 +187,27 @@ data class WeaponDetail(
     val configurations: List<WeaponConfigDetail> = emptyList(),
 )
 
+@Serializable
+data class EnemyHealthPoolDetail(
+    val poolId: String,
+    val labelZh: String,
+    val maxHealth: WikiFact<Int> = WikiFact.unknown(),
+    val bleedHealth: Int? = null,
+    val bleedRatePerSecond: Double? = null,
+    val isMain: Boolean = false,
+    val sourceId: String? = null,
+    val verifiedPatch: String? = null,
+)
+
+@Serializable
+data class PartBreakEffectDetail(
+    val effectType: PartBreakEffectType,
+    val targetPartId: String? = null,
+    val descriptionZh: String,
+    val sourceId: String? = null,
+    val verifiedPatch: String? = null,
+)
+
 /**
  * 敌人单个部位的护甲等级、弱点说明及独立溯源信息。
  */
@@ -169,6 +219,13 @@ data class EnemyPartDetail(
     val notes: String? = null,
     val sourceId: String? = null,
     val verifiedPatch: String? = null,
+    val healthPoolRef: String? = null,
+    val durability: WikiFact<Double> = WikiFact.unknown(),
+    val toMainRatio: WikiFact<Double> = WikiFact.unknown(),
+    val damageCapToMain: Boolean = false,
+    val explosionResistance: WikiFact<Double> = WikiFact.unknown(),
+    val protectedByPartIds: List<String> = emptyList(),
+    val onBreak: List<PartBreakEffectDetail> = emptyList(),
 )
 
 /**
@@ -179,6 +236,8 @@ data class EnemyDetail(
     val faction: EnemyFaction,
     val sizeClass: EnemySizeClass,
     val familyKey: String,
+    val mainPoolId: String? = null,
+    val pools: List<EnemyHealthPoolDetail> = emptyList(),
     val parts: List<EnemyPartDetail> = emptyList(),
 )
 

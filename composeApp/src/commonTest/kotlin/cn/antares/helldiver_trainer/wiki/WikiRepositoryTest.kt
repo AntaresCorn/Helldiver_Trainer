@@ -37,8 +37,8 @@ class WikiRepositoryTest {
     private fun baseFiles(): MutableMap<String, String> = mutableMapOf(
         "files/wiki/manifest.json" to """
             {
-              "schemaVersion": 1,
-              "packVersion": "1.0.0",
+              "schemaVersion": 2,
+              "packVersion": "2.0.0",
               "generatedFromAppVersion": "1.8.0",
               "entryCount": 4,
               "indexPath": "files/wiki/index.json",
@@ -220,7 +220,7 @@ class WikiRepositoryTest {
     fun `unsupported schemaVersion returns UnsupportedVersion`() = runTest {
         val files = baseFiles()
         files["files/wiki/manifest.json"] = files.getValue("files/wiki/manifest.json")
-            .replace("\"schemaVersion\": 1", "\"schemaVersion\": 99")
+            .replace("\"schemaVersion\": 2", "\"schemaVersion\": 99")
         val repo = WikiRepositoryImpl(
             FakePackDataSource(files),
             coroutineContext[kotlin.coroutines.ContinuationInterceptor] as kotlinx.coroutines.CoroutineDispatcher,
@@ -229,7 +229,7 @@ class WikiRepositoryTest {
         val res = repo.ensureInitialized()
         val unsupported = assertIs<WikiResult.UnsupportedVersion>(res)
         assertEquals(99, unsupported.foundVersion)
-        assertEquals(1, unsupported.supportedVersion)
+        assertEquals(2, unsupported.supportedVersion)
     }
 
     @Test

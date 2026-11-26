@@ -8,6 +8,10 @@
       "aliases": [
         {
           "locale": "zh-CN",
+          "text": "巨型碾压者"
+        },
+        {
+          "locale": "zh-CN",
           "text": "巨型机器人"
         },
         {
@@ -15,7 +19,7 @@
           "text": "Hulk"
         }
       ],
-      "summary": "机器人阵营重装火力单位，正面躯干为重甲，面部观察眼与背部散热器为核心弱点。",
+      "summary": "机器人阵营重装火力单位，正面躯干为重甲（AV4），面部观察眼与背部散热器为核心弱点。",
       "iconKey": "ic_automaton",
       "sourceId": "wikigg_hulk_bruiser",
       "verifiedPatch": "01.001.200",
@@ -23,24 +27,195 @@
         "faction": "automaton",
         "sizeClass": "heavy",
         "familyKey": "hulk",
+        "mainPoolId": "main",
+        "pools": [
+          {
+            "poolId": "main",
+            "labelZh": "主体血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 1800
+            },
+            "isMain": true
+          },
+          {
+            "poolId": "eye_visor_pool",
+            "labelZh": "头部观察眼血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 250
+            }
+          },
+          {
+            "poolId": "arms_pool",
+            "labelZh": "手臂武器血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 500
+            }
+          },
+          {
+            "poolId": "legs_pool",
+            "labelZh": "腿部血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 500
+            },
+            "bleedHealth": 500
+          },
+          {
+            "poolId": "rear_vent_pool",
+            "labelZh": "背部散热器血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 900
+            },
+            "bleedHealth": 650,
+            "bleedRatePerSecond": 50.0
+          }
+        ],
         "parts": [
           {
-            "partId": "eye_visor",
-            "nameZh": "面部观察眼",
+            "partId": "main",
+            "nameZh": "正面躯干",
+            "healthPoolRef": "main",
             "armor": {
               "status": "known",
               "value": 4
             },
-            "notes": "重穿（AP4）精准命中观察眼可快速击杀。"
+            "durability": {
+              "status": "known",
+              "value": 0.6
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.0
+            },
+            "notes": "重甲躯干（1800 HP），正面通常用反坦克重武器直击。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "主体血池归零立即摧毁"
+              }
+            ]
+          },
+          {
+            "partId": "eye_visor",
+            "nameZh": "面部观察眼",
+            "healthPoolRef": "eye_visor_pool",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.25
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "damageCapToMain": true,
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "仅 250 HP（25% 耐久），AP4 重穿精准命中 2 发即可击杀。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "观察眼破坏立即摧毁"
+              }
+            ]
+          },
+          {
+            "partId": "arms",
+            "nameZh": "双臂武器",
+            "healthPoolRef": "arms_pool",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.7
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.8
+            },
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "打断手臂可解除对应侧远程重火力。",
+            "onBreak": [
+              {
+                "effectType": "disable_ability",
+                "descriptionZh": "摧毁该侧手臂武器"
+              }
+            ]
+          },
+          {
+            "partId": "legs",
+            "nameZh": "双腿装甲",
+            "healthPoolRef": "legs_pool",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.8
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.8
+            },
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "单腿破坏致残并大幅降低机动性。",
+            "onBreak": [
+              {
+                "effectType": "disable_ability",
+                "descriptionZh": "腿部破坏导致倒地瘫痪"
+              }
+            ]
           },
           {
             "partId": "rear_vent",
             "nameZh": "背部散热器",
+            "healthPoolRef": "rear_vent_pool",
             "armor": {
               "status": "known",
-              "value": 0
+              "value": 1
             },
-            "notes": "无甲弱点，破坏后可致命。"
+            "durability": {
+              "status": "known",
+              "value": 0.6
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.6
+            },
+            "damageCapToMain": true,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.0
+            },
+            "notes": "仅 AV1 极轻甲，绕后集火破坏后进入流血倒地状态。",
+            "onBreak": [
+              {
+                "effectType": "bleed_out",
+                "descriptionZh": "散热器爆裂，进入 50/s 流血并致残"
+              }
+            ]
           }
         ]
       },

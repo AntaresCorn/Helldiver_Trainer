@@ -11,7 +11,15 @@
 
 ```text
 wiki-content/
-├── sources.json                # 资料来源登记表（新增出处先来这里登记）
+├── sources.json                # 资料来源登记表（新增出处先来这里登记，wiki_gg 须填 url 与 license）
+├── rules/
+│   └── damage_rules.json       # 按游戏补丁维护穿甲阶梯系数
+├── anatomy/                    # 敌人多视角底图声明与归一化多边形热区（<enemyId>.json）
+├── assets/
+│   └── anatomy/                # 敌人各视角 WebP 底图（<= 1200x900，<= 350 KB，严禁 SVG）
+├── matchups/
+│   ├── evidence.json           # 实测事实表 MatchEvidence
+│   └── recommendations.json    # 按部位状态与玩家目的分组推荐表 PartRecommendation
 ├── stratagems/                 # 战备（3层，按 7 个分类拆文件，顶层 {"entries": [...]}）
 │   ├── eagle.json              # category = "eagle"（飞鹰）
 │   ├── orbital.json            # category = "orbital"（轨道）
@@ -36,7 +44,8 @@ wiki-content/
 ### 绝对不要手改的目录和文件
 
 - `composeApp/src/commonMain/composeResources/files/wiki/`（`manifest.json`、`index.json`、
-  `details/*.json`）：构建时全量覆盖生成，且已加入 `.gitignore`。
+  `details/*.json`、`rules.json`、`anatomy/*.json`、`anatomy_assets/*.webp`、`matchups/*.json`
+  ）：构建时全量覆盖生成，且已加入 `.gitignore`。
 - `composeApp/build/generated/wiki/kotlin/`（`GeneratedStratagemCatalog.kt`、`WikiIconRegistry.kt`
   ）：构建时自动生成。
 - `composeApp/src/commonMain/kotlin/cn/antares/helldiver_trainer/util/StratagemStore.kt`：只负责读取生成的清单，
@@ -49,18 +58,23 @@ wiki-content/
 
 ## 2. 字段与合法枚举速查表
 
-| 字段                   | 合法值                                                                                                                                                                                                                                                                                                                   | 说明                                                                                                                                             |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| `sources[].sourceType` | `project_migration`、`wiki_gg`、`patch_notes`、`official`                                                                                                                                                                                                                                                                | 来源类型                                                                                                                                         |
-| `kind`                 | `stratagem`、`weapon`、`enemy`                                                                                                                                                                                                                                                                                           | 条目大类                                                                                                                                         |
-| `stratagem.category`   | `eagle`、`orbital`、`support_weapon`、`backpack`、`vehicle`、`defensive`、`mission`                                                                                                                                                                                                                                      | **必须与所在 `.json` 文件名完全一致**                                                                                                            |
-| `stratagem.directions` | `UP`、`RIGHT`、`DOWN`、`LEFT`                                                                                                                                                                                                                                                                                            | 非空数组，按实际按键顺序填写                                                                                                                     |
-| `weapon.slot`          | `primary`、`secondary`、`throwable`                                                                                                                                                                                                                                                                                      | 主武器 / 副武器 / 投掷物（**支援武器在 `stratagems/support_weapon.json` 维护**）；**必须与所在子目录名一致**                                     |
-| `weapon.weaponClass`   | `primary`：`assault_rifle`（突击步枪）、`marksman_rifle`（射手步枪）、`submachine_gun`（冲锋枪）、`shotgun`（霰弹枪）、`explosive`（爆炸武器）、`energy_based`（能量武器）、`special`（特殊）<br>`secondary`：`pistol`（手枪）、`melee`（近战）、`special`（特殊）<br>`throwable`：`standard`（标准）、`special`（特殊） | **必须与所在 `.json` 文件名一致**                                                                                                                |
-| `enemy.faction`        | `terminid`、`automaton`、`illuminate`                                                                                                                                                                                                                                                                                    | 终结族 / 机器人 / 光能者；**必须与所在子目录名一致**                                                                                             |
-| `enemy.sizeClass`      | `small`（小型）、`medium`（中型）、`heavy`（重型）、`massive`（巨型）                                                                                                                                                                                                                                                    | **必须与所在 `.json` 文件名一致**                                                                                                                |
-| `relations[].type`     | `calls_in`（仅 `stratagem -> weapon`）、`variant_of`（同类 `weapon -> weapon` 或 `enemy -> enemy`）                                                                                                                                                                                                                      | 禁止自指与成环；**单向录入即可，构建时自动生成反向链接**                                                                                         |
-| 数值四态 `status`      | `known`、`unknown`、`not_applicable`、`unlimited`                                                                                                                                                                                                                                                                        | `known` 必须填非负 `value`；其他三态 **不能写 `value`**（或必须为 `null`）；`unlimited` 仅允许用于 `stratagem.uses` 与 `weapon.magazineCapacity` |
+| 字段                         | 合法值                                                                                                                                                                                                                                                                                                                   | 说明                                                                                                                                             |
+|------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| `sources[].sourceType`       | `project_migration`、`wiki_gg`、`patch_notes`、`official`                                                                                                                                                                                                                                                                | 来源类型；`wiki_gg` 必须填写 `url` 与 `license`（如 `CC BY-SA 4.0` / `CC BY-NC-SA 4.0`）及 `attribution`                                         |
+| `kind`                       | `stratagem`、`weapon`、`enemy`                                                                                                                                                                                                                                                                                           | 条目大类                                                                                                                                         |
+| `components[].componentKind` | `direct`、`explosive`、`fire`、`status`                                                                                                                                                                                                                                                                                  | 武器攻击分量类型（用于多分量穿甲与爆炸抗性拆解）                                                                                                 |
+| `onBreak[].effectType`       | `expose_part`、`disable_ability`、`bleed_out`、`fatal`                                                                                                                                                                                                                                                                   | 部位破坏效果；`expose_part` 必须填写 `targetPartId`                                                                                              |
+| `partState`                  | `intact`（完好）、`broken`（破甲后）                                                                                                                                                                                                                                                                                     | 部位状态（用于 `visibleWhen`、实测记录与推荐分组）                                                                                               |
+| `goal`                       | `strip_armor`（破除外甲）、`kill`（直接击杀）、`disable_ability`（限制能力）、`attack_exposed`（攻击暴露肉体）                                                                                                                                                                                                           | 推荐目标分组                                                                                                                                     |
+| `verdict`                    | `penetrates`、`reduced`、`ricochet`、`strips_armor`、`kills`、`blocked`、`unknown`                                                                                                                                                                                                                                       | 实测/推算结论枚举                                                                                                                                |
+| `stratagem.category`         | `eagle`、`orbital`、`support_weapon`、`backpack`、`vehicle`、`defensive`、`mission`                                                                                                                                                                                                                                      | **必须与所在 `.json` 文件名完全一致**                                                                                                            |
+| `stratagem.directions`       | `UP`、`RIGHT`、`DOWN`、`LEFT`                                                                                                                                                                                                                                                                                            | 非空数组，按实际按键顺序填写                                                                                                                     |
+| `weapon.slot`                | `primary`、`secondary`、`throwable`                                                                                                                                                                                                                                                                                      | 主武器 / 副武器 / 投掷物（**支援武器在 `stratagems/support_weapon.json` 维护**）；**必须与所在子目录名一致**                                     |
+| `weapon.weaponClass`         | `primary`：`assault_rifle`（突击步枪）、`marksman_rifle`（射手步枪）、`submachine_gun`（冲锋枪）、`shotgun`（霰弹枪）、`explosive`（爆炸武器）、`energy_based`（能量武器）、`special`（特殊）<br>`secondary`：`pistol`（手枪）、`melee`（近战）、`special`（特殊）<br>`throwable`：`standard`（标准）、`special`（特殊） | **必须与所在 `.json` 文件名一致**                                                                                                                |
+| `enemy.faction`              | `terminid`、`automaton`、`illuminate`                                                                                                                                                                                                                                                                                    | 终结族 / 机器人 / 光能者；**必须与所在子目录名一致**                                                                                             |
+| `enemy.sizeClass`            | `small`（小型）、`medium`（中型）、`heavy`（重型）、`massive`（巨型）                                                                                                                                                                                                                                                    | **必须与所在 `.json` 文件名一致**                                                                                                                |
+| `relations[].type`           | `calls_in`（仅 `stratagem -> weapon`）、`variant_of`（同类 `weapon -> weapon` 或 `enemy -> enemy`）                                                                                                                                                                                                                      | 禁止自指与成环；**单向录入即可，构建时自动生成反向链接**                                                                                         |
+| 数值四态 `status`            | `known`、`unknown`、`not_applicable`、`unlimited`                                                                                                                                                                                                                                                                        | `known` 必须填非负 `value`；其他三态 **不能写 `value`**（或必须为 `null`）；`unlimited` 仅允许用于 `stratagem.uses` 与 `weapon.magazineCapacity` |
 
 ### 数值字段常用写法
 
@@ -322,6 +336,77 @@ wiki-content/
 
 ---
 
+### 场景 6：为支援武器补充 `weaponProfile` 与多分量伤害
+
+支援武器继续留在 `wiki-content/stratagems/support_weapon.json`，只需在 `stratagem` 下挂载
+`weaponProfile`（内含 `configurations[]` 与 `attacks[].components[]`），即可自动参与搜索型号索引、对位推算与推荐：
+
+```json
+"weaponProfile": {
+  "configurations": [
+    {
+      "configId": "aphet_mode",
+      "labelZh": "穿甲高爆曳光弹（APHET）",
+      "modelCode": "AC-8",
+      "attacks": [
+        {
+          "attackId": "aphet_round",
+          "nameZh": "20mm 穿甲高爆弹",
+          "components": [
+            {
+              "componentId": "projectile",
+              "labelZh": "弹头直击",
+              "componentKind": "direct",
+              "normalDamage": { "status": "known", "value": 325 },
+              "durableDamage": { "status": "known", "value": 260 },
+              "armorPenetration": { "status": "known", "value": 4 }
+            },
+            {
+              "componentId": "blast",
+              "labelZh": "命中爆炸（内圈）",
+              "componentKind": "explosive",
+              "normalDamage": { "status": "known", "value": 150 },
+              "durableDamage": { "status": "known", "value": 150 },
+              "armorPenetration": { "status": "known", "value": 3 },
+              "innerRadiusMeters": 2.0,
+              "outerRadiusMeters": 4.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+### 场景 7：新增敌人多视角部位 WebP 与绿色区域映射
+
+1. **准备图片**：将每个角度每个部位的图片压缩为 **`.webp`** 放入
+   `wiki-content/assets/anatomy/<enemySlug>_<viewId>_<partId>.webp`（ **严禁 `.svg`**，分辨率
+   `<= 1200×900`，单张体积 `<= 350 KB`）。
+2. **编写解剖描述**：新建 `wiki-content/anatomy/<enemyId>.json`（文件名必须等于 `enemyId`）：
+    - `defaultAssetKey`：默认展示的 WebP `assetKey`；
+    - `partAssets`：`<partId> -> <assetKey>` 映射表（切换或点选该部位时直接切换为对应图片；若当前视角无该部位，列表点击会自动切到包含该部位的视角）；
+    - `hitMap`（可选）：由离线脚本识别原图亮绿色区域生成的 `width x height` 调色板与 `intactRle`/
+      `brokenRle` 透明点击映射层；若主体图仅含 `MAIN` 文字而无具体绿色高亮区域，则不写入 `hitMap`，仅保留
+      `partAssets["main"]` 供列表点击切换。
+
+---
+
+### 场景 8：维护补丁规则表、实测记录与分组推荐
+
+1. **补丁规则**：在 `wiki-content/rules/damage_rules.json` 按 `patchVersion` 维护
+   `penetrateMultiplier`、`equalArmorMultiplier`、`ricochetMultiplier`。
+2. **实测事实**：在 `wiki-content/matchups/evidence.json` 登记 `MatchEvidence`（`attackRef` 可指向
+   `weapon` 或挂载 `weaponProfile` 的 `stratagem`；`patchVersion` 必须已在 `damage_rules.json` 中定义）。
+3. **分组推荐**：在 `wiki-content/matchups/recommendations.json` 按
+   `(enemyId, partId, partState, goal)` 登记编辑实证推荐与 `priorityOrder`
+   （若同补丁同条件下实测与规则推算冲突，对位引擎会自动标记“待复核”并从推荐列表中剔除）。
+
+---
+
 ## 4. 改完后如何校验与预览
 
 1. **快速校验 JSON 并重新生成离线包**（改完内容源后必跑，几秒内即可暴露格式/引用/图标/重复错误）：
@@ -351,3 +436,7 @@ wiki-content/
 | `training.order 必须从 1 连续编号至 N`                                 | 删除或插入可训练战备后序号断号或重复                                                                        | 检查所有带 `training` 的战备，确保 `order` 为连续的 `1..N`                        |
 | `status=known 时 value 不能为空` / `非 known 状态时 value 必须为 null` | `known` 忘了填 `value`，或 `unknown` 多写了 `value`                                                         | 检查 `WikiFact` 四态结构                                                          |
 | `覆写目标部位在基础型中不存在`                                         | `partOverrides` 写错了 `partId`，或新增部位漏了 `"isNewPart": true`                                         | 核对基础型 `parts[].partId` 或补充 `"isNewPart": true`                            |
+| `严禁使用 SVG 作为解剖底图` / `WebP 分辨率 ... 超出上限`               | `assets/anatomy/` 放入了 `.svg` 或分辨率/体积超过 `1200×900` / `350 KB`                                     | 转换为 `<= 1200×800` 的 `.webp` 并压缩体积                                        |
+| `检测到非相邻边 ... 自交或重叠` / `坐标超出归一化区间`                 | 多边形顶点自交或未归一化到 `[0.0, 1.0]`                                                                     | 检查多边形顶点顺序并将坐标除以底图宽高归一化                                      |
+| `wiki_gg 来源必须填写协议 license`                                     | `sources.json` 中 `wiki_gg` 条目缺少 `license` 或 `url`                                                     | 补齐 `url` 与 `license`（如 `CC BY-SA 4.0`）                                      |
+| `patchVersion 未在 damage_rules.json 中定义`                           | `evidence.json` 或 `recommendations.json` 使用了未登记的补丁号                                              | 先在 `wiki-content/rules/damage_rules.json` 增加对应 `patchVersion`               |

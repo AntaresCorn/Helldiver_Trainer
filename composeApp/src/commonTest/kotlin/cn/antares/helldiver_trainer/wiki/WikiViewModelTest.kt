@@ -1,8 +1,18 @@
 package cn.antares.helldiver_trainer.wiki
 
+import cn.antares.helldiver_trainer.data.wiki.model.AttackOption
+import cn.antares.helldiver_trainer.data.wiki.model.EnemyAnatomyBundle
 import cn.antares.helldiver_trainer.data.wiki.model.EnemyDetail
 import cn.antares.helldiver_trainer.data.wiki.model.EnemyFaction
+import cn.antares.helldiver_trainer.data.wiki.model.EnemyPartRef
+import cn.antares.helldiver_trainer.data.wiki.model.EnemyPartState
 import cn.antares.helldiver_trainer.data.wiki.model.EnemySizeClass
+import cn.antares.helldiver_trainer.data.wiki.model.MatchVerdict
+import cn.antares.helldiver_trainer.data.wiki.model.MatchupEvaluateRequest
+import cn.antares.helldiver_trainer.data.wiki.model.MatchupEvaluation
+import cn.antares.helldiver_trainer.data.wiki.model.PartRecommendationResult
+import cn.antares.helldiver_trainer.data.wiki.model.RecommendationGoal
+import cn.antares.helldiver_trainer.data.wiki.model.RuleMatchupResult
 import cn.antares.helldiver_trainer.data.wiki.model.StratagemCategory
 import cn.antares.helldiver_trainer.data.wiki.model.StratagemDetail
 import cn.antares.helldiver_trainer.data.wiki.model.WeaponClass
@@ -151,6 +161,41 @@ class WikiViewModelTest {
             }
             return WikiResult.Success(list)
         }
+
+        override suspend fun getAnatomy(enemyId: String): WikiResult<EnemyAnatomyBundle> =
+            WikiResult.Missing(enemyId)
+
+        override suspend fun readAnatomyImageBytes(assetKey: String): WikiResult<ByteArray> =
+            WikiResult.Missing(assetKey)
+
+        override suspend fun evaluateMatchup(request: MatchupEvaluateRequest): WikiResult<MatchupEvaluation> =
+            WikiResult.Success(
+                MatchupEvaluation(
+                    partRef = request.partRef,
+                    partState = request.partState,
+                    attackRef = request.attackRef,
+                    targetPatch = request.targetPatch ?: "latest",
+                    ruleResult = RuleMatchupResult(overallVerdict = MatchVerdict.UNKNOWN),
+                ),
+            )
+
+        override suspend fun recommendForPart(
+            partRef: EnemyPartRef,
+            state: EnemyPartState,
+            goal: RecommendationGoal,
+            patch: String?,
+        ): WikiResult<PartRecommendationResult> =
+            WikiResult.Success(
+                PartRecommendationResult(
+                    partRef = partRef,
+                    partState = state,
+                    goal = goal,
+                    targetPatch = patch ?: "latest",
+                ),
+            )
+
+        override suspend fun listAvailableAttacks(): WikiResult<List<AttackOption>> =
+            WikiResult.Success(emptyList())
     }
 
     @Test

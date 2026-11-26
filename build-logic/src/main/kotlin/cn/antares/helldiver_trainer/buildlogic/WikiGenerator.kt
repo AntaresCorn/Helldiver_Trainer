@@ -39,10 +39,22 @@ object WikiGenerator {
         kotlinPkgDir.mkdirs()
         outputResourcesDir.mkdirs()
         File(outputResourcesDir, "details").mkdirs()
+        File(outputResourcesDir, "anatomy").mkdirs()
+        File(outputResourcesDir, "anatomy_assets").mkdirs()
+        File(outputResourcesDir, "matchups").mkdirs()
 
-        // 1. 生成离线包清单 manifest.json
+        val anatomyPaths = linkedMapOf<String, String>()
+        for (enemyId in validated.anatomiesByEnemyId.keys.sorted()) {
+            anatomyPaths[enemyId] = "files/wiki/anatomy/$enemyId.json"
+        }
+        val anatomyAssetPaths = linkedMapOf<String, String>()
+        for (assetKey in validated.anatomyAssetFilesByKey.keys.sorted()) {
+            anatomyAssetPaths[assetKey] = "files/wiki/anatomy_assets/$assetKey.webp"
+        }
+
+        // 1. 生成离线包清单 manifest.json (schemaVersion = 2)
         val manifest = WikiManifestOutput(
-            schemaVersion = 1,
+            schemaVersion = 2,
             packVersion = packVersion,
             generatedFromAppVersion = appVersion,
             entryCount = validated.entries.size,
@@ -52,6 +64,11 @@ object WikiGenerator {
                 "weapon" to "files/wiki/details/weapon.json",
                 "enemy" to "files/wiki/details/enemy.json",
             ),
+            rulesPath = "files/wiki/rules.json",
+            anatomyPaths = anatomyPaths,
+            anatomyAssetPaths = anatomyAssetPaths,
+            evidencePath = "files/wiki/matchups/evidence.json",
+            recommendationsPath = "files/wiki/matchups/recommendations.json",
         )
         File(outputResourcesDir, "manifest.json")
             .writeText(prettyJson.encodeToString(manifest), Charsets.UTF_8)
@@ -104,31 +121,44 @@ object WikiGenerator {
                     s.callInSeconds.sourceId?.let(usedSourceIds::add)
                     s.cooldownSeconds.sourceId?.let(usedSourceIds::add)
                     s.uses.sourceId?.let(usedSourceIds::add)
+                    s.weaponProfile?.let { profile ->
+                        collectConfigSources(profile.configurations, usedSourceIds)
+                    }
                 }
                 e.weapon?.let { w ->
-                    for ((_, _, _, magazineCapacity, fireRateRpm, _, attacks) in w.configurations) {
-                        magazineCapacity.sourceId?.let(usedSourceIds::add)
-                        fireRateRpm.sourceId?.let(usedSourceIds::add)
-                        for ((_, _, damage, armorPenetration) in attacks) {
-                            damage.sourceId?.let(usedSourceIds::add)
-                            armorPenetration.sourceId?.let(usedSourceIds::add)
-                        }
-                    }
+                    collectConfigSources(w.configurations, usedSourceIds)
+                }
+                val expandedPools = if (kind == "enemy") {
+                    validated.expandedEnemyPoolsById[e.entryId].orEmpty()
+                } else {
+                    emptyList()
+                }
+                for (pool in expandedPools) {
+                    pool.sourceId?.let(usedSourceIds::add)
+                    pool.maxHealth.sourceId?.let(usedSourceIds::add)
                 }
                 val expandedParts = if (kind == "enemy") {
                     validated.expandedEnemyPartsById[e.entryId].orEmpty()
                 } else {
                     emptyList()
                 }
-                for ((_, _, armor, _, sourceId) in expandedParts) {
-                    sourceId?.let(usedSourceIds::add)
-                    armor.sourceId?.let(usedSourceIds::add)
+                for (part in expandedParts) {
+                    part.sourceId?.let(usedSourceIds::add)
+                    part.armor.sourceId?.let(usedSourceIds::add)
+                    part.durability.sourceId?.let(usedSourceIds::add)
+                    part.toMainRatio.sourceId?.let(usedSourceIds::add)
+                    part.explosionResistance.sourceId?.let(usedSourceIds::add)
+                    for (eff in part.onBreak) {
+                        eff.sourceId?.let(usedSourceIds::add)
+                    }
                 }
                 val enemyOut = if (kind == "enemy" && e.enemy != null) {
                     EnemyDetailOutput(
                         faction = e.enemy.faction,
                         sizeClass = e.enemy.sizeClass,
                         familyKey = e.enemy.familyKey,
+                        mainPoolId = validated.expandedEnemyMainPoolIdById[e.entryId],
+                        pools = expandedPools,
                         parts = expandedParts,
                     )
                 } else {
@@ -160,7 +190,93 @@ object WikiGenerator {
                 .writeText(compactJson.encodeToString(shard), Charsets.UTF_8)
         }
 
-        // 4. 生成训练器战备目录源码 GeneratedStratagemCatalog.kt
+        // 4. 生成二期补丁规则、敌人解剖分片、WebP 底图、实测表与推荐表
+        val ruleSources = validated.damageRules
+            .map { it.sourceId }
+            .distinct()
+            .associateWith { validated.sourcesById.getValue(it) }
+        File(outputResourcesDir, "rules.json").writeText(
+            compactJson.encodeToString(
+                DamageRulesOutput(
+                    ruleSets = validated.damageRules,
+                    sources = ruleSources,
+                ),
+            ),
+            Charsets.UTF_8,
+        )
+
+        for ((enemyId, anatomy) in validated.anatomiesByEnemyId) {
+            val anatomySources = anatomy.views
+                .map { it.sourceId }
+                .distinct()
+                .associateWith { validated.sourcesById.getValue(it) }
+            File(outputResourcesDir, "anatomy/$enemyId.json").writeText(
+                compactJson.encodeToString(
+                    EnemyAnatomyOutput(
+                        enemyId = anatomy.enemyId,
+                        defaultViewId = anatomy.defaultViewId,
+                        views = anatomy.views,
+                        sources = anatomySources,
+                    ),
+                ),
+                Charsets.UTF_8,
+            )
+        }
+
+        for ((assetKey, srcFile) in validated.anatomyAssetFilesByKey) {
+            srcFile.copyTo(
+                File(outputResourcesDir, "anatomy_assets/$assetKey.webp"),
+                overwrite = true,
+            )
+        }
+
+        val evByEnemyPart = linkedMapOf<String, MutableList<String>>()
+        val evByAttackRef = linkedMapOf<String, MutableList<String>>()
+        val evSourceIds = linkedSetOf<String>()
+        for (ev in validated.evidences) {
+            evByEnemyPart.getOrPut("${ev.enemyId}::${ev.partId}") { mutableListOf() }
+                .add(ev.evidenceId)
+            val atkKey =
+                "${ev.attackRef.entryId}::${ev.attackRef.configId}::${ev.attackRef.attackId}"
+            evByAttackRef.getOrPut(atkKey) { mutableListOf() }.add(ev.evidenceId)
+            evSourceIds.add(ev.sourceId)
+            ev.shotsToBreak.sourceId?.let(evSourceIds::add)
+            ev.shotsToKill.sourceId?.let(evSourceIds::add)
+        }
+        File(outputResourcesDir, "matchups/evidence.json").writeText(
+            compactJson.encodeToString(
+                MatchEvidencePackOutput(
+                    evidences = validated.evidences,
+                    byEnemyPart = evByEnemyPart,
+                    byAttackRef = evByAttackRef,
+                    sources = evSourceIds.associateWith { validated.sourcesById.getValue(it) },
+                ),
+            ),
+            Charsets.UTF_8,
+        )
+
+        val sortedRecs = validated.recommendations.withIndex()
+            .sortedWith(compareBy({ it.value.priorityOrder }, { it.index }))
+            .map { it.value }
+        val recByGroup = linkedMapOf<String, MutableList<String>>()
+        val recSources = linkedSetOf<String>()
+        for (rec in sortedRecs) {
+            val groupKey = "${rec.enemyId}::${rec.partId}::${rec.partState}::${rec.goal}"
+            recByGroup.getOrPut(groupKey) { mutableListOf() }.add(rec.recId)
+            recSources.add(rec.sourceId)
+        }
+        File(outputResourcesDir, "matchups/recommendations.json").writeText(
+            compactJson.encodeToString(
+                PartRecommendationsPackOutput(
+                    recommendations = sortedRecs,
+                    byGroupKey = recByGroup,
+                    sources = recSources.associateWith { validated.sourcesById.getValue(it) },
+                ),
+            ),
+            Charsets.UTF_8,
+        )
+
+        // 5. 生成训练器战备目录源码 GeneratedStratagemCatalog.kt
         val trainingEntries = validated.entries
             .map { it.entry }
             .filter { it.kind == "stratagem" && it.stratagem?.training != null }
@@ -181,7 +297,8 @@ object WikiGenerator {
     private fun buildIndexItem(entry: WikiEntryInput): WikiIndexItemOutput {
         val normZh = WikiTextNormalizerBuild.normalize(entry.nameZh)
         val normEn = entry.nameEn?.let { WikiTextNormalizerBuild.normalize(it) }
-        val modelCodes = entry.weapon?.configurations
+        val configs = entry.weapon?.configurations ?: entry.stratagem?.weaponProfile?.configurations
+        val modelCodes = configs
             ?.mapNotNull { it.modelCode?.takeIf(String::isNotBlank) }
             ?.distinct()
             ?: emptyList()
@@ -275,6 +392,26 @@ object WikiGenerator {
             appendLine("        else -> null")
             appendLine("    }")
             appendLine("}")
+        }
+    }
+
+    private fun collectConfigSources(
+        configurations: List<WeaponConfigInput>,
+        usedSourceIds: MutableSet<String>,
+    ) {
+        for (cfg in configurations) {
+            cfg.magazineCapacity.sourceId?.let(usedSourceIds::add)
+            cfg.fireRateRpm.sourceId?.let(usedSourceIds::add)
+            for (atk in cfg.attacks) {
+                atk.damage.sourceId?.let(usedSourceIds::add)
+                atk.armorPenetration.sourceId?.let(usedSourceIds::add)
+                for (comp in atk.components) {
+                    comp.sourceId?.let(usedSourceIds::add)
+                    comp.normalDamage.sourceId?.let(usedSourceIds::add)
+                    comp.durableDamage.sourceId?.let(usedSourceIds::add)
+                    comp.armorPenetration.sourceId?.let(usedSourceIds::add)
+                }
+            }
         }
     }
 

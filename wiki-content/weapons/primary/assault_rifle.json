@@ -15,7 +15,7 @@
           "text": "Liberator"
         }
       ],
-      "summary": "超级地球标准制式突击步枪，综合性能均衡，适合应对中轻甲目标。",
+      "summary": "超级地球标准制式突击步枪，综合性能均衡，适合清理无甲或轻甲单位与破甲后弱点。",
       "sourceId": "wikigg_liberator",
       "verifiedPatch": "01.001.200",
       "weapon": {
@@ -24,7 +24,7 @@
         "configurations": [
           {
             "configId": "base",
-            "labelZh": "基础配置",
+            "labelZh": "基础配置（45发弹匣）",
             "modelCode": "AR-23",
             "magazineCapacity": {
               "status": "known",
@@ -47,12 +47,31 @@
                 "nameZh": "标准弹药",
                 "damage": {
                   "status": "known",
-                  "value": 70
+                  "value": 90
                 },
                 "armorPenetration": {
                   "status": "known",
                   "value": 2
-                }
+                },
+                "components": [
+                  {
+                    "componentId": "projectile",
+                    "labelZh": "实弹直击",
+                    "componentKind": "direct",
+                    "normalDamage": {
+                      "status": "known",
+                      "value": 90
+                    },
+                    "durableDamage": {
+                      "status": "known",
+                      "value": 22
+                    },
+                    "armorPenetration": {
+                      "status": "known",
+                      "value": 2
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -75,7 +94,7 @@
           "text": "Liberator Penetrator"
         }
       ],
-      "summary": "解放者突击步枪的中甲穿透改型，牺牲部分单发伤害换取更高穿甲等级。",
+      "summary": "解放者突击步枪的中甲穿透改型（AP3），牺牲部分单发伤害换取对中甲部位的稳定输出。",
       "sourceId": "wikigg_liberator_penetrator",
       "verifiedPatch": "01.001.200",
       "weapon": {
@@ -84,7 +103,7 @@
         "configurations": [
           {
             "configId": "base",
-            "labelZh": "基础配置",
+            "labelZh": "基础配置（45发弹匣）",
             "modelCode": "AR-23P",
             "magazineCapacity": {
               "status": "known",
@@ -107,12 +126,31 @@
                 "nameZh": "中穿弹药",
                 "damage": {
                   "status": "known",
-                  "value": 60
+                  "value": 65
                 },
                 "armorPenetration": {
                   "status": "known",
                   "value": 3
-                }
+                },
+                "components": [
+                  {
+                    "componentId": "projectile",
+                    "labelZh": "中穿实弹直击",
+                    "componentKind": "direct",
+                    "normalDamage": {
+                      "status": "known",
+                      "value": 65
+                    },
+                    "durableDamage": {
+                      "status": "known",
+                      "value": 15
+                    },
+                    "armorPenetration": {
+                      "status": "known",
+                      "value": 3
+                    }
+                  }
+                ]
               }
             ]
           }

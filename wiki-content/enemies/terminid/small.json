@@ -19,15 +19,114 @@
         "faction": "terminid",
         "sizeClass": "small",
         "familyKey": "scavenger",
+        "mainPoolId": "main",
+        "pools": [
+          {
+            "poolId": "main",
+            "labelZh": "主体血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 60
+            },
+            "isMain": true
+          },
+          {
+            "poolId": "head_pool",
+            "labelZh": "头部血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 20
+            }
+          },
+          {
+            "poolId": "limbs_pool",
+            "labelZh": "足部血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 30
+            }
+          }
+        ],
         "parts": [
           {
-            "partId": "body",
-            "nameZh": "躯干与头部",
+            "partId": "main",
+            "nameZh": "主体躯干",
+            "healthPoolRef": "main",
             "armor": {
               "status": "known",
               "value": 0
             },
-            "notes": "全身无甲，任意轻型武器均可快速清理。"
+            "durability": {
+              "status": "known",
+              "value": 0.0
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.0
+            },
+            "notes": "全身无甲（AV0），主血池 60 HP。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "主体血池归零立即击杀"
+              }
+            ]
+          },
+          {
+            "partId": "head",
+            "nameZh": "头部",
+            "healthPoolRef": "head_pool",
+            "armor": {
+              "status": "known",
+              "value": 0
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.0
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "damageCapToMain": true,
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "仅 20 HP，击破立即致死（100% 爆炸抗性）。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "头部破坏立即击杀"
+              }
+            ]
+          },
+          {
+            "partId": "limbs",
+            "nameZh": "足部（6）",
+            "healthPoolRef": "limbs_pool",
+            "armor": {
+              "status": "known",
+              "value": 0
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.0
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.3
+            },
+            "damageCapToMain": true,
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "单腿 30 HP（30% 传导主体），非致命部位。"
           }
         ]
       },

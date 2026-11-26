@@ -108,7 +108,8 @@
       ],
       "summary": "呼叫 AC-8 机炮支援武器及配套弹药背包。",
       "iconKey": "sw_autocannon",
-      "sourceId": "project_catalog_v1_8_0",
+      "sourceId": "wikigg_autocannon",
+      "verifiedPatch": "01.001.200",
       "stratagem": {
         "category": "support_weapon",
         "directions": [
@@ -131,6 +132,152 @@
         "training": {
           "legacyId": "sw_4",
           "order": 24
+        },
+        "weaponProfile": {
+          "configurations": [
+            {
+              "configId": "aphet_mode",
+              "labelZh": "穿甲高爆曳光弹（APHET）",
+              "modelCode": "AC-8",
+              "magazineCapacity": {
+                "status": "known",
+                "value": 10,
+                "unit": "rounds"
+              },
+              "fireRateRpm": {
+                "status": "known",
+                "value": 190,
+                "unit": "rpm"
+              },
+              "fireModes": [
+                "半自动",
+                "全自动"
+              ],
+              "attacks": [
+                {
+                  "attackId": "aphet_round",
+                  "nameZh": "20mm 穿甲高爆弹",
+                  "damage": {
+                    "status": "known",
+                    "value": 325
+                  },
+                  "armorPenetration": {
+                    "status": "known",
+                    "value": 4
+                  },
+                  "components": [
+                    {
+                      "componentId": "projectile",
+                      "labelZh": "弹头直击",
+                      "componentKind": "direct",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 325
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 260
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 4
+                      }
+                    },
+                    {
+                      "componentId": "blast",
+                      "labelZh": "命中爆炸（内圈）",
+                      "componentKind": "explosive",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 3
+                      },
+                      "innerRadiusMeters": 2.0,
+                      "outerRadiusMeters": 4.0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "configId": "flak_mode",
+              "labelZh": "高射炮弹（FLAK）",
+              "modelCode": "AC-8",
+              "magazineCapacity": {
+                "status": "known",
+                "value": 10,
+                "unit": "rounds"
+              },
+              "fireRateRpm": {
+                "status": "known",
+                "value": 190,
+                "unit": "rpm"
+              },
+              "fireModes": [
+                "半自动",
+                "全自动"
+              ],
+              "attacks": [
+                {
+                  "attackId": "flak_round",
+                  "nameZh": "近炸高射炮弹（未计破片）",
+                  "damage": {
+                    "status": "known",
+                    "value": 150
+                  },
+                  "armorPenetration": {
+                    "status": "known",
+                    "value": 3
+                  },
+                  "components": [
+                    {
+                      "componentId": "projectile",
+                      "labelZh": "弹头直击",
+                      "componentKind": "direct",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 3
+                      }
+                    },
+                    {
+                      "componentId": "blast",
+                      "labelZh": "近炸高爆（内圈）",
+                      "componentKind": "explosive",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 190
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 190
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 3
+                      },
+                      "innerRadiusMeters": 2.0,
+                      "outerRadiusMeters": 7.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     },
@@ -198,8 +345,21 @@
       "entryId": "hd2.stratagem.sw_expendable_anti_tank",
       "kind": "stratagem",
       "nameZh": "消耗性反坦克武器",
+      "nameEn": "EAT-17 Expendable Anti-Tank",
+      "aliases": [
+        {
+          "locale": "zh-CN",
+          "text": "EAT-17"
+        },
+        {
+          "locale": "zh-CN",
+          "text": "一次性火箭筒"
+        }
+      ],
+      "summary": "短冷却一次空投两具的一次性反坦克火箭筒，直击穿甲高达 AP6，是破甲与击杀重型单位的主力。",
       "iconKey": "sw_expendable_anti_tank",
-      "sourceId": "project_catalog_v1_8_0",
+      "sourceId": "wikigg_eat17",
+      "verifiedPatch": "01.001.200",
       "stratagem": {
         "category": "support_weapon",
         "directions": [
@@ -221,6 +381,78 @@
         "training": {
           "legacyId": "sw_7",
           "order": 27
+        },
+        "weaponProfile": {
+          "configurations": [
+            {
+              "configId": "base",
+              "labelZh": "单发反坦克火箭弹",
+              "modelCode": "EAT-17",
+              "magazineCapacity": {
+                "status": "known",
+                "value": 1,
+                "unit": "rounds"
+              },
+              "fireRateRpm": {
+                "status": "not_applicable"
+              },
+              "fireModes": [
+                "单发丢弃"
+              ],
+              "attacks": [
+                {
+                  "attackId": "at_rocket",
+                  "nameZh": "反坦克聚能火箭弹",
+                  "damage": {
+                    "status": "known",
+                    "value": 2000
+                  },
+                  "armorPenetration": {
+                    "status": "known",
+                    "value": 6
+                  },
+                  "components": [
+                    {
+                      "componentId": "projectile",
+                      "labelZh": "反坦克弹头直击",
+                      "componentKind": "direct",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 2000
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 2000
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 6
+                      }
+                    },
+                    {
+                      "componentId": "blast",
+                      "labelZh": "命中爆炸（内圈）",
+                      "componentKind": "explosive",
+                      "normalDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "durableDamage": {
+                        "status": "known",
+                        "value": 150
+                      },
+                      "armorPenetration": {
+                        "status": "known",
+                        "value": 3
+                      },
+                      "innerRadiusMeters": 1.5,
+                      "outerRadiusMeters": 3.0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       }
     },

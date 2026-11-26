@@ -43,7 +43,9 @@ class WikiValidatorAndGeneratorTest {
                   "sourceId": "src_wiki",
                   "title": "Wiki.gg",
                   "sourceType": "wiki_gg",
-                  "url": "https://helldivers.wiki.gg/"
+                  "url": "https://helldivers.wiki.gg/",
+                  "license": "CC BY-NC-SA 4.0",
+                  "attribution": "Helldivers Wiki Contributors"
                 }
               ]
             }
@@ -228,7 +230,7 @@ class WikiValidatorAndGeneratorTest {
 
         val manifest =
             json.decodeFromString<WikiManifestOutput>(File(outRes, "manifest.json").readText())
-        assertEquals(1, manifest.schemaVersion)
+        assertEquals(2, manifest.schemaVersion)
         assertEquals(8, manifest.entryCount)
 
         val index = json.decodeFromString<WikiIndexOutput>(File(outRes, "index.json").readText())

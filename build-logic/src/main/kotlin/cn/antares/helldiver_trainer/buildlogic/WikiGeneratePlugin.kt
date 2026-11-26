@@ -40,7 +40,7 @@ class WikiGeneratePlugin : Plugin<Project> {
                 task.contentDir.set(contentDir)
                 task.mokoImagesDir.set(mokoImagesDir)
                 task.appVersion.set(versionName)
-                task.packVersion.set("1.0.0")
+                task.packVersion.set("2.0.0")
                 task.outputKotlinDir.set(generatedKotlinDir)
                 task.outputResourcesDir.set(generatedWikiResDir)
             }

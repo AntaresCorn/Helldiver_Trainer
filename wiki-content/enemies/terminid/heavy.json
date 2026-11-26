@@ -15,7 +15,7 @@
           "text": "牛"
         }
       ],
-      "summary": "终结族重装突击单位，正面与前腿覆盖重甲，腹部尾部暴露柔弱组织。",
+      "summary": "终结族重装突击单位，正面与前腿覆盖重甲（AV4），击破前腿外甲后可暴露 AV2 内部血肉快速收割。",
       "iconKey": "ic_terminid",
       "sourceId": "wikigg_charger",
       "verifiedPatch": "01.001.200",
@@ -23,33 +23,271 @@
         "faction": "terminid",
         "sizeClass": "heavy",
         "familyKey": "charger",
+        "mainPoolId": "main",
+        "pools": [
+          {
+            "poolId": "main",
+            "labelZh": "主体血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 2400
+            },
+            "bleedHealth": 750,
+            "bleedRatePerSecond": 100.0,
+            "isMain": true
+          },
+          {
+            "poolId": "head_pool",
+            "labelZh": "头部血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 1200
+            }
+          },
+          {
+            "poolId": "torso_armor_pool",
+            "labelZh": "躯干护甲血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 800
+            }
+          },
+          {
+            "poolId": "left_front_leg_plate_pool",
+            "labelZh": "前腿外甲血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 800
+            }
+          },
+          {
+            "poolId": "left_front_leg_flesh_pool",
+            "labelZh": "腿部血肉血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 800
+            }
+          },
+          {
+            "poolId": "abdomen_pool",
+            "labelZh": "臀部血池",
+            "maxHealth": {
+              "status": "known",
+              "value": 950
+            }
+          }
+        ],
         "parts": [
           {
             "partId": "head",
             "nameZh": "头部甲壳",
+            "healthPoolRef": "head_pool",
             "armor": {
               "status": "known",
               "value": 4
             },
-            "notes": "使用反坦克直击头部可快速击杀。"
+            "durability": {
+              "status": "known",
+              "value": 0.75
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.7
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "notes": "使用反坦克直击头部可一发击杀。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "头部破坏立即击杀"
+              }
+            ]
+          },
+          {
+            "partId": "torso_armor",
+            "nameZh": "躯干护甲",
+            "healthPoolRef": "torso_armor_pool",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.85
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "notes": "剥离后暴露 AV1 内部血肉（300% 传导主体）。",
+            "onBreak": [
+              {
+                "effectType": "expose_part",
+                "targetPartId": "inner_flesh",
+                "descriptionZh": "躯干甲壳剥落，暴露 AV1 内部血肉"
+              }
+            ]
+          },
+          {
+            "partId": "inner_flesh",
+            "nameZh": "内部血肉",
+            "healthPoolRef": "main",
+            "armor": {
+              "status": "known",
+              "value": 1
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.3
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 3.0
+            },
+            "damageCapToMain": true,
+            "explosionResistance": {
+              "status": "known",
+              "value": 1.0
+            },
+            "protectedByPartIds": [
+              "torso_armor"
+            ],
+            "notes": "直连主体血池，耐久仅 30% 且对主体传导高达 300%。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "主体血池归零立即击杀"
+              }
+            ]
           },
           {
             "partId": "left_front_leg_plate",
-            "nameZh": "左前腿外甲",
+            "nameZh": "前腿外甲",
+            "healthPoolRef": "left_front_leg_plate_pool",
             "armor": {
               "status": "known",
               "value": 4
             },
-            "notes": "剥离外甲后暴露内部低甲组织。"
+            "durability": {
+              "status": "known",
+              "value": 0.7
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.6
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "notes": "剥离外甲后暴露内部 AV2 腿部血肉。",
+            "onBreak": [
+              {
+                "effectType": "expose_part",
+                "targetPartId": "left_front_leg_flesh",
+                "descriptionZh": "外甲剥落，暴露 AV2 腿部血肉"
+              }
+            ]
+          },
+          {
+            "partId": "left_front_leg_flesh",
+            "nameZh": "腿部血肉",
+            "healthPoolRef": "left_front_leg_flesh_pool",
+            "armor": {
+              "status": "known",
+              "value": 2
+            },
+            "durability": {
+              "status": "known",
+              "value": 0.7
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.5
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "protectedByPartIds": [
+              "left_front_leg_plate"
+            ],
+            "notes": "受前腿外甲保护；破甲暴露后轻穿/中穿武器可快速打空致命。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "腿部血肉破坏直接击杀"
+              }
+            ]
           },
           {
             "partId": "abdomen",
-            "nameZh": "尾部腹部",
+            "nameZh": "尾部臀部",
+            "healthPoolRef": "abdomen_pool",
             "armor": {
               "status": "known",
               "value": 0
             },
-            "notes": "无甲弱点但耐久占比高，击破后进入流血死亡状态。"
+            "durability": {
+              "status": "known",
+              "value": 0.8
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.5
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "notes": "无甲弱点（80% 耐久），击破后失去冲锋能力并流血致死。",
+            "onBreak": [
+              {
+                "effectType": "bleed_out",
+                "descriptionZh": "破坏后失去冲锋能力并进入流血状态"
+              }
+            ]
+          },
+          {
+            "partId": "main",
+            "nameZh": "主体",
+            "healthPoolRef": "main",
+            "armor": {
+              "status": "known",
+              "value": 4
+            },
+            "durability": {
+              "status": "known",
+              "value": 1.0
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 1.0
+            },
+            "damageCapToMain": false,
+            "explosionResistance": {
+              "status": "known",
+              "value": 0.25
+            },
+            "notes": "整体主体血池（2400 HP，流血阈值 750）。",
+            "onBreak": [
+              {
+                "effectType": "fatal",
+                "descriptionZh": "主体血池归零立即击杀"
+              }
+            ]
           }
         ]
       },
@@ -63,6 +301,10 @@
       "aliases": [
         {
           "locale": "zh-CN",
+          "text": "巨兽级强袭虫"
+        },
+        {
+          "locale": "zh-CN",
           "text": "大强袭"
         },
         {
@@ -70,7 +312,7 @@
           "text": "Behemoth"
         }
       ],
-      "summary": "重装化强袭虫变种，头部与前腿具有更高的结构生命值。",
+      "summary": "重装化强袭虫变种，头部、躯干护甲与前腿外甲拥有更高的结构生命值与耐久度。",
       "iconKey": "ic_terminid",
       "sourceId": "wikigg_charger_behemoth",
       "verifiedPatch": "01.001.200",
@@ -79,10 +321,73 @@
         "sizeClass": "heavy",
         "familyKey": "charger",
         "extends": "hd2.enemy.charger",
+        "poolOverrides": [
+          {
+            "poolId": "main",
+            "maxHealth": {
+              "status": "known",
+              "value": 3000
+            },
+            "bleedHealth": 1000,
+            "bleedRatePerSecond": 100.0
+          },
+          {
+            "poolId": "head_pool",
+            "maxHealth": {
+              "status": "known",
+              "value": 1600
+            }
+          },
+          {
+            "poolId": "torso_armor_pool",
+            "maxHealth": {
+              "status": "known",
+              "value": 1000
+            }
+          },
+          {
+            "poolId": "left_front_leg_plate_pool",
+            "maxHealth": {
+              "status": "known",
+              "value": 1000
+            }
+          }
+        ],
         "partOverrides": [
           {
             "partId": "head",
-            "notes": "头部生命值显著高于普通强袭虫，常规单发反坦克武器可能需多发或配合剥腿。"
+            "durability": {
+              "status": "known",
+              "value": 1.0
+            },
+            "notes": "头部血量达 1600 且耐久 100%，需高穿反坦克武器或配合剥腿击杀。"
+          },
+          {
+            "partId": "torso_armor",
+            "durability": {
+              "status": "known",
+              "value": 0.85
+            }
+          },
+          {
+            "partId": "left_front_leg_plate",
+            "durability": {
+              "status": "known",
+              "value": 0.8
+            },
+            "notes": "外甲 1000 HP、80% 耐久，反坦克直击仍可单发剥离暴露内部组织。"
+          },
+          {
+            "partId": "abdomen",
+            "durability": {
+              "status": "known",
+              "value": 1.0
+            },
+            "toMainRatio": {
+              "status": "known",
+              "value": 0.5
+            },
+            "notes": "100% 耐久且对主体仅传导 50%，击破后致残流血。"
           }
         ]
       },

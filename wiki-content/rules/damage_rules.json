@@ -1,0 +1,20 @@
+{
+  "ruleSets": [
+    {
+      "patchVersion": "01.001.200",
+      "penetrateMultiplier": 1.0,
+      "equalArmorMultiplier": 0.65,
+      "ricochetMultiplier": 0.0,
+      "notes": "AP > AV 全额穿透 (100%)；AP == AV 等甲折减 (65%)；AP < AV 跳弹 (0%)。",
+      "sourceId": "wikigg_damage_mechanics"
+    },
+    {
+      "patchVersion": "01.000.400",
+      "penetrateMultiplier": 1.0,
+      "equalArmorMultiplier": 0.5,
+      "ricochetMultiplier": 0.0,
+      "notes": "历史补丁阶梯（旧版等甲折减为 50%），仅用于历史实测记录参考。",
+      "sourceId": "wikigg_damage_mechanics"
+    }
+  ]
+}

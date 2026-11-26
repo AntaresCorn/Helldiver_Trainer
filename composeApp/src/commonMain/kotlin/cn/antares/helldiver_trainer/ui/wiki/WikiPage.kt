@@ -26,6 +26,8 @@ import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.dp
 import cn.antares.helldiver_trainer.bridge.PlatformBackHandler
+import cn.antares.helldiver_trainer.data.wiki.model.EnemyPartState
+import cn.antares.helldiver_trainer.data.wiki.model.RecommendationGoal
 import cn.antares.helldiver_trainer.ui.LocalNavController
 import cn.antares.helldiver_trainer.util.widget.SuperScaffoldTopBar
 import cn.antares.helldiver_trainer.viewmodel.WikiLoadState
@@ -132,10 +134,24 @@ private fun NarrowWikiContent(
     uiState: WikiUiState,
 ) {
     if (uiState.detailStack.isNotEmpty()) {
+        val topEntry = uiState.currentDetailEntry
         WikiDetailPane(
             detailState = uiState.currentDetailState,
             onRetryDetail = vm::retryCurrentDetail,
             onOpenRelated = vm::openRelatedItem,
+            isWideScreen = false,
+            selectedViewId = topEntry?.viewId,
+            selectedPartId = topEntry?.selectedPartId,
+            previewState = topEntry?.previewState ?: EnemyPartState.INTACT,
+            goal = topEntry?.goal ?: RecommendationGoal.KILL,
+            selectedAttackRef = topEntry?.selectedAttackRef,
+            onSelectView = vm::selectAnatomyView,
+            onSelectPart = vm::selectAnatomyPart,
+            onSelectGoal = vm::selectRecommendationGoal,
+            onSelectAttack = vm::selectCompareAttack,
+            onOpenRecommendedAttack = vm::openRecommendedAttack,
+            onRetryAnalysis = vm::retryEnemyAnalysis,
+            onLoadAnatomyImageBytes = vm::loadAnatomyImageBytes,
         )
     } else {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -219,10 +235,24 @@ private fun WideWikiContent(
         Spacer(Modifier.width(12.dp))
         VerticalDivider(color = WikiBorderColor)
         Spacer(Modifier.width(12.dp))
+        val topEntry = uiState.currentDetailEntry
         WikiDetailPane(
             detailState = uiState.currentDetailState,
             onRetryDetail = vm::retryCurrentDetail,
             onOpenRelated = vm::openRelatedItem,
+            isWideScreen = true,
+            selectedViewId = topEntry?.viewId,
+            selectedPartId = topEntry?.selectedPartId,
+            previewState = topEntry?.previewState ?: EnemyPartState.INTACT,
+            goal = topEntry?.goal ?: RecommendationGoal.KILL,
+            selectedAttackRef = topEntry?.selectedAttackRef,
+            onSelectView = vm::selectAnatomyView,
+            onSelectPart = vm::selectAnatomyPart,
+            onSelectGoal = vm::selectRecommendationGoal,
+            onSelectAttack = vm::selectCompareAttack,
+            onOpenRecommendedAttack = vm::openRecommendedAttack,
+            onRetryAnalysis = vm::retryEnemyAnalysis,
+            onLoadAnatomyImageBytes = vm::loadAnatomyImageBytes,
             modifier = Modifier
                 .weight(0.58f)
                 .fillMaxHeight(),

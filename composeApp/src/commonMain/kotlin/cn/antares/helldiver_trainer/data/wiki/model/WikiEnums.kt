@@ -195,3 +195,87 @@ enum class WikiFactStatus {
     @SerialName("unlimited")
     UNLIMITED,
 }
+
+@Serializable
+enum class DamageComponentKind(val labelZh: String) {
+    @SerialName("direct")
+    DIRECT("直击"),
+
+    @SerialName("explosive")
+    EXPLOSIVE("爆炸"),
+
+    @SerialName("fire")
+    FIRE("火焰"),
+
+    @SerialName("status")
+    STATUS("状态"),
+}
+
+@Serializable
+enum class EnemyPartState(val labelZh: String) {
+    @SerialName("intact")
+    INTACT("完好"),
+
+    @SerialName("broken")
+    BROKEN("破甲后"),
+}
+
+@Serializable
+enum class RecommendationGoal(val labelZh: String) {
+    @SerialName("strip_armor")
+    STRIP_ARMOR("破除外甲"),
+
+    @SerialName("kill")
+    KILL("直接击杀"),
+
+    @SerialName("disable_ability")
+    DISABLE_ABILITY("限制能力"),
+
+    @SerialName("attack_exposed")
+    ATTACK_EXPOSED("攻击暴露肉体"),
+}
+
+@Serializable
+enum class PartBreakEffectType(val labelZh: String) {
+    @SerialName("expose_part")
+    EXPOSE_PART("暴露内部部位"),
+
+    @SerialName("disable_ability")
+    DISABLE_ABILITY("失去能力"),
+
+    @SerialName("bleed_out")
+    BLEED_OUT("流血延迟死亡"),
+
+    @SerialName("fatal")
+    FATAL("立即致死"),
+}
+
+@Serializable
+enum class MatchVerdict(val labelZh: String) {
+    @SerialName("penetrates")
+    PENETRATES("有效穿透"),
+
+    @SerialName("reduced")
+    REDUCED("等甲折减"),
+
+    @SerialName("ricochet")
+    RICOCHET("跳弹无法穿透"),
+
+    @SerialName("strips_armor")
+    STRIPS_ARMOR("可破除外甲"),
+
+    @SerialName("kills")
+    KILLS("可击杀"),
+
+    @SerialName("blocked")
+    BLOCKED("受外甲阻挡"),
+
+    @SerialName("unknown")
+    UNKNOWN("待核验"),
+}
+
+@Serializable
+enum class ConflictStatus(val labelZh: String) {
+    NONE("一致"),
+    NEEDS_REVIEW("待复核"),
+}

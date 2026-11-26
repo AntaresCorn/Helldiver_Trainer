@@ -1,0 +1,156 @@
+{
+  "recommendations": [
+    {
+      "recId": "rec_scavenger_head_liberator",
+      "enemyId": "hd2.enemy.scavenger",
+      "partId": "head",
+      "partState": "intact",
+      "goal": "kill",
+      "attackRef": {
+        "entryId": "hd2.weapon.liberator",
+        "configId": "base",
+        "attackId": "standard_bullet"
+      },
+      "priorityOrder": 1,
+      "condition": "常规中近距离点射",
+      "reasonZh": "90 点直击伤害远超食腐虫头部 20 HP，一发即可快速清理。",
+      "evidenceIds": [],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_scavenger"
+    },
+    {
+      "recId": "rec_charger_head_eat17",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "head",
+      "partState": "intact",
+      "goal": "kill",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "priorityOrder": 1,
+      "condition": "正面直击头部",
+      "reasonZh": "AP6 完整穿透 AV4 头甲，单发 2000 伤直接一发秒杀。",
+      "evidenceIds": [
+        "ev_charger_head_eat17_01001200"
+      ],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "recId": "rec_charger_leg_strip_eat17",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "left_front_leg_plate",
+      "partState": "intact",
+      "goal": "strip_armor",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "priorityOrder": 1,
+      "condition": "直击前腿外甲",
+      "reasonZh": "一发即可剥离 AV4 重甲并暴露内部 AV2 腿部血肉。",
+      "evidenceIds": [
+        "ev_charger_leg_eat17_01001200"
+      ],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "recId": "rec_charger_leg_exposed_liberator",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "left_front_leg_flesh",
+      "partState": "broken",
+      "goal": "attack_exposed",
+      "attackRef": {
+        "entryId": "hd2.weapon.liberator",
+        "configId": "base",
+        "attackId": "standard_bullet"
+      },
+      "priorityOrder": 1,
+      "condition": "前腿外甲剥离后集火",
+      "reasonZh": "外甲剥离后腿部血肉仅 AV2，AR-23 等甲后可高效补枪收割节省重武器弹药。",
+      "evidenceIds": [],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "recId": "rec_charger_leg_exposed_ar23p",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "left_front_leg_flesh",
+      "partState": "broken",
+      "goal": "attack_exposed",
+      "attackRef": {
+        "entryId": "hd2.weapon.liberator_penetrator",
+        "configId": "base",
+        "attackId": "medium_pen_bullet"
+      },
+      "priorityOrder": 2,
+      "condition": "前腿外甲剥离后集火",
+      "reasonZh": "AP3 全额穿透 AV2 暴露血肉（无等甲折减）。",
+      "evidenceIds": [],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "recId": "rec_behemoth_leg_strip_eat17",
+      "enemyId": "hd2.enemy.charger_behemoth",
+      "partId": "left_front_leg_plate",
+      "partState": "intact",
+      "goal": "strip_armor",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "priorityOrder": 1,
+      "condition": "直击前腿外甲",
+      "reasonZh": "面对 1600 HP 高血量巨兽头甲时，单发 EAT-17 剥腿后换主武器收割最为稳妥。",
+      "evidenceIds": [
+        "ev_behemoth_leg_eat17_01001200"
+      ],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger_behemoth"
+    },
+    {
+      "recId": "rec_hulk_eye_ac8",
+      "enemyId": "hd2.enemy.hulk_bruiser",
+      "partId": "eye_visor",
+      "partState": "intact",
+      "goal": "kill",
+      "attackRef": {
+        "entryId": "hd2.stratagem.autocannon",
+        "configId": "aphet_mode",
+        "attackId": "aphet_round"
+      },
+      "priorityOrder": 1,
+      "condition": "正面精准瞄准观察眼",
+      "reasonZh": "AC-8 机炮 AP4 弹头精准命中 2 发即可摧毁 250 HP 观察眼。",
+      "evidenceIds": [
+        "ev_hulk_eye_ac8_01001200"
+      ],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_hulk_bruiser"
+    },
+    {
+      "recId": "rec_hulk_vent_ac8",
+      "enemyId": "hd2.enemy.hulk_bruiser",
+      "partId": "rear_vent",
+      "partState": "intact",
+      "goal": "kill",
+      "attackRef": {
+        "entryId": "hd2.stratagem.autocannon",
+        "configId": "aphet_mode",
+        "attackId": "aphet_round"
+      },
+      "priorityOrder": 1,
+      "condition": "绕后射击散热器",
+      "reasonZh": "散热器仅 AV1，机炮直击与爆炸双分量同时全额生效，数发即可使其进入流血倒地。",
+      "evidenceIds": [],
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_hulk_bruiser"
+    }
+  ]
+}

@@ -79,6 +79,7 @@ fun SettingsFragment(
     var stratagemSelectorState by remember { mutableStateOf(kvManager.isStratagemSelectMode()) }
     var showInfiniteModeInfo by remember { mutableStateOf(false) }
     var showCustomStratagemInfo by remember { mutableStateOf(false) }
+    var showDataCreditsDialog by remember { mutableStateOf(false) }
     if (showInfiniteModeInfo) {
         SuperDialog(
             onDismissRequest = { showInfiniteModeInfo = false },
@@ -93,6 +94,15 @@ fun SettingsFragment(
             confirmButtonText = "确认",
             confirmButtonCallback = { showCustomStratagemInfo = false },
             message = "设置后的战备将应用于所有模式\n若更新后加入了新战备，需要进入设置手动勾选才能生效",
+        )
+    }
+    if (showDataCreditsDialog) {
+        SuperDialog(
+            onDismissRequest = { showDataCreditsDialog = false },
+            title = "资料致谢",
+            confirmButtonText = "确认",
+            confirmButtonCallback = { showDataCreditsDialog = false },
+            message = "本应用内置资料库中的敌人解剖图鉴、数值与对位数据参考整理自 helldivers.wiki.gg，遵循 CC BY-NC-SA 4.0 非商业共享协议发布。",
         )
     }
 
@@ -174,8 +184,14 @@ fun SettingsFragment(
                     painterResource(MR.images.ic_github_mark),
                     onClick = { openWebPage(LinkStore.GITHUB_REPO, useSystemBrowser = true) },
                 )
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 UpdateChecker()
+                Spacer(modifier = Modifier.width(12.dp))
+                SuperButton(
+                    "资料致谢",
+                    Icons.Rounded.Info,
+                    onClick = { showDataCreditsDialog = true },
+                )
             }
         }
     }

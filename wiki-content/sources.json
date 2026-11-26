@@ -11,75 +11,124 @@
     },
     {
       "sourceId": "wikigg_liberator",
-      "title": "Helldivers Wiki - AR-23 Liberator",
+      "title": "Helldivers Wiki 中文 - AR-23 解放者",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/Liberator",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/AR-23_%E8%A7%A3%E6%94%BE%E8%80%85",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_liberator_penetrator",
-      "title": "Helldivers Wiki - AR-23P Liberator Penetrator",
+      "title": "Helldivers Wiki 中文 - AR-23P 穿甲“解放者”",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/AR-23P_Liberator_Penetrator",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/AR-23P_%E7%A9%BF%E7%94%B2%E2%80%9C%E8%A7%A3%E6%94%BE%E8%80%85%E2%80%9D",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_stun_baton",
-      "title": "Helldivers Wiki - CQC-30 Stun Baton",
+      "title": "Helldivers Wiki 中文 - CQC-30 眩晕棍",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/CQC-30_Stun_Baton",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.002.000"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/CQC-30_%E7%9C%A9%E6%99%95%E6%A3%8D",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.002.000",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_g12_high_explosive",
-      "title": "Helldivers Wiki - G-12 High Explosive",
+      "title": "Helldivers Wiki 中文 - G-12 高爆弹",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/G-12_High_Explosive",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/G-12_%E9%AB%98%E7%88%86%E5%BC%B9",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
+    },
+    {
+      "sourceId": "wikigg_autocannon",
+      "title": "Helldivers Wiki 中文 - AC-8 机炮",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/AC-8_%E6%9C%BA%E7%82%AE",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
+    },
+    {
+      "sourceId": "wikigg_eat17",
+      "title": "Helldivers Wiki 中文 - EAT-17 消耗性反坦克武器",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/EAT-17_%E6%B6%88%E8%80%97%E6%80%A7%E5%8F%8D%E5%9D%A6%E5%85%8B%E6%AD%A6%E5%99%A8",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_scavenger",
-      "title": "Helldivers Wiki - Scavenger",
+      "title": "Helldivers Wiki 中文 - 食腐虫",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/Scavenger",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/%E9%A3%9F%E8%85%90%E8%99%AB",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_charger",
-      "title": "Helldivers Wiki - Charger",
+      "title": "Helldivers Wiki 中文 - 强袭虫",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/Charger",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/%E5%BC%BA%E8%A2%AD%E8%99%AB",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_charger_behemoth",
-      "title": "Helldivers Wiki - Charger Behemoth",
+      "title": "Helldivers Wiki 中文 - 巨兽级强袭虫",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/Charger_Behemoth",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/%E5%B7%A8%E5%85%BD%E7%BA%A7%E5%BC%BA%E8%A2%AD%E8%99%AB",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     },
     {
       "sourceId": "wikigg_hulk_bruiser",
-      "title": "Helldivers Wiki - Hulk Bruiser",
+      "title": "Helldivers Wiki 中文 - 巨型碾压者",
       "sourceType": "wiki_gg",
-      "location": "Helldivers Wiki",
-      "url": "https://helldivers.wiki.gg/wiki/Hulk_Bruiser",
-      "verifiedDate": "2026-11-23",
-      "defaultPatch": "01.001.200"
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/%E5%B7%A8%E5%9E%8B%E7%A2%BE%E5%8E%8B%E8%80%85",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
+    },
+    {
+      "sourceId": "wikigg_damage_mechanics",
+      "title": "Helldivers Wiki 中文 - 伤害机制",
+      "sourceType": "wiki_gg",
+      "location": "Helldivers Wiki 中文站",
+      "url": "https://helldivers.wiki.gg/zh/wiki/%E4%BC%A4%E5%AE%B3%E6%9C%BA%E5%88%B6",
+      "verifiedDate": "2026-11-25",
+      "defaultPatch": "01.001.200",
+      "license": "CC BY-SA 4.0",
+      "attribution": "Helldivers Wiki 中文贡献者 (helldivers.wiki.gg/zh)"
     }
   ]
 }

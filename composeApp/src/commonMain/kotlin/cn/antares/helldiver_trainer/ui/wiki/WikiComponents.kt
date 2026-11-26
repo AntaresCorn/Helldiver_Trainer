@@ -270,19 +270,38 @@ fun WikiFilterChip(
     label: String,
     selected: Boolean,
     onClick: () -> Unit,
+    enabled: Boolean = true,
 ) {
     val primary = MaterialTheme.colorScheme.primary
+    val bgColor = when {
+        selected && enabled -> primary
+        selected && !enabled -> primary.copy(alpha = 0.55f)
+        !selected && enabled -> WikiPanelBg
+        else -> WikiPanelBg.copy(alpha = 0.45f)
+    }
+    val borderColor = when {
+        selected && enabled -> primary
+        selected && !enabled -> primary.copy(alpha = 0.55f)
+        !selected && enabled -> WikiBorderColor
+        else -> Color.White.copy(alpha = 0.08f)
+    }
+    val textColor = when {
+        selected && enabled -> MaterialTheme.colorScheme.onPrimary
+        selected && !enabled -> MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)
+        !selected && enabled -> Color.White
+        else -> Color.White.copy(alpha = 0.35f)
+    }
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(if (selected) primary else WikiPanelBg)
-            .border(1.dp, if (selected) primary else WikiBorderColor, RoundedCornerShape(16.dp))
-            .clickable(onClick = onClick)
+            .background(bgColor)
+            .border(1.dp, borderColor, RoundedCornerShape(16.dp))
+            .clickable(enabled = enabled, onClick = onClick)
             .padding(horizontal = 12.dp, vertical = 6.dp),
     ) {
         Text(
             text = label,
-            color = if (selected) MaterialTheme.colorScheme.onPrimary else Color.White,
+            color = textColor,
             fontSize = 12.sp,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
         )

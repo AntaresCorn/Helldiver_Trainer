@@ -1,0 +1,140 @@
+{
+  "evidences": [
+    {
+      "evidenceId": "ev_charger_head_eat17_01001200",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "head",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "hitCondition": "正面直击头部",
+      "verdict": "kills",
+      "shotsToBreak": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "shotsToKill": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "summaryZh": "EAT-17 反坦克火箭弹一发直击即可击破头部（1200 HP）并直接击杀普通强袭虫。",
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "evidenceId": "ev_charger_leg_eat17_01001200",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "left_front_leg_plate",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "hitCondition": "直击前腿外甲",
+      "verdict": "strips_armor",
+      "shotsToBreak": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "summaryZh": "单发即可剥离强袭虫前腿 AV4 外甲，暴露 AV2 内部腿部血肉。",
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "evidenceId": "ev_behemoth_leg_eat17_01001200",
+      "enemyId": "hd2.enemy.charger_behemoth",
+      "partId": "left_front_leg_plate",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "hitCondition": "直击前腿外甲",
+      "verdict": "strips_armor",
+      "shotsToBreak": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "summaryZh": "即使面对 1000 HP 外甲的巨兽级强袭虫，EAT-17 直击仍可一发破甲暴露血肉。",
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger_behemoth"
+    },
+    {
+      "evidenceId": "ev_hulk_eye_ac8_01001200",
+      "enemyId": "hd2.enemy.hulk_bruiser",
+      "partId": "eye_visor",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.stratagem.autocannon",
+        "configId": "aphet_mode",
+        "attackId": "aphet_round"
+      },
+      "hitCondition": "正面精准命中观察眼",
+      "verdict": "kills",
+      "shotsToBreak": {
+        "status": "known",
+        "value": 2,
+        "unit": "shots"
+      },
+      "shotsToKill": {
+        "status": "known",
+        "value": 2,
+        "unit": "shots"
+      },
+      "summaryZh": "机炮 APHET（AP4）等甲折减后约 2 发精准命中观察眼即可击杀巨型碾压者。",
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_hulk_bruiser"
+    },
+    {
+      "evidenceId": "ev_charger_head_eat17_01000400_hist",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "head",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.stratagem.sw_expendable_anti_tank",
+        "configId": "base",
+        "attackId": "at_rocket"
+      },
+      "hitCondition": "旧版 650 伤版本记录",
+      "verdict": "kills",
+      "shotsToBreak": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "shotsToKill": {
+        "status": "known",
+        "value": 1,
+        "unit": "shots"
+      },
+      "summaryZh": "早期版本强袭虫头部 600 HP 时一发击杀的历史实测，仅供版本对比参考。",
+      "patchVersion": "01.000.400",
+      "sourceId": "wikigg_charger"
+    },
+    {
+      "evidenceId": "ev_charger_leg_liberator_conflict_sample",
+      "enemyId": "hd2.enemy.charger",
+      "partId": "left_front_leg_plate",
+      "partState": "intact",
+      "attackRef": {
+        "entryId": "hd2.weapon.liberator",
+        "configId": "base",
+        "attackId": "standard_bullet"
+      },
+      "hitCondition": "待复核：疑似命中腿甲边缘贴图缝隙",
+      "verdict": "penetrates",
+      "summaryZh": "异常记录称解放者（AP2）可击穿完好前腿甲（AV4），与规则推算跳弹（0 伤）矛盾，标记待复核。",
+      "patchVersion": "01.001.200",
+      "sourceId": "wikigg_charger"
+    }
+  ]
+}

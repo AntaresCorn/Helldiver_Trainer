@@ -11,11 +11,15 @@
           "text": "高爆手雷"
         },
         {
+          "locale": "zh-CN",
+          "text": "G-12 高爆弹"
+        },
+        {
           "locale": "en",
           "text": "High Explosive Grenade"
         }
       ],
-      "summary": "标准高爆手雷，适合摧毁虫巢、机器人制造厂及中重甲目标。",
+      "summary": "标准高爆手雷，内圈具备 AP4 重甲穿透与 800 点爆炸伤害，适合摧毁虫巢、机器人制造厂与重甲目标。",
       "sourceId": "wikigg_g12_high_explosive",
       "verifiedPatch": "01.001.200",
       "weapon": {
@@ -35,12 +39,12 @@
               "status": "not_applicable"
             },
             "fireModes": [
-              "定时引信"
+              "3.5秒定时引信"
             ],
             "attacks": [
               {
                 "attackId": "he_explosion",
-                "nameZh": "高爆破片",
+                "nameZh": "高爆爆炸（内圈）",
                 "damage": {
                   "status": "known",
                   "value": 800
@@ -48,7 +52,28 @@
                 "armorPenetration": {
                   "status": "known",
                   "value": 4
-                }
+                },
+                "components": [
+                  {
+                    "componentId": "blast",
+                    "labelZh": "高爆冲击波（内圈）",
+                    "componentKind": "explosive",
+                    "normalDamage": {
+                      "status": "known",
+                      "value": 800
+                    },
+                    "durableDamage": {
+                      "status": "known",
+                      "value": 800
+                    },
+                    "armorPenetration": {
+                      "status": "known",
+                      "value": 4
+                    },
+                    "innerRadiusMeters": 2.5,
+                    "outerRadiusMeters": 7.0
+                  }
+                ]
               }
             ]
           }

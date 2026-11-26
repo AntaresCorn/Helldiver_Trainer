@@ -118,14 +118,12 @@ Helldiver_Trainer/
         ├── androidMain/kotlin/cn/antares/helldiver_trainer/bridge/BackHandler.android.kt
         ├── desktopMain/kotlin/cn/antares/helldiver_trainer/bridge/BackHandler.desktop.kt
         └── commonTest/
-            ├── kotlin/cn/antares/helldiver_trainer/wiki/
-            │   ├── StratagemMigrationTest.kt
-            │   ├── WikiNormalizerAndParserTest.kt
-            │   ├── WikiSearchEngineTest.kt
-            │   ├── WikiRepositoryTest.kt
-            │   ├── WikiViewModelTest.kt
-            │   └── SharedKVAndGameFallbackTest.kt
-            └── resources/                 # 或以 Kotlin 常量冻结的 114 条迁移对照基线
+            └── kotlin/cn/antares/helldiver_trainer/wiki/
+                ├── WikiNormalizerAndParserTest.kt
+                ├── WikiSearchEngineTest.kt
+                ├── WikiRepositoryTest.kt
+                ├── WikiViewModelTest.kt
+                └── SharedKVAndGameFallbackTest.kt
 ```
 
 ### 2.2 模块与调用依赖
@@ -600,13 +598,6 @@ Compose 资源准备任务）`dependsOn(wikiGenerateTask)`；同时
    }
    ```
 
-### 5.2 冻结 114 条迁移基线
-
-在替换 `StratagemStore.kt` 之前，先用一次性脚本从当前手写列表导出除 `sw_6` 之外的 114 条快照（保存
-`order`、`id`、`name`、`iconKey`、`inputs`）作为只读测试基线放在 `commonTest`。后续
-`StratagemMigrationTest` 直接断言 `StratagemStore.getAllStratagems()` 与该 114 条基线逐条相等（`id`、
-`name`、图标解析、`inputs`、顺序全部一致）。
-
 ---
 
 ## 6. 离线数据层与检索引擎（`data/wiki`）
@@ -882,7 +873,6 @@ data class WikiUiState(
 
 | 测试文件                      | 核心用例                                                                                                                                                                                                                                                                       |
 |-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `StratagemMigrationTest`      | 1. 生成后的 `StratagemStore.getAllStratagems()` 数量严格等于 114；<br>2. 逐条比对 `order`、`id`、`name`、`icon`、`inputs` 与冻结的 114 条基线完全一致；<br>3. `ms_13` 与 `ms_18` 均存在且共享图标与指令                                                                        |
 | `SharedKVAndGameFallbackTest` | 1. 仅含 `sw_6` 的旧存档读出后变为 `{"sw_1"}`；<br>2. 同时含 `sw_1,sw_6` 读出后去重为 `{"sw_1"}`；<br>3. `GameViewModel.initStratagems()` 在自选集合为空或全部失效时安全回退全量且不抛除零异常；<br>4. 仅选 1 项战备时正常重复填充至 10 项                                      |
 | `WikiNormalizerAndParserTest` | 1. 全半角、大小写、`AR23`/`AR-23`、剥离引号（`“飞鹰”`）与点号（`W.A.S.P.`/`S.O.S.`）；<br>2. `wdsd`、`↑→↓→`、`上右下左` 均能解析；<br>3. `wasp`、`sw`、`up`、`ab` 返回 `null` 不误触发                                                                                         |
 | `WikiSearchEngineTest`        | 1. 搜 `500kg` 命中 `hd2.stratagem.eagle_500kg_bomb`；<br>2. 搜 `机炮` 同时返回战备与武器且类型可区分；<br>3. 搜 `AR-23` 基础型排在 `AR-23P` 前面；<br>4. 搜方向 `LRUUU` 返回 `ms_13` 与 `ms_18` 两条；<br>5. 阵营/分类筛选生效；空查询返回目录                                 |
@@ -916,11 +906,10 @@ data class WikiUiState(
 
 ### 10.1 里程碑拆分（4 步走）
 
-- **M1（基建与基线）**：配置 `commonTest` + `build-logic` 空插件；导出并冻结 114 条战备对照基线；完成
-  `StratagemMigrationTest`。
+- **M1（基建与骨架）**：配置 `commonTest` + `build-logic` 空插件。
 - **M2（数据迁移与兼容）**：按 7 个分类文件写入 `wiki-content/stratagems/`（共 114 条）+ `sources.json`
   ；完成 `WikiValidator`、`WikiGenerator`；替换 `StratagemStore.kt` 并补齐 `SharedKVManager`、
-  `GameViewModel` 兼容逻辑；全量迁移单测绿灯。
+  `GameViewModel` 兼容逻辑；全量单测绿灯。
 - **M3（样本数据与仓库）**：录入 3 武器 + 3 敌人样本；完成 `data/wiki` 全套模型、检索与并发缓存仓库；通过引擎与仓库单测。
 - **M4（状态机与双端 UI）**：实现 `WikiViewModel`、`WikiPage` 全套视图、`PlatformBackHandler`、
   `SuperScaffoldTopBar` 与 `NavRoute`；完成全部单测、Desktop/Android 编译与 Desktop 走查。
